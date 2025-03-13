@@ -100,7 +100,12 @@ class LatePostRSSGenerator:
             if not markdown_files:
                 print("未找到任何文章文件")
         
-        # 如果没有找到任何文章文件，使用基本的RSS结构
+        # 如果没有找到任何文章文件，且已有feed.xml存在，则保留现有feed.xml
+        if not markdown_files and os.path.exists(output_file):
+            print("未找到任何文章文件，保留现有feed.xml")
+            return
+        
+        # 如果没有找到任何文章文件且没有现有feed.xml，使用基本的RSS结构
         if not markdown_files:
             fg = FeedGenerator()
             fg.title('晚点LatePost')
@@ -280,12 +285,20 @@ def main():
     # 初始化RSS生成器并生成初始RSS
     if persistence:
         last_id = persistence.get_latest_article_id()
-        if last_id:
-            rss_generator = LatePostRSSGenerator(last_id=last_id)
-        else:
-            rss_generator = LatePostRSSGenerator()
     else:
-        rss_generator = LatePostRSSGenerator()
+        last_id = None
+    
+    # 如果持久化存储中没有最新ID，尝试从文章目录中获取
+    if not last_id and os.path.exists('./latepost_articles'):
+        article_files = [f for f in os.listdir('./latepost_articles') 
+                        if f.endswith('.md') and f.startswith('latepost_article_')]
+        if article_files:
+            article_ids = [int(f.replace('latepost_article_', '').replace('.md', '')) 
+                          for f in article_files]
+            last_id = max(article_ids)
+            print(f"从文章目录中获取到最新ID: {last_id}")
+    
+    rss_generator = LatePostRSSGenerator(last_id=last_id) if last_id else LatePostRSSGenerator()
     
     rss_generator.generate_rss()
     
