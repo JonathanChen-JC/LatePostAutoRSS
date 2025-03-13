@@ -112,28 +112,28 @@ class GitPersistence:
         # 备份现有文件
         import shutil
         import tempfile
+        
+        # 创建临时目录用于备份
+        temp_dir = tempfile.mkdtemp()
+        print(f"创建临时备份目录: {temp_dir}")
+        
+        try:
+            # 备份文章和feed文件
+            if os.path.exists(self.articles_dir):
+                shutil.copytree(self.articles_dir, os.path.join(temp_dir, os.path.basename(self.articles_dir)))
+            if os.path.exists(self.feed_file):
+                shutil.copy2(self.feed_file, temp_dir)
             
-            # 创建临时目录用于备份
-            temp_dir = tempfile.mkdtemp()
-            print(f"创建临时备份目录: {temp_dir}")
+            # 删除.git目录
+            if os.path.exists('.git'):
+                shutil.rmtree('.git')
             
-            try:
-                # 备份文章和feed文件
-                if os.path.exists(self.articles_dir):
-                    shutil.copytree(self.articles_dir, os.path.join(temp_dir, os.path.basename(self.articles_dir)))
-                if os.path.exists(self.feed_file):
-                    shutil.copy2(self.feed_file, temp_dir)
-                
-                # 删除.git目录
-                if os.path.exists('.git'):
-                    shutil.rmtree('.git')
-                
-                # 重新尝试克隆
-                if self.git_token:
-                    clone_result = self._run_command(f'git clone {repo_with_token} .')
-                else:
-                    clone_result = self._run_command(f'git clone {self.repo_url} .')
-                
+            # 重新尝试克隆
+            if self.git_token:
+                clone_result = self._run_command(f'git clone {repo_with_token} .')
+            else:
+                clone_result = self._run_command(f'git clone {self.repo_url} .')
+            
                 if clone_result is not None:
                     print("Git仓库克隆成功，正在恢复备份文件")
                     # 恢复备份的文件
