@@ -14,6 +14,10 @@ def update_rss_with_simple_scraper():
     if persistence:
         last_id = persistence.get_latest_article_id()
         if last_id is None:
+            # 如果无法确定最新ID，但需要确保feed.xml不为空
+            if not os.path.exists('feed.xml') or persistence._is_feed_empty():
+                print("未找到现有文章，但需要确保feed.xml不为空")
+                persistence._ensure_feed_not_empty()
             return False
     else:
         # 如果没有持久化存储，使用原来的方法获取最新ID
@@ -22,6 +26,9 @@ def update_rss_with_simple_scraper():
         
         if not existing_articles:
             print("未找到现有文章，无法确定最新ID")
+            # 确保feed.xml不为空
+            if persistence and (not os.path.exists('feed.xml') or persistence._is_feed_empty()):
+                persistence._ensure_feed_not_empty()
             return False
         
         # 提取文章ID并找出最大值
@@ -35,6 +42,9 @@ def update_rss_with_simple_scraper():
         
         if not article_ids:
             print("无法从文件名中提取有效的文章ID")
+            # 确保feed.xml不为空
+            if persistence and (not os.path.exists('feed.xml') or persistence._is_feed_empty()):
+                persistence._ensure_feed_not_empty()
             return False
         
         last_id = max(article_ids)
@@ -69,8 +79,57 @@ def update_rss_with_simple_scraper():
             
             return True
     
+    # 即使没有新文章，也确保feed.xml不为空
+    if persistence and (not os.path.exists('feed.xml') or persistence._is_feed_empty()):
+        print("未发现新文章，但需要确保feed.xml不为空")
+        persistence._ensure_feed_not_empty()
+    
     print(f"未发现新文章，ID: {next_id}")
     return False
+
+def update_rss():
+    """提供一个简单的接口用于重新生成RSS"""
+    # 初始化持久化存储
+    persistence = initialize_persistence()
+    
+    # 获取最新文章ID
+    articles_dir = "./latepost_articles"
+    last_id = None
+    
+    if persistence:
+        last_id = persistence.get_latest_article_id()
+    
+    if last_id is None:
+        # 如果无法从持久化存储获取，尝试从文件名获取
+        existing_articles = [f for f in os.listdir(articles_dir) 
+                            if f.endswith('.md') and f.startswith('latepost_article_')]
+        
+        if existing_articles:
+            article_ids = []
+            for article_file in existing_articles:
+                try:
+                    article_id = int(article_file.replace('latepost_article_', '').replace('.md', ''))
+                    article_ids.append(article_id)
+                except ValueError:
+                    continue
+            
+            if article_ids:
+                last_id = max(article_ids)
+    
+    # 如果有文章，生成RSS
+    if last_id:
+        print(f"使用最新文章ID {last_id} 生成RSS")
+        rss_generator = LatePostRSSGenerator(articles_dir=articles_dir, last_id=last_id)
+        rss_generator.generate_rss()
+        print("RSS文件生成完成")
+        return True
+    else:
+        # 如果没有文章，确保feed.xml不为空
+        if persistence:
+            print("未找到文章，创建基本的RSS结构")
+            persistence._ensure_feed_not_empty()
+            return True
+        return False
 
 if __name__ == "__main__":
     print("开始检查并更新RSS...")

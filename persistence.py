@@ -77,6 +77,9 @@ class GitPersistence:
                     
                     # 同步文件
                     self._sync_files()
+                    
+                    # 确保feed.xml不为空
+                    self._ensure_feed_not_empty()
                     return True
                 else:
                     # 确保远程仓库配置正确
@@ -87,6 +90,9 @@ class GitPersistence:
                         
                         # 同步文件
                         self._sync_files()
+                        
+                        # 确保feed.xml不为空
+                        self._ensure_feed_not_empty()
                         return True
             except Exception as e:
                 print(f"Git拉取操作异常: {str(e)}")
@@ -111,6 +117,9 @@ class GitPersistence:
                 
                 # 同步文件
                 self._sync_files()
+                
+                # 确保feed.xml不为空
+                self._ensure_feed_not_empty()
                 print("Git仓库克隆成功")
                 return True
         else:
@@ -122,6 +131,9 @@ class GitPersistence:
                 
                 # 同步文件
                 self._sync_files()
+                
+                # 确保feed.xml不为空
+                self._ensure_feed_not_empty()
                 print("Git仓库克隆成功")
                 return True
         
@@ -169,6 +181,9 @@ class GitPersistence:
                 
                 # 同步文件
                 self._sync_files()
+                
+                # 确保feed.xml不为空
+                self._ensure_feed_not_empty()
                 print("备份文件恢复完成")
                 return True
         except Exception as e:
@@ -188,6 +203,11 @@ class GitPersistence:
         备份项目自带的feed.xml和latepost_articles文件夹
         """
         try:
+            # 确保文章目录存在
+            if not os.path.exists(self.articles_dir):
+                os.makedirs(self.articles_dir)
+                print(f"创建文章目录: {self.articles_dir}")
+            
             # 备份feed.xml
             if os.path.exists(self.feed_file):
                 shutil.copy2(self.feed_file, f"{self.feed_file}.bak")
@@ -202,12 +222,22 @@ class GitPersistence:
                 print(f"已备份{self.articles_dir}到{backup_dir}")
         except Exception as e:
             print(f"备份项目文件时出错: {str(e)}")
+            # 确保备份目录存在
+            backup_dir = f"{self.articles_dir}.bak"
+            if not os.path.exists(backup_dir):
+                os.makedirs(backup_dir)
+                print(f"创建备份目录: {backup_dir}")
     
     def _sync_files(self):
         """
         同步Git仓库和项目文件
         """
         try:
+            # 确保文章目录存在
+            if not os.path.exists(self.articles_dir):
+                os.makedirs(self.articles_dir)
+                print(f"创建文章目录: {self.articles_dir}")
+            
             # 检查Git仓库中是否存在feed.xml和latepost_articles文件夹
             repo_has_feed = os.path.exists(self.feed_file)
             repo_has_articles = os.path.exists(self.articles_dir) and len(os.listdir(self.articles_dir)) > 0
@@ -216,15 +246,57 @@ class GitPersistence:
             has_feed_backup = os.path.exists(f"{self.feed_file}.bak")
             has_articles_backup = os.path.exists(f"{self.articles_dir}.bak")
             
-            if not repo_has_feed or not repo_has_articles:
-                # Git仓库中不存在feed.xml或latepost_articles文件夹
+            # 检查feed.xml内容是否为空
+            feed_is_empty = False
+            if repo_has_feed:
+                # 检查feed.xml文件内容
+                try:
+                    with open(self.feed_file, 'r', encoding='utf-8') as f:
+                        feed_content = f.read().strip()
+                    # 检查是否为空或只有基本XML结构
+                    feed_is_empty = not feed_content or feed_content == '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>'
+                    if feed_is_empty:
+                        print(f"检测到{self.feed_file}内容为空或只有基本结构")
+                except Exception as e:
+                    print(f"读取{self.feed_file}时出错: {str(e)}")
+                    feed_is_empty = True
+            
+            # 如果Git仓库中的feed.xml为空但备份不为空，使用备份
+            if repo_has_feed and feed_is_empty and has_feed_backup:
+                try:
+                    with open(f"{self.feed_file}.bak", 'r', encoding='utf-8') as f:
+                        backup_content = f.read().strip()
+                    if backup_content and backup_content != '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>':
+                        shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
+                        print(f"检测到{self.feed_file}为空，已使用非空的备份文件替换")
+                        feed_is_empty = False
+                except Exception as e:
+                    print(f"读取备份feed文件时出错: {str(e)}")
+            
+            if not repo_has_feed or not repo_has_articles or feed_is_empty:
+                # Git仓库中不存在feed.xml或latepost_articles文件夹，或feed.xml为空
                 # 使用项目自带的文件同步到Git仓库
-                print("Git仓库中缺少必要文件，将同步项目自带文件")
+                print("Git仓库中缺少必要文件或feed.xml为空，将同步项目自带文件")
                 
                 # 同步feed.xml
-                if not repo_has_feed and has_feed_backup:
-                    shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
-                    print(f"已将项目自带的{self.feed_file}同步到Git仓库")
+                if (not repo_has_feed or feed_is_empty) and has_feed_backup:
+                    # 检查备份文件内容
+                    try:
+                        with open(f"{self.feed_file}.bak", 'r', encoding='utf-8') as f:
+                            backup_content = f.read().strip()
+                        if backup_content and backup_content != '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>':
+                            shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
+                            print(f"已将项目自带的非空{self.feed_file}同步到Git仓库")
+                        else:
+                            # 如果备份也是空的，创建一个基本的RSS结构
+                            self._create_basic_feed()
+                    except Exception as e:
+                        print(f"读取备份feed文件时出错: {str(e)}")
+                        # 创建一个基本的RSS结构
+                        self._create_basic_feed()
+                elif not repo_has_feed:
+                    # 如果没有备份但需要feed.xml，创建一个基本的RSS结构
+                    self._create_basic_feed()
                 
                 # 同步latepost_articles文件夹
                 if not repo_has_articles and has_articles_backup:
@@ -254,13 +326,26 @@ class GitPersistence:
                     repo_feed_time = os.path.getmtime(self.feed_file)
                     backup_feed_time = os.path.getmtime(f"{self.feed_file}.bak")
                     
-                    if backup_feed_time > repo_feed_time:
-                        # 项目自带的feed.xml更新，同步到Git仓库
+                    # 检查备份文件内容
+                    backup_is_empty = True
+                    try:
+                        with open(f"{self.feed_file}.bak", 'r', encoding='utf-8') as f:
+                            backup_content = f.read().strip()
+                        backup_is_empty = not backup_content or backup_content == '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>'
+                    except Exception as e:
+                        print(f"读取备份feed文件时出错: {str(e)}")
+                    
+                    # 如果备份文件更新且非空，或者当前feed.xml为空但备份非空，则使用备份
+                    if (backup_feed_time > repo_feed_time and not backup_is_empty) or (feed_is_empty and not backup_is_empty):
+                        # 项目自带的feed.xml更新且非空，同步到Git仓库
                         shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
                         print(f"已将更新的项目自带{self.feed_file}同步到Git仓库")
-                    else:
-                        # Git仓库的feed.xml更新，使用Git仓库的版本
+                    elif not feed_is_empty:
+                        # Git仓库的feed.xml更新且非空，使用Git仓库的版本
                         print(f"使用Git仓库中的{self.feed_file}")
+                    else:
+                        # 两个版本都为空，创建一个基本的RSS结构
+                        self._create_basic_feed()
                 
                 # 同步latepost_articles文件夹
                 if has_articles_backup:
@@ -292,8 +377,109 @@ class GitPersistence:
                     
                     # 如果有更改，提交到Git仓库
                     self.save_changes("同步项目文件和Git仓库")
+                    
+                # 最后检查feed.xml是否为空，如果为空则创建基本结构
+                self._ensure_feed_not_empty()
         except Exception as e:
             print(f"同步文件时出错: {str(e)}")
+            # 尝试创建基本文件结构
+            if not os.path.exists(self.articles_dir):
+                os.makedirs(self.articles_dir)
+            if not os.path.exists(self.feed_file) or self._is_feed_empty():
+                self._create_basic_feed()
+                print("已创建基本文件结构")
+                self.save_changes("初始化基本文件结构")
+            
+    def _create_basic_feed(self):
+        """
+        创建一个基本的非空RSS feed结构
+        """
+        try:
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
+            basic_feed = f'''<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>晚点LatePost</title>
+    <link>https://www.latepost.com</link>
+    <description>晚点LatePost的文章更新</description>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <generator>python-feedgen</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>{timestamp}</lastBuildDate>
+  </channel>
+</rss>'''
+            with open(self.feed_file, 'w', encoding='utf-8') as f:
+                f.write(basic_feed)
+            print(f"创建了基本的非空RSS feed结构: {self.feed_file}")
+            return True
+        except Exception as e:
+            print(f"创建基本feed结构时出错: {str(e)}")
+            return False
+            
+    def _is_feed_empty(self):
+        """
+        检查feed.xml是否为空或只有基本结构
+        """
+        try:
+            if not os.path.exists(self.feed_file):
+                return True
+                
+            with open(self.feed_file, 'r', encoding='utf-8') as f:
+                feed_content = f.read().strip()
+            # 检查是否为空或只有基本XML结构
+            return not feed_content or feed_content == '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>'
+        except Exception as e:
+            print(f"检查feed是否为空时出错: {str(e)}")
+            return True
+            
+    def _ensure_feed_not_empty(self):
+        """
+        确保feed.xml不为空，如果为空则创建基本结构
+        优先使用项目自带的feed.xml和Git仓库中的feed.xml中较新的非空文件
+        """
+        # 检查当前feed.xml是否为空
+        current_feed_empty = self._is_feed_empty()
+        
+        # 检查备份feed.xml是否存在且非空
+        backup_feed_path = f"{self.feed_file}.bak"
+        backup_feed_exists = os.path.exists(backup_feed_path)
+        backup_feed_empty = True
+        backup_feed_time = 0
+        
+        if backup_feed_exists:
+            try:
+                backup_feed_time = os.path.getmtime(backup_feed_path)
+                with open(backup_feed_path, 'r', encoding='utf-8') as f:
+                    backup_content = f.read().strip()
+                backup_feed_empty = not backup_content or backup_content == '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>'
+            except Exception as e:
+                print(f"读取备份feed文件时出错: {str(e)}")
+        
+        # 检查当前feed.xml的修改时间
+        current_feed_time = 0
+        if os.path.exists(self.feed_file):
+            current_feed_time = os.path.getmtime(self.feed_file)
+        
+        # 决定使用哪个feed文件
+        if current_feed_empty:
+            if backup_feed_exists and not backup_feed_empty:
+                # 当前feed为空但备份非空，使用备份
+                print(f"当前feed.xml为空，使用非空的备份feed.xml")
+                shutil.copy2(backup_feed_path, self.feed_file)
+                return True
+            else:
+                # 当前feed为空且备份也为空或不存在，创建基本结构
+                print("当前feed.xml为空且没有可用的备份，创建基本的非空RSS feed")
+                self._create_basic_feed()
+                return True
+        elif backup_feed_exists and not backup_feed_empty and backup_feed_time > current_feed_time:
+            # 两个feed都非空，但备份更新，使用备份
+            print(f"备份feed.xml更新，使用备份feed.xml")
+            shutil.copy2(backup_feed_path, self.feed_file)
+            return True
+        
+        return False
     
     def save_changes(self, message=None):
         """
@@ -303,8 +489,35 @@ class GitPersistence:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             message = f"自动更新 - {timestamp}"
         
+        # 确保文件夹存在
+        if not os.path.exists(self.articles_dir):
+            os.makedirs(self.articles_dir)
+            print(f"创建文章目录: {self.articles_dir}")
+        
+        # 确保feed.xml文件存在且不为空
+        if not os.path.exists(self.feed_file) or self._is_feed_empty():
+            # 检查是否有备份文件
+            if os.path.exists(f"{self.feed_file}.bak"):
+                try:
+                    with open(f"{self.feed_file}.bak", 'r', encoding='utf-8') as f:
+                        backup_content = f.read().strip()
+                    if backup_content and backup_content != '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>':
+                        shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
+                        print(f"在保存更改前，已将非空备份feed文件同步到Git仓库")
+                    else:
+                        self._create_basic_feed()
+                except Exception as e:
+                    print(f"读取备份feed文件时出错: {str(e)}")
+                    self._create_basic_feed()
+            else:
+                self._create_basic_feed()
+        
+        # 使用绝对路径添加所有更改
+        articles_abs_path = os.path.abspath(self.articles_dir)
+        feed_abs_path = os.path.abspath(self.feed_file)
+        
         # 添加所有更改
-        self._run_command(f'git add {self.articles_dir} {self.feed_file}')
+        self._run_command(f'git add "{articles_abs_path}" "{feed_abs_path}"')
         
         # 提交更改
         commit_result = self._run_command(f'git commit -m "{message}"')

@@ -16,6 +16,47 @@ def home():
 
 @app.route('/feed.xml')
 def feed():
+    # 检查feed.xml是否存在且不为空
+    from persistence import GitPersistence
+    persistence = GitPersistence()
+    
+    # 确保feed.xml不为空
+    if not os.path.exists('feed.xml') or persistence._is_feed_empty():
+        print("检测到feed.xml不存在或为空，尝试恢复或重新生成")
+        
+        # 使用增强的_ensure_feed_not_empty方法尝试恢复feed.xml
+        if persistence._ensure_feed_not_empty():
+            print("已成功恢复或创建feed.xml")
+        else:
+            # 如果仍然为空，尝试重新生成
+            try:
+                # 尝试重新生成feed.xml
+                articles_dir = "./latepost_articles"
+                if os.path.exists(articles_dir) and any(f.endswith('.md') for f in os.listdir(articles_dir)):
+                    print("尝试使用现有文章重新生成feed.xml")
+                    # 获取最新文章ID
+                    last_id = persistence.get_latest_article_id()
+                    if last_id:
+                        # 使用现有文章生成RSS
+                        rss_generator = LatePostRSSGenerator(articles_dir=articles_dir, last_id=last_id)
+                        rss_generator.generate_rss()
+                        print("已使用现有文章重新生成feed.xml")
+                    else:
+                        # 创建一个基本的非空feed结构
+                        persistence._create_basic_feed()
+                else:
+                    # 创建一个基本的非空feed结构
+                    persistence._create_basic_feed()
+            except Exception as e:
+                print(f"重新生成feed.xml失败: {str(e)}")
+                # 创建一个基本的非空feed结构
+                persistence._create_basic_feed()
+    
+    # 最后检查一次，确保feed.xml存在且非空
+    if not os.path.exists('feed.xml') or persistence._is_feed_empty():
+        print("警告：所有恢复和生成尝试都失败，创建最基本的feed结构")
+        persistence._create_basic_feed()
+    
     return send_file('feed.xml', mimetype='application/rss+xml')
 
 class LatePostRSSGenerator:
