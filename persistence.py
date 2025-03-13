@@ -2,6 +2,8 @@ import os
 import subprocess
 import time
 from datetime import datetime
+import shutil
+import tempfile
 
 class GitPersistence:
     """
@@ -72,6 +74,9 @@ class GitPersistence:
                     self._run_command(f'git reset --hard origin/{target_branch}')
                     self._run_command(f'git checkout {target_branch}')
                     print("成功同步远程仓库状态")
+                    
+                    # 同步文件
+                    self._sync_files()
                     return True
                 else:
                     # 确保远程仓库配置正确
@@ -79,6 +84,9 @@ class GitPersistence:
                     pull_result = self._run_command('git pull --ff-only')
                     if pull_result is not None:
                         print("成功拉取最新更改")
+                        
+                        # 同步文件
+                        self._sync_files()
                         return True
             except Exception as e:
                 print(f"Git拉取操作异常: {str(e)}")
@@ -90,6 +98,9 @@ class GitPersistence:
         # 克隆仓库
         print("正在克隆Git仓库...")
         
+        # 备份当前项目文件
+        self._backup_project_files()
+        
         if self.git_token:
             repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')
             clone_result = self._run_command(f'git clone {repo_with_token} .')
@@ -98,36 +109,8 @@ class GitPersistence:
                 self._run_command('git remote remove origin')
                 self._run_command(f'git remote add origin {repo_with_token}')
                 
-                # 检查仓库中是否存在feed.xml和latepost_articles
-                has_feed = os.path.exists(self.feed_file)
-                has_articles = os.path.exists(self.articles_dir)
-                
-                # 如果仓库中不存在这些文件，则使用项目自带的文件
-                if not has_feed or not has_articles:
-                    print("仓库中缺少必要文件，将同步项目自带文件")
-                    # 如果存在备份的feed.xml，使用备份文件
-                    if not has_feed and os.path.exists('feed.xml.bak'):
-                        shutil.copy2('feed.xml.bak', self.feed_file)
-                    # 确保文章目录存在
-                    if not has_articles:
-                        os.makedirs(self.articles_dir, exist_ok=True)
-                else:
-                    print("检查Git仓库中的文章文件是否需要同步")
-                    # 比较Git仓库和本地文件的修改时间
-                    if os.path.exists('latepost_articles.bak'):
-                        for article in os.listdir(self.articles_dir):
-                            if article.endswith('.md'):
-                                repo_file = os.path.join(self.articles_dir, article)
-                                local_file = os.path.join('latepost_articles.bak', article)
-                                if os.path.exists(local_file):
-                                    repo_mtime = os.path.getmtime(repo_file)
-                                    local_mtime = os.path.getmtime(local_file)
-                                    if repo_mtime > local_mtime:
-                                        print(f"使用Git仓库中的较新文件: {article}")
-                                        shutil.copy2(repo_file, local_file)
-                    print("文件同步检查完成")
-                    print("使用仓库中的现有文件")
-                
+                # 同步文件
+                self._sync_files()
                 print("Git仓库克隆成功")
                 return True
         else:
@@ -137,31 +120,13 @@ class GitPersistence:
                 self._run_command('git remote remove origin')
                 self._run_command(f'git remote add origin {self.repo_url}')
                 
-                # 检查仓库中是否存在feed.xml和latepost_articles
-                has_feed = os.path.exists(self.feed_file)
-                has_articles = os.path.exists(self.articles_dir)
-                
-                # 如果仓库中不存在这些文件，则使用项目自带的文件
-                if not has_feed or not has_articles:
-                    print("仓库中缺少必要文件，将同步项目自带文件")
-                    # 如果存在备份的feed.xml，使用备份文件
-                    if not has_feed and os.path.exists('feed.xml.bak'):
-                        shutil.copy2('feed.xml.bak', self.feed_file)
-                    # 确保文章目录存在
-                    if not has_articles:
-                        os.makedirs(self.articles_dir, exist_ok=True)
-                else:
-                    print("使用仓库中的现有文件")
-                
+                # 同步文件
+                self._sync_files()
                 print("Git仓库克隆成功")
                 return True
         
         print("Git仓库克隆失败，尝试备份现有文件并重新克隆")
         # 备份现有文件
-        import shutil
-        import tempfile
-        
-        # 创建临时目录用于备份
         temp_dir = tempfile.mkdtemp()
         print(f"创建临时备份目录: {temp_dir}")
         
@@ -197,10 +162,13 @@ class GitPersistence:
                         if os.path.isfile(s):
                             shutil.copy2(s, d)
                 
-                # 强制使用本地feed.xml覆盖仓库版本
-                if os.path.exists('feed.xml.bak'):
-                    shutil.copy2('feed.xml.bak', self.feed_file)
+                # 恢复feed.xml
+                backup_feed = os.path.join(temp_dir, os.path.basename(self.feed_file))
+                if os.path.exists(backup_feed):
+                    shutil.copy2(backup_feed, self.feed_file)
                 
+                # 同步文件
+                self._sync_files()
                 print("备份文件恢复完成")
                 return True
         except Exception as e:
@@ -214,6 +182,118 @@ class GitPersistence:
         
         print("Git仓库初始化失败")
         return False
+    
+    def _backup_project_files(self):
+        """
+        备份项目自带的feed.xml和latepost_articles文件夹
+        """
+        try:
+            # 备份feed.xml
+            if os.path.exists(self.feed_file):
+                shutil.copy2(self.feed_file, f"{self.feed_file}.bak")
+                print(f"已备份{self.feed_file}到{self.feed_file}.bak")
+            
+            # 备份latepost_articles文件夹
+            if os.path.exists(self.articles_dir):
+                backup_dir = f"{self.articles_dir}.bak"
+                if os.path.exists(backup_dir):
+                    shutil.rmtree(backup_dir)
+                shutil.copytree(self.articles_dir, backup_dir)
+                print(f"已备份{self.articles_dir}到{backup_dir}")
+        except Exception as e:
+            print(f"备份项目文件时出错: {str(e)}")
+    
+    def _sync_files(self):
+        """
+        同步Git仓库和项目文件
+        """
+        try:
+            # 检查Git仓库中是否存在feed.xml和latepost_articles文件夹
+            repo_has_feed = os.path.exists(self.feed_file)
+            repo_has_articles = os.path.exists(self.articles_dir) and len(os.listdir(self.articles_dir)) > 0
+            
+            # 检查是否有项目备份文件
+            has_feed_backup = os.path.exists(f"{self.feed_file}.bak")
+            has_articles_backup = os.path.exists(f"{self.articles_dir}.bak")
+            
+            if not repo_has_feed or not repo_has_articles:
+                # Git仓库中不存在feed.xml或latepost_articles文件夹
+                # 使用项目自带的文件同步到Git仓库
+                print("Git仓库中缺少必要文件，将同步项目自带文件")
+                
+                # 同步feed.xml
+                if not repo_has_feed and has_feed_backup:
+                    shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
+                    print(f"已将项目自带的{self.feed_file}同步到Git仓库")
+                
+                # 同步latepost_articles文件夹
+                if not repo_has_articles and has_articles_backup:
+                    # 确保文章目录存在
+                    if not os.path.exists(self.articles_dir):
+                        os.makedirs(self.articles_dir)
+                    
+                    # 复制所有文章文件
+                    backup_dir = f"{self.articles_dir}.bak"
+                    for item in os.listdir(backup_dir):
+                        if item.endswith('.md'):
+                            s = os.path.join(backup_dir, item)
+                            d = os.path.join(self.articles_dir, item)
+                            if os.path.isfile(s):
+                                shutil.copy2(s, d)
+                    print(f"已将项目自带的{self.articles_dir}文件夹同步到Git仓库")
+                
+                # 提交更改到Git仓库
+                self.save_changes("初始化同步项目文件到Git仓库")
+            else:
+                # Git仓库中存在feed.xml和latepost_articles文件夹
+                # 比较并同步到最新状态
+                print("Git仓库中已存在必要文件，正在比较并同步到最新状态")
+                
+                # 同步feed.xml
+                if has_feed_backup:
+                    repo_feed_time = os.path.getmtime(self.feed_file)
+                    backup_feed_time = os.path.getmtime(f"{self.feed_file}.bak")
+                    
+                    if backup_feed_time > repo_feed_time:
+                        # 项目自带的feed.xml更新，同步到Git仓库
+                        shutil.copy2(f"{self.feed_file}.bak", self.feed_file)
+                        print(f"已将更新的项目自带{self.feed_file}同步到Git仓库")
+                    else:
+                        # Git仓库的feed.xml更新，使用Git仓库的版本
+                        print(f"使用Git仓库中的{self.feed_file}")
+                
+                # 同步latepost_articles文件夹
+                if has_articles_backup:
+                    backup_dir = f"{self.articles_dir}.bak"
+                    
+                    # 获取Git仓库和项目备份中的所有文章文件
+                    repo_articles = {f: os.path.getmtime(os.path.join(self.articles_dir, f)) 
+                                    for f in os.listdir(self.articles_dir) if f.endswith('.md')}
+                    backup_articles = {f: os.path.getmtime(os.path.join(backup_dir, f)) 
+                                      for f in os.listdir(backup_dir) if f.endswith('.md')}
+                    
+                    # 同步更新的文件
+                    for article, mtime in backup_articles.items():
+                        if article in repo_articles:
+                            # 文件在两边都存在，比较修改时间
+                            if mtime > repo_articles[article]:
+                                # 项目备份的文件更新，同步到Git仓库
+                                shutil.copy2(os.path.join(backup_dir, article), os.path.join(self.articles_dir, article))
+                                print(f"已将更新的项目自带文章 {article} 同步到Git仓库")
+                        else:
+                            # 文件只在项目备份中存在，添加到Git仓库
+                            shutil.copy2(os.path.join(backup_dir, article), os.path.join(self.articles_dir, article))
+                            print(f"已将项目自带文章 {article} 添加到Git仓库")
+                    
+                    # 检查Git仓库中的新文件
+                    for article in repo_articles:
+                        if article not in backup_articles:
+                            print(f"Git仓库中存在新文章: {article}")
+                    
+                    # 如果有更改，提交到Git仓库
+                    self.save_changes("同步项目文件和Git仓库")
+        except Exception as e:
+            print(f"同步文件时出错: {str(e)}")
     
     def save_changes(self, message=None):
         """
@@ -247,11 +327,7 @@ class GitPersistence:
             if checkout_result is None:
                 print(f"无法切换到{target_branch}分支，尝试创建并切换")
                 self._run_command(f'git checkout -b {target_branch}')
-            
-            # 强制使用本地feed.xml覆盖仓库版本
-            if os.path.exists('feed.xml.bak'):
-                shutil.copy2('feed.xml.bak', self.feed_file)
-
+        
         # 推送到远程仓库
         if self.git_token:
             repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')
