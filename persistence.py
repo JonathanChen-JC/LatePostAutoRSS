@@ -57,6 +57,8 @@ class GitPersistence:
             try:
                 if self.git_token:
                     repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')
+                    # 确保远程仓库配置正确
+                    self._run_command(f'git remote set-url origin {repo_with_token} || git remote add origin {repo_with_token}')
                     # 先尝试重置本地仓库到远程仓库状态
                     self._run_command('git fetch origin')
                     # 检查main分支是否存在
@@ -72,6 +74,8 @@ class GitPersistence:
                     print("成功同步远程仓库状态")
                     return True
                 else:
+                    # 确保远程仓库配置正确
+                    self._run_command(f'git remote set-url origin {self.repo_url} || git remote add origin {self.repo_url}')
                     pull_result = self._run_command('git pull --ff-only')
                     if pull_result is not None:
                         print("成功拉取最新更改")
@@ -85,29 +89,29 @@ class GitPersistence:
         
         # 克隆仓库
         print("正在克隆Git仓库...")
-        # 确保移除任何已存在的origin配置
-        self._run_command('git remote remove origin')
         
         if self.git_token:
             repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')
             clone_result = self._run_command(f'git clone {repo_with_token} .')
-            # 确保远程仓库配置正确
-            self._run_command('git remote remove origin')
-            self._run_command(f'git remote add origin {repo_with_token}')
-        else:
-            clone_result = self._run_command(f'git clone {self.repo_url} .')
-            # 确保远程仓库配置正确
-            self._run_command('git remote remove origin')
-            self._run_command(f'git remote add origin {self.repo_url}')
-        
             if clone_result is not None:
+                # 确保远程仓库配置正确
+                self._run_command('git remote remove origin')
+                self._run_command(f'git remote add origin {repo_with_token}')
                 print("Git仓库克隆成功")
                 return True
-            else:
-                print("Git仓库克隆失败，尝试备份现有文件并重新克隆")
-            # 备份现有文件
-            import shutil
-            import tempfile
+        else:
+            clone_result = self._run_command(f'git clone {self.repo_url} .')
+            if clone_result is not None:
+                # 确保远程仓库配置正确
+                self._run_command('git remote remove origin')
+                self._run_command(f'git remote add origin {self.repo_url}')
+                print("Git仓库克隆成功")
+                return True
+        
+        print("Git仓库克隆失败，尝试备份现有文件并重新克隆")
+        # 备份现有文件
+        import shutil
+        import tempfile
             
             # 创建临时目录用于备份
             temp_dir = tempfile.mkdtemp()
