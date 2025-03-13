@@ -602,7 +602,6 @@ class GitPersistence:
         if not os.path.exists(self.articles_dir):
             print(f"文章目录不存在，正在创建: {self.articles_dir}")
             os.makedirs(self.articles_dir)
-            return None
             
         existing_articles = [f for f in os.listdir(self.articles_dir) 
                            if f.endswith('.md') and f.startswith('latepost_article_')]
@@ -623,9 +622,9 @@ class GitPersistence:
         if not article_ids:
             print("无法从文件名中提取有效的文章ID")
             return None
-        
+            
         last_id = max(article_ids)
-        print(f"当前最新文章ID: {last_id}")
+        print(f"从文件名中获取到最新文章ID: {last_id}")
         return last_id
 
 # 使用示例

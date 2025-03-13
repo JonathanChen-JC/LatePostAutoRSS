@@ -124,33 +124,38 @@ def update_rss():
     articles_dir = "./latepost_articles"
     last_id = None
     
-    if persistence:
-        last_id = persistence.get_latest_article_id()
+    # 首先检查文章目录是否存在
+    if not os.path.exists(articles_dir):
+        print(f"创建文章目录: {articles_dir}")
+        os.makedirs(articles_dir)
     
-    if last_id is None:
-        # 如果无法从持久化存储获取，尝试从文件名获取
-        existing_articles = [f for f in os.listdir(articles_dir) 
-                            if f.endswith('.md') and f.startswith('latepost_article_')]
+    # 尝试从文件名获取最新ID
+    existing_articles = [f for f in os.listdir(articles_dir) 
+                        if f.endswith('.md') and f.startswith('latepost_article_')]
+    
+    if existing_articles:
+        article_ids = []
+        for article_file in existing_articles:
+            try:
+                article_id = int(article_file.replace('latepost_article_', '').replace('.md', ''))
+                article_ids.append(article_id)
+            except ValueError:
+                continue
         
-        if existing_articles:
-            article_ids = []
-            for article_file in existing_articles:
-                try:
-                    article_id = int(article_file.replace('latepost_article_', '').replace('.md', ''))
-                    article_ids.append(article_id)
-                except ValueError:
-                    continue
-            
-            if article_ids:
-                last_id = max(article_ids)
-                print(f"从文件名中获取到最新文章ID: {last_id}")
+        if article_ids:
+            last_id = max(article_ids)
+            print(f"从文件名中获取到最新文章ID: {last_id}")
+    
+    # 如果从文件名获取失败，尝试从持久化存储获取
+    if last_id is None and persistence:
+        last_id = persistence.get_latest_article_id()
     
     # 如果有文章，生成RSS
     if last_id:
         print(f"使用最新文章ID {last_id} 生成RSS")
         rss_generator = LatePostRSSGenerator(articles_dir=articles_dir, last_id=last_id)
         rss_generator.generate_rss()
-        print("RSS文件生成完成")
+        print("RSS文件更新完成")
         return True
     else:
         # 如果没有文章但已有feed.xml，保持现有内容
