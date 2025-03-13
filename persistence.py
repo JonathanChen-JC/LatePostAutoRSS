@@ -238,6 +238,17 @@ class GitPersistence:
                 os.makedirs(self.articles_dir)
                 print(f"创建文章目录: {self.articles_dir}")
             
+            # 先检查项目自带的feed.xml
+            project_feed_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'feed.xml')
+            if os.path.exists(project_feed_path):
+                with open(project_feed_path, 'r', encoding='utf-8') as f:
+                    project_feed_content = f.read().strip()
+                if project_feed_content and '<?xml version=' in project_feed_content and '<rss' in project_feed_content and '</rss>' in project_feed_content:
+                    print(f"使用项目自带的feed.xml作为初始RSS结构")
+                    with open(self.feed_file, 'w', encoding='utf-8') as f:
+                        f.write(project_feed_content)
+                    return
+            
             # 检查Git仓库中是否存在feed.xml和latepost_articles文件夹
             repo_has_feed = os.path.exists(self.feed_file)
             repo_has_articles = os.path.exists(self.articles_dir) and len(os.listdir(self.articles_dir)) > 0
