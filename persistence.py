@@ -88,14 +88,20 @@ class GitPersistence:
         if self.git_token:
             repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')
             clone_result = self._run_command(f'git clone {repo_with_token} .')
+            # 确保远程仓库配置正确
+            self._run_command('git remote remove origin')
+            self._run_command(f'git remote add origin {repo_with_token}')
         else:
             clone_result = self._run_command(f'git clone {self.repo_url} .')
+            # 确保远程仓库配置正确
+            self._run_command('git remote remove origin')
+            self._run_command(f'git remote add origin {self.repo_url}')
         
-        if clone_result is not None:
-            print("Git仓库克隆成功")
-            return True
-        else:
-            print("Git仓库克隆失败，尝试备份现有文件并重新克隆")
+            if clone_result is not None:
+                print("Git仓库克隆成功")
+                return True
+            else:
+                print("Git仓库克隆失败，尝试备份现有文件并重新克隆")
             # 备份现有文件
             import shutil
             import tempfile
