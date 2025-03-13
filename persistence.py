@@ -134,38 +134,38 @@ class GitPersistence:
             else:
                 clone_result = self._run_command(f'git clone {self.repo_url} .')
             
-                if clone_result is not None:
-                    print("Git仓库克隆成功，正在恢复备份文件")
-                    # 恢复备份的文件
-                    backup_articles_dir = os.path.join(temp_dir, os.path.basename(self.articles_dir))
-                    if os.path.exists(backup_articles_dir):
-                        # 确保目标目录存在
-                        if not os.path.exists(self.articles_dir):
-                            os.makedirs(self.articles_dir)
-                        # 复制所有文件
-                        for item in os.listdir(backup_articles_dir):
-                            s = os.path.join(backup_articles_dir, item)
-                            d = os.path.join(self.articles_dir, item)
-                            if os.path.isfile(s):
-                                shutil.copy2(s, d)
-                    
-                    backup_feed = os.path.join(temp_dir, os.path.basename(self.feed_file))
-                    if os.path.exists(backup_feed):
-                        shutil.copy2(backup_feed, self.feed_file)
-                    
-                    print("备份文件恢复完成")
-                    return True
-            except Exception as e:
-                print(f"备份和恢复过程出错: {str(e)}")
-            finally:
-                # 清理临时目录
-                try:
-                    shutil.rmtree(temp_dir)
-                except:
-                    pass
-            
-            print("Git仓库初始化失败")
-            return False
+            if clone_result is not None:
+                print("Git仓库克隆成功，正在恢复备份文件")
+                # 恢复备份的文件
+                backup_articles_dir = os.path.join(temp_dir, os.path.basename(self.articles_dir))
+                if os.path.exists(backup_articles_dir):
+                    # 确保目标目录存在
+                    if not os.path.exists(self.articles_dir):
+                        os.makedirs(self.articles_dir)
+                    # 复制所有文件
+                    for item in os.listdir(backup_articles_dir):
+                        s = os.path.join(backup_articles_dir, item)
+                        d = os.path.join(self.articles_dir, item)
+                        if os.path.isfile(s):
+                            shutil.copy2(s, d)
+                
+                backup_feed = os.path.join(temp_dir, os.path.basename(self.feed_file))
+                if os.path.exists(backup_feed):
+                    shutil.copy2(backup_feed, self.feed_file)
+                
+                print("备份文件恢复完成")
+                return True
+        except Exception as e:
+            print(f"备份和恢复过程出错: {str(e)}")
+        finally:
+            # 清理临时目录
+            try:
+                shutil.rmtree(temp_dir)
+            except:
+                pass
+        
+        print("Git仓库初始化失败")
+        return False
     
     def save_changes(self, message=None):
         """
