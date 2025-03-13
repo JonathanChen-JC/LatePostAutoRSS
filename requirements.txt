@@ -1,0 +1,9 @@
+selenium==4.15.2
+beautifulsoup4==4.12.2
+webdriver-manager==4.0.1
+schedule==1.2.1
+feedgen==0.9.0
+flask==3.0.2
+requests==2.31.0
+markdown2==2.4.12
+lxml==5.1.0

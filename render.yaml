@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: auto-latepost-rss
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.0
+      - key: SERVICE_URL
+        sync: false
+      - key: GIT_REPO_URL
+        sync: false
+      - key: GIT_USERNAME
+        sync: false
+      - key: GIT_EMAIL
+        sync: false
+      - key: GIT_TOKEN
+        sync: false

@@ -1,0 +1,1037 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>晚点LatePost</title>
+    <link>https://www.latepost.com</link>
+    <description>晚点LatePost的文章更新</description>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <generator>python-feedgen</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 13 Mar 2025 04:40:24 +0000</lastBuildDate>
+    <item>
+      <title>GPT-5 有了雏形；OpenAI 和 Manus 研发 Agent 的经验；中国大公司扩大算力投资丨 AI 月报</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2840</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：贺乾明&lt;/span&gt;
+                        &lt;span&gt;发布日期：03月08日 21:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;blockquote&gt;2025 年 2 月的 AI 月报，你会看到：&lt;/blockquote&gt;
+&lt;blockquote&gt;硅谷巨头的新共识：推理能力是大模型的一部分&lt;/blockquote&gt;
+&lt;blockquote&gt;OpenAI 和 Manus 的 Agent 开发经验&lt;/blockquote&gt;
+&lt;blockquote&gt;DeepSeek 推动中国大公司加大算力投入，阿里、字节两家加起来，今年就超过 2000 亿&lt;/blockquote&gt;
+&lt;blockquote&gt;3 家售价过亿的 AI 公司和 23 家获得超过 5000 万美元融资的 AI 公司&lt;/blockquote&gt;
+&lt;blockquote&gt;OpenAI 时薪 100 美元招专家生产数据提高模型能力&lt;/blockquote&gt;
+&lt;p&gt;这一期月报中，我们开始邀请研究者、创业者和投资人提供一手视角的对每月 AI 趋势和标志性事件的评述和洞察。&lt;/p&gt;
+&lt;p&gt;晚点 AI 月报，每月选取最值得你知道的 AI 信号。&lt;/p&gt;
+&lt;p&gt;以下是我们第 4 期 AI 月报，欢迎大家在留言区补充我们没有提到的重要趋势。&lt;/p&gt;
+&lt;p&gt;技术丨GPT-5 雏形出现，行业新共识诞生&lt;/p&gt;
+&lt;p&gt;DeepSeek 带来的冲击波继续扩散，全球大模型公司陷入混战：不论是马斯克用超过 10 万张 GPU 训练的 Grok 3，还是 OpenAI 可能投入 10 亿美元训练的 GPT-4.5，或是 Anthropic 融合推理（reasoning）能力的最新模型 Claude 3.7 Sonnet，都没有带动大模型能力大幅提升。&lt;/p&gt;
+&lt;p&gt;发布 GPT-4.5 前，OpenAI 给出模型能力继续提升的路径：把基础模型（如 GPT-4.5）和推理模型 o3 融合在一起发布 GPT-5，有点像 Claude 3.7 的做法。&lt;/p&gt;
+&lt;p&gt;这是大模型行业头部公司的新共识。从 OpenAI 跳槽到 Google 的开发者关系负责人洛根·基尔帕特里克（Logan Kilpatrick）说：“这一直是 Gemini 的计划，确保推理能力是基础模型的一部分，而不是一个支线任务，因此开发了 Gemini 2.0 Flash Thinking。”&lt;/p&gt;
+&lt;p&gt;OpenAI 认为，无监督学习（unsupervised learning）和推理（reasoning），代表智能的两个轴 [1]：&lt;/p&gt;
+&lt;p&gt;“我们发现这两种范式互补，并认为它们之间存在反馈循环。”OpenAI 首席研究官陈信翰（Mark Chen）参加播客节目时说，“知识是推理的基础。模型不能从零开始学习推理。”&lt;/p&gt;
+&lt;p&gt;但这类模型在投入使用时会面临麻烦：不是所有问题，都需要用领先模型解决，比如总结一段文本，能在手机上部署的模型没比 GPT-4o 差多少。&lt;/p&gt;
+&lt;p&gt;OpenAI 准备做一个自动识别用户提出的问题、判断用什么模式回答问题的系统，但会给免费用户和付费用户分层 [2]：&lt;/p&gt;
+&lt;p&gt;斯坦福大学计算机科学助理教授珀西·梁（Percy Liang）在社交媒体上评论 [3]：&lt;/p&gt;
+&lt;blockquote&gt;从产品的角度来看，这样做非常合理。然而，从研究人员和开发人员的角度来看，将所有内容都封装起来，会让我们越来越难理解底层的运作机制。我们过去拥有一个对应自回归概率模型的端点（endpoint），能直接处理 token；但现在，我们将只有一个神秘的 “黑盒子”。&lt;/blockquote&gt;
+&lt;p&gt;一位中国大模型公司研究员说：&lt;/p&gt;
+&lt;blockquote&gt;这也是我们正在做的方向。（大模型公司）基本最后都会走 system1（GPT-4o 类模型） 跟 system2 （o1 或 R1 类模型）结合的路线。现在大家都是摸着石头过河。&lt;/blockquote&gt;
+&lt;p&gt;应用丨Deep Research 成为热门 Agent&lt;/p&gt;
+&lt;p&gt;知名分析师的使用经验：每月花 200 美元雇了一名员工&lt;/p&gt;
+&lt;p&gt;Deep Research 成为大模型 Agent 时代的热门应用。OpenAI 介绍，只需提供一个提示，它就会调用模型查找、分析和综合数百个在线资源（搜索、解释和分析互联网上大量的文本、图像和 PDF 文件，根据遇到的信息灵活调整策略），生成一份研究员水平报告。&lt;/p&gt;
+&lt;p&gt;知名分析师本·汤普森（Ben Thompson）[4] 用 Deep Research 写苹果财报分析后评论：“感觉有点像 AGI”“像是每月花 200 美元的惊人低价雇了一名员工”。他分享了理由和使用技巧：&lt;/p&gt;
+&lt;p&gt;OpenAI 开发 Deep Research 的经验：强化学习是关键&lt;/p&gt;
+&lt;p&gt;去年 12 月，Google 就发布基于 Gemini 1.5 模型的 Deep Research 功能；OpenAI 刚推出一天，开源社区 HuggingFace 就提供了开源复现版本；之后不久，大模型搜索应用 Perplexity 推出类似的功能。&lt;/p&gt;
+&lt;p&gt;但最受关注的还是 OpenAI 版本的 Deep Research——哪怕每个月要付 200 美元才能自由使用。&lt;/p&gt;
+&lt;p&gt;“归根结底，在于如何开发模型、是否努力构建数据集。”OpenAI 负责开发 Deep Research 的乔什·托宾（Josh Tobin）说。&lt;/p&gt;
+&lt;p&gt;他和另一位 Deep Research 的开发者伊萨·福尔福德（Isa Fulford）参加红杉资本的播客节目，分享了 OpenAI 开发 Deep Research 的经验 [5]：&lt;/p&gt;
+&lt;p&gt;本期月报发布前，中国创业公司发布的 Agent 应用 Manus 引发关注。Manus AI 的联合创始人、首席科学家季逸超分享了他们开发 Agent 的经验：&lt;/p&gt;
+&lt;blockquote&gt;我们坚信并践行 less structure，more intelligence 的哲学：当你的数据足够优质、模型足够智能、架构足够灵活、工程足够扎实，那么 computer use、deep research、coding agent 等概念就从产品特性变为了自然涌现的能力。技术之外，回归第一性原理也让我们对产品形态有了全新的思考：&lt;/blockquote&gt;
+&lt;blockquote&gt;AI 浏览器不是在浏览器里加 AI，而是做给 AI 用的浏览器；AI 搜索不是从索引召回再总结，而是让 AI 以用户的权限去获取信息；操作 GUI 不是抢夺用户设备的控制权，而是让 AI 有自己的虚拟机；编写代码不是最终目的，而是解决各种问题的通用媒介；生成网站的难点不是搭建框架，而是让内容言之有物；Attention 不是 all you need，解放用户的 attention 才能重新定义 DAU。&lt;/blockquote&gt;
+&lt;p&gt;投资了多家大模型创业公司的真格基金管理合伙人戴雨森说：&lt;/p&gt;
+&lt;blockquote&gt;模型的推理能力、编程能力、工具使用能力提升，解锁了 Agent 。没有推理能力，无法很好地计划，无法消化海量信息。没有编程能力，无法用 Python 等工具处理文件、数据等任务。而工具方面，浏览器只是一个最基本的工具，以后还会有其他的软件。&lt;/blockquote&gt;
+&lt;blockquote&gt;这些能力的共同进步，到达临界点后，能够把一个 Agent 产品做出来。当然，这些能力还有很多的提升空间，所以现在还是非常早期的阶段。再过半个月、半年、一年，产品能力可能又会变得不一样。&lt;/blockquote&gt;
+&lt;blockquote&gt;以前人类用的所有工具都需要 Attention，即需要人给予注意力，关照工作的进度，“ Attention is all you need；而 AI 技术进步，大家会做出来不需要 Attention 就能主动完成复杂任务的工具，这会解锁人类的潜能。&lt;/blockquote&gt;
+&lt;p&gt;基建｜DeepSeek 成为算力投资关键变量&lt;/p&gt;
+&lt;p&gt;DeepSeek 推动中国公司扩大算力投入，阿里计划三年投 3800 亿元&lt;/p&gt;
+&lt;p&gt;DeepSeek 让大量原本处于观望状态的行业、公司接受大模型，带动中国的算力投资：&lt;/p&gt;
+&lt;p&gt;DeepSeek 模型的特点是低成本、高效率，但大规模投入使用仍需要大量的算力，主要有两个因素：&lt;/p&gt;
+&lt;p&gt;已经投资了两年的微软说：算力中心存在过度建设&lt;/p&gt;
+&lt;p&gt;微软上个月叫停在建的威斯康星州数据中心后，2 月又取消一批美国数据中心的租约。一个可能的因素是，微软不再是 OpenAI 唯一算力供应商，OpenAI 正在加大甲骨文算力的用量。&lt;/p&gt;
+&lt;p&gt;微软 CEO 萨提亚·纳德拉（Satya Nadella）在一档播客节目说 [6]：（算力）会有过度建设，微软 “非常高兴在 2027 年、2028 年租赁大量的算力”，因为 “建设的唯一结果是价格会下降。”&lt;/p&gt;
+&lt;p&gt;英伟达陷入震荡，反弹的股价又跌了回去&lt;/p&gt;
+&lt;p&gt;英伟达的股价在 2 月走过一个倒 U 型曲线，前 20 天上涨 17%，基本回到 DeepSeek 冲击前的水平；随后又开始下跌，到 3 月初降了近 20%。&lt;/p&gt;
+&lt;p&gt;投融资丨3 家 AI 公司卖了超 1 亿美元，23 家 AI 公司融资超过 5000 万美元&lt;/p&gt;
+&lt;p&gt;3 笔金额超过 1 亿美元的并购案，有一笔投资人回报丰厚，有一笔投资人亏损：&lt;/p&gt;
+&lt;p&gt;基础模型：两家 OpenAI 系公司寻求高估值融资&lt;/p&gt;
+&lt;p&gt;2 月，我们只关注到一家研发基础模型的公司宣布完成超 5000 万美元融资：&lt;/p&gt;
+&lt;p&gt;但还有两家 OpenAI 系基础模型公司正在寻求高估值融资，尽管它们没有产品、没有收入：&lt;/p&gt;
+&lt;p&gt;基础设施：英伟达是大赢家；还有两家量子计算公司融资&lt;/p&gt;
+&lt;p&gt;英伟达投资的 GPU 算力租赁公司 CoreWeave 在近期递交招股书，预期集资 40 亿美元，估值约 350 亿美元。2 月还有英伟达支持的另外两家 GPU 算力租赁公司宣布获得大额融资：&lt;/p&gt;
+&lt;p&gt;其他获得超过 5000 万美元的融资的 AI 基础设施公司有：&lt;/p&gt;
+&lt;p&gt;2 月还有两家量子计算公司获得超过 5000 万美元融资：&lt;/p&gt;
+&lt;p&gt;应用：主要是前 ChatGPT 时代成立的公司拿到融资&lt;/p&gt;
+&lt;p&gt;跟前两个月类似，获得超过 5000 万美元融资的 AI 应用公司，基本都在 2023 年之前成立，2023 年及之后成立的公司有两家：&lt;/p&gt;
+&lt;p&gt;其他共识都瞄准特定行业或应用场景，大模型到来前就积累了大量客户：&lt;/p&gt;
+&lt;img src="https://p3-sign.toutiaoimg.com/tos-cn-i-6w9my0ksvp/20d1d33fb99846ccb3560c6990618cb9~tplv-tt-origin-web:gif.jpeg?_iz=58558&amp;from=article.pc_detail&amp;lk3s=953192f4&amp;x-expires=1742044729&amp;x-signature=U8I7SL%2BQ1JtrjaZ%2Fz8%2BQNFC8iPI%3D" alt="图片"/&gt;
+&lt;p&gt;Apptronik 开发的人形机器人。&lt;/p&gt;
+&lt;p&gt;最后丨OpenAI 提升模型能力的一个方法：时薪 100 美元找人写数据&lt;/p&gt;
+&lt;p&gt;大模型的能力无法沿着过往 Scaling Laws 提升的桎梏，是领先的大模型已经吞掉几乎所有公开、优质的数据。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，大模型公司尝试用 AI 生成数据。比如 DeepSeek 训练 R1 模型时，就训练了 “专家模型” 生成数学、编程等领域的问题。OpenAI 也在利用 o 系列模型生成用于训练 GPT-4.5 的数据。&lt;/p&gt;
+&lt;p&gt;也有公司花重金雇专家撰写数据。2 月，有媒体报道了 OpenAI 用人生产数据的情况 [7]：&lt;/p&gt;
+&lt;p&gt;在 AI 领域存在一个定律：数据质量决定模型能力。模型算法随着开源和人才流动在行业中扩散，数据在竞争中的重要程度越来越高。&lt;/p&gt;
+&lt;p&gt;“真正在意软件的人，应该自己造硬件。” 计算机科学家艾伦·凯（Alan Kay）的这句名言，在大模型时代也有了新的变体：真正在意 AI 的人，应该重视数据。&lt;/p&gt;
+&lt;p&gt;[1] OpenAI 分享如何提升大模型能力&lt;/p&gt;
+&lt;p&gt;https://openai.com/index/introducing-gpt-4-5/&lt;/p&gt;
+&lt;p&gt;[2] 阿尔特曼谈论 GPT-5 的规划&lt;/p&gt;
+&lt;p&gt;https://x.com/sama/status/1889755723078443244&lt;/p&gt;
+&lt;p&gt;[3] 斯坦福大学计算机科学助理教授珀西·梁评论 GPT-5 规划&lt;/p&gt;
+&lt;p&gt;https://x.com/percyliang/status/1890107330320347623&lt;/p&gt;
+&lt;p&gt;[4] 分析师本·汤普森使用 Deep Research 的体验&lt;/p&gt;
+&lt;p&gt;https://stratechery.com/2025/deep-research-and-knowledge-value/&lt;/p&gt;
+&lt;p&gt;[5]OpenAI 研究者分享开发 Deep Research 的经验&lt;/p&gt;
+&lt;p&gt;https://www.sequoiacap.com/podcast/training-data-deep-research/&lt;/p&gt;
+&lt;p&gt;[6] 微软 CEO 纳德拉分享谈论大模型基建：&lt;/p&gt;
+&lt;p&gt;https://www.dwarkeshpatel.com/p/satya-nadella&lt;/p&gt;
+&lt;p&gt;[7]The Information 报道 OpenAI 雇专家写数据&lt;/p&gt;
+&lt;p&gt;https://www.theinformation.com/articles/will-deepseek-hurt-scale-ais-business-model?rc=chhbyg&lt;/p&gt;
+&lt;p&gt;题图来源：AI 生成。&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Sat, 08 Mar 2025 21:03:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>3 位连续创业者打造 Manus，应用潮里有更多 “underdog” 的机会（文末附 Manus、Open Manus 实测）</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2841</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：贺乾明、程曼祺&lt;/span&gt;
+                        &lt;span&gt;发布日期：03月08日 21:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;3 月 6 日，AI 产品 Manus 引发关注。开发 Manus 的三位关键人物是：创始人、CEO 肖弘（小红）；联合创始人、首席科学家季逸超（Peak）；以及产品合伙人张涛（hidecloud）——两位 90 后连续创业者和一位 15 年换了 10 家公司的 85 后产品老兵。&lt;/p&gt;
+&lt;p&gt;一个边缘地带的 “underdog” 小团队，以车库创业的开发方式，出乎意料地搅起了一场小风暴。&lt;/p&gt;
+&lt;p&gt;“硬科技创业者基本都是名门正派，光谱另一端的消费级产品创始人则几乎都是畎亩之中。” 真格基金投资人刘元说。他也是 Manus 的天使投资人。&lt;/p&gt;
+&lt;p&gt;毕业于华中科技大学的肖弘是江西吉安人，创业起点在武汉，曾开发过两款微信生态的插件：微信公众号排版工具壹伴和企业微信客户关系管理工具微伴，卖给一家独角兽公司。&lt;/p&gt;
+&lt;p&gt;高中阶段就开始创业的季逸超是北京人，他在苹果 App Store 上线不久，就开发出猛犸浏览器，后来做了 Magi 知识搜索引擎。季逸超曾告诉我们，那时有投资人 “诱惑” 他：我给你一笔钱，敢不敢做个 Google？他拒绝了，不是觉得做不到，而是他觉得只有 “抛开利益” 才有可能。&lt;/p&gt;
+&lt;p&gt;重庆人张涛则先后在烽火国际、腾讯、豌豆荚、猪八戒网、AcFun、映客、神策数据、字节、光年之外这些业务不同、风格迥异，横跨 to B、to C 市场的公司里做过产品。&lt;/p&gt;
+&lt;p&gt;肖弘和季逸超都拿过真格基金的投资，两人的第一家公司后来都被收购；张涛工作过的光年之外也拿过真格的投资。我们了解到，三人在 2024 年组队完毕，有真格在其中介绍撮合。&lt;/p&gt;
+&lt;p&gt;我们了解到，一年前，肖弘团队开发的产品 Monica 刚开始高速增长时，国内一家大厂的创始人曾与肖弘在香港单独会面，后来有消息称对方有意收购肖弘的公司。到现在为止，肖弘的公司依然保持独立运营。&lt;/p&gt;
+&lt;p&gt;作为一款 Agent 产品，Manus 解决复杂问题时会需要调度不同的工具。三人不同的工作经历和专长，也从不同的角度为 Manus 的诞生贡献了力量。Manus 还只是一个初步产品，需要迭代，需要更多算力支持，才能放开给更多人使用，才能真正有更多用户的真实验证和反馈。超越产品阶段的巨大关注，使团队一时措手不及。&lt;/p&gt;
+&lt;p&gt;2025，确实是 AI 应用元年，让我们期待更多的风暴来临。&lt;/p&gt;
+&lt;p&gt;肖弘：“请你一定相信，壳也有壳的用处！”&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/028dc37fe86aea5be1285bd267b56069.png" alt="图片"/&gt;
+&lt;p&gt;肖弘在华中科技大学分享创业经历。图片来自真格基金。&lt;/p&gt;
+&lt;p&gt;肖弘创业理念和他开发的工具产品一样，充满实用主义。这首先给他带来的是痛苦，而不是收获。&lt;/p&gt;
+&lt;p&gt;肖弘是微信时代成长起来的创业者。他 2011 年到 2015 年读大学期间，微信一步步成为一个全民应用，从一个通讯软件向社交平台扩张，机会更大的移动互联网创业红利消散。&lt;/p&gt;
+&lt;p&gt;大学即将毕业时，肖弘选择做微信公众号编辑、排版工具 “壹伴”。大二时，他就基于华科官方的微信公众号开发过校内漂流瓶和微信上墙等工具，收获了积蓄和开发经验。&lt;/p&gt;
+&lt;p&gt;创业一年，肖弘和团队自筹的资金枯竭，在民房中靠接软件外包工作赚钱，就要准备解散团队去找公司上班。&lt;/p&gt;
+&lt;p&gt;随后转机出现：肖弘和团队参加一场黑客松竞赛拿到第一名，获得了投资人的青睐。&lt;/p&gt;
+&lt;p&gt;真格基金投资人刘元说，肖弘上台时穿的平克·弗洛伊德（Pink Floyd）衣服吸引了他的注意力，而且 “他做出来的产品拿了第一名，产品想法有意思，做出来的速度很快，台风又很有幽默感”。刘元决定力推。&lt;/p&gt;
+&lt;p&gt;真格的 100 万元投资让肖弘迈过创业的第一道坎，也得到了第一个充满危机感的教训：“做产品的时候，就应该同时思考怎么去做商业化。”&lt;/p&gt;
+&lt;p&gt;之后三年的商业化探索中，他扩写了上述的教训：要找到最符合用户需求的商业模式——对于微信排版工具来说，商业模式应该是做 SaaS、直接卖工具软件，而不是用免费工具获客，然后靠广告平台变现。他说，这是打败竞争对手的核心原因。&lt;/p&gt;
+&lt;p&gt;2019 年前后，壹伴已经在行业中站稳脚跟，获得千万人民币级别的现金流。肖弘开始寻找新的机会，寻找更大的创业方向，他们开发过亲子相册、直播答题、书店等微信小程序，但反响平平。当年 11 月，企业微信团队在武汉招募服务商，提到 “未来会打通微信”。肖弘意识到这是一个机会。&lt;/p&gt;
+&lt;p&gt;“电子邮件上，曾经长出来了 Salesforce 这样伟大的企业。我们相信，在企业微信和微信上也能长出类似伟大的企业。” 肖弘后来在一篇文章中写。&lt;/p&gt;
+&lt;p&gt;2019 年 12 月，企业微信 3.0 版本上线，打通微信通讯录、朋友圈、群聊等，肖弘团队立即推出管理客户关系的企业微信插件 “微伴” 。又过半年，微信封杀直接在微信中管理群聊的辅助软件，给 “微伴” 送来了迅速增长机会，也让更多人看到了肖弘团队的潜力。&lt;/p&gt;
+&lt;p&gt;新的选择摆在面前：接受 VC 的投资，亲手实现 Salesforce 梦；还是接受收购 Offer，把梦想交给别人？&lt;/p&gt;
+&lt;p&gt;他选择了后者。2020 年底，肖弘把公司的控股权以数亿元人民币的价格出售。据我们了解，他在这次交易中得到千万元级别回报。他在社交平台即刻上写下告别：“我对自己做了四年的一个产品，一直有这样那样的不满 ...... 但我永远失去了让它更好的机会了。”&lt;/p&gt;
+&lt;p&gt;在微信生态中创业的经历，塑造了 AI 时代创业者的肖弘。2022 年再创业时，肖弘同样选择做工具型产品。&lt;/p&gt;
+&lt;p&gt;他变得更大胆，团队要研发的产品还没有上线，因为 ChatGPT 发布，他们先花数百万买下华科学长开发的插件 ChatGPT for Google，让它独立运作的同时，给团队开发的插件产品 Monica 引流，缩短冷启动时间。&lt;/p&gt;
+&lt;p&gt;“他不是那种 ego 很强的人。” 一位接触过肖弘的人士说，“他定下了比较高的目标，但用接地气的创业打法实现。”&lt;/p&gt;
+&lt;p&gt;那时行业里更看好开发大模型的公司做产品，肖弘选择在大模型基础上开发插件，被指为 “套壳”。但 Monica 是中国大模型行业少有的盈利产品。&lt;/p&gt;
+&lt;p&gt;一年过去，模型变成一个插件，产品层的重要程度拔高。Cursor、Devin 等调用大模型解决复杂任务的产品让模型具备了更强的能力。它们也成了肖弘等人开发 Manus 的灵感来源。&lt;/p&gt;
+&lt;p&gt;在社交媒体上介绍 Manus 上线时，肖弘在结尾写道：请你一定要相信，壳也有壳的用处！&lt;/p&gt;
+&lt;p&gt;季逸超：“做能想到最野的事”&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/03719c302f9f28fe5cbdd867fcb1d325.png" alt="图片"/&gt;
+&lt;p&gt;季逸超。图片来自 Manus。&lt;/p&gt;
+&lt;p&gt;和肖弘不同，季逸超的创业生涯，没有激烈的竞争，没有危机感，也没有参加黑客松拉投资——投资人是主动找上门的。&lt;/p&gt;
+&lt;p&gt;季逸超是 App Store 生态中成长起来的创业者。他家庭环境优渥，初中就已经钻研操作系统。2008 年，苹果推出 App Store 后，16 岁的季逸超一连写了 7 款 App，还因为用了 “Monopoly”（大富翁）这个词收到跨国而来的律师函。&lt;/p&gt;
+&lt;p&gt;第八款 App 猛犸浏览器是他的成名作，凭借占用内存少（当时的手机才 128M 内存）、滑动交互便捷等特征，定价 1.99 美元，3 天内下载量达到 12 万。&lt;/p&gt;
+&lt;p&gt;“赚得贼开心，美国、德国、日本人都在买。” 季逸超曾在 2022 年告诉我们，现在 “我们都已经快忘了付费的软件是什么感觉”。&lt;/p&gt;
+&lt;p&gt;猛犸浏览器也帮季逸超吸引到了真格基金创始人徐小平的关注。他们带着季逸超去美国看了扎克伯格创办 Facebook 的办公室。徐小平认为，季逸超是 “中国的扎克伯格”。&lt;/p&gt;
+&lt;p&gt;2012 年，季逸超接受真格基金投资，创办 Peak Labs，登上《福布斯》杂志封面，上面写道 “互联网新人类” 和 “天使投资人让他做 ‘能想到最野的事’”。&lt;/p&gt;
+&lt;p&gt;Peak Labs 的核心产品是一个名为 Magi 的知识搜索引擎。它可以从不同的网页中抽取出知识点，回答用户的问题——产品实现逻辑与当前的 AI 搜索应用类似。不同的是，季逸超用的是知识图谱技术，而不是大语言模型。&lt;/p&gt;
+&lt;p&gt;2019 年 Magi 的公众版上线后迅速引发关注，用户量 10 天破百万、一个月内达到 300 万，一度挤崩服务器。这次走红超出了季逸超的预期：他们只想做一个简单的 Demo，用来吸引企业客户订单。&lt;/p&gt;
+&lt;p&gt;Magi 原本的目标达到了，但个人用户也在尝鲜后离开。“任何产品面对对普通用户只有一次机会，” 季逸超后来复盘这段经历时说，“哪怕我们再更新，他们第一次使用没能留下来，还是会觉得这个东西好像不太好用，不会再来了。”&lt;/p&gt;
+&lt;p&gt;2020 年，OpenAI 发布 GPT-3，大模型开始展现出惊人的通用文本理解能力，也意味着季逸超基于知识图谱的信息提取模型即将被颠覆。&lt;/p&gt;
+&lt;p&gt;他继续改进 Magi，服务企业客户——给创业伙伴、客户、投资人一个交代。2021 年，他把 Magi 的数据集开放给了国内外 40 多家研究机构。2022 年，他卖掉了 Migi。&lt;/p&gt;
+&lt;p&gt;2022 年初，我们在 Peak Labs 位于郎园三层红砖楼的办公室见到季逸超。他说，“只要不愁吃穿，有 Wi-Fi、空调，然后健康一点，大部分技术问题一个人都能搞定。”&lt;/p&gt;
+&lt;p&gt;那时的他，还想重新做一个搜索引擎，然后开源。这无关创业成败，更像是他的兴趣所在。现在的 Manus，正在以一种新的方法、新的交互方式，实现他的目标。&lt;/p&gt;
+&lt;p&gt;据我们了解，季逸超在去年 10 月，已经开源了一款推理模型，介绍了如何用强化学习做 “long horizon thinking” 和 “step-by-step execution”——这也是 Manus 用到的部分技术。&lt;/p&gt;
+&lt;p&gt;“希望 Manus 是我这辈子做的最后一个产品。” 季逸超说，“因为未来再有奇思妙想的话，‘Leave it to Manus’！”&lt;/p&gt;
+&lt;p&gt;张涛：这是他的第十段职业生涯&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/ad753e1281678a0ec4b7261ad6e89bf7.png" alt="图片"/&gt;
+&lt;p&gt;张涛。图片来自三节课。&lt;/p&gt;
+&lt;p&gt;张涛，一个经历过不同风口、不同行业、不同公司的产品经理，一个有着充沛分享欲的人。&lt;/p&gt;
+&lt;p&gt;2009 年从重庆邮电大学毕业到成为 Manus 的产品合伙人，张涛历时 15 年，在烽火国际、腾讯、豌豆荚、猪八戒网、AcFun、映客、神策数据、字节、光年之外等 9 家不同的公司从事产品工作。&lt;/p&gt;
+&lt;p&gt;张涛曾在 2016 年 5 月在介绍自己是什么样的文章中写道：“喜欢看看在新的规则中，各项事物是怎么运转的。”&lt;/p&gt;
+&lt;p&gt;他职业生涯中跨度最大的跳槽是 2018 年加入神策数据担任副总裁，从 ToC 行业转向 ToB。“做了快十年产品，看着行业的浮躁，一些有确定性的方法论，并没有被沉淀和推广开来”，张涛后来说，他原本想去做咨询，但可能一年接触不到几个客户。&lt;/p&gt;
+&lt;p&gt;他认为，去神策能把数据驱动产品设计及运营方面的方法论推广开，而且对神策也有价值。他说，每一段职业生涯，自己到底能给组织提供什么价值，都想得很清楚，“这是安全感的重要来源”。&lt;/p&gt;
+&lt;p&gt;2021 年从神策离职后，张涛回到重庆，做了一年产品咨询。&lt;/p&gt;
+&lt;p&gt;张涛常说的一句话是：“学习，是一个 PM（产品经理）永远不该停下的生存技巧。”&lt;/p&gt;
+&lt;p&gt;2017 年，基于计算机视觉技术的 AI 浪潮兴起，正在映客担任高级产品总监的张涛，看到 Twitch 开发的 ClipMine 模型，可以识别守望先锋、炉石传说中玩家正在玩的英雄和段位。他认为，这样的需求在国内直播行业同样存在，就用周末时间安装 TensorFlow 和 OpenCV 自己训练了一个识别王者荣耀中 “英雄” 的模型。&lt;/p&gt;
+&lt;p&gt;“如果理解机器学习，很多以往被认为不可能的事，都将成为产品逻辑的一部分。” 张涛当时写道，“能否建立这种新的认知，运用好新的工具，将在未来某些领域里区分出产品经理的高下。”&lt;/p&gt;
+&lt;p&gt;2024 年初，他分享产品经理如何学习 AI，从 Stable Diffusion 的技术原理开始讲。2025 年，也写了一篇万字 DeepSeek R1 论文的赏析。&lt;/p&gt;
+&lt;p&gt;Manus 是张涛第十段职业生涯，身份也从刚入行时的产品经理、变成产品总监、到现在的产品合伙人。&lt;/p&gt;
+&lt;p&gt;Manus 发布前，他在社交媒体上分享，他们定义了一个名叫 “PPD 指标（PM to Prompt Distance）”，即产品经理改 Prompt（提示词）要经过几个人之手。他认为，PPD 大于 2，“这个组织多半做不好 AI 产品”，PPD 等于 2，“及格线但很危险”，只有 PPD 为 1 和 0，“才有战斗力”。&lt;/p&gt;
+&lt;p&gt;实测：Manus vs. Open Manus +Claude 3.7&lt;/p&gt;
+&lt;p&gt;3 月 7 日晚，我们收到 Manus 团队发来的邀请码，测试这款 Agent 的写稿能力。我们也在本地部署了开源的 Open Manus，作为对比参考。&lt;/p&gt;
+&lt;p&gt;我们准备的提示词是：&lt;/p&gt;
+&lt;blockquote&gt;开发 Agent 应用 Manus 的有三位关键人物：创始人、CEO 肖弘（小红），联合创始人、首席科学家季逸超（Peak），产品合伙人张涛（hidecloud），请你帮我搜索他们的信息，用《晚点 LatePost》的风格撰写一篇稿件介绍他们，然后把文章做成一个网页，用他们的照片当作插图，照片要处理成华尔街日报专栏配图风格的素描图。在文章的末尾，请你附上向普通人解释 Manus 技术原理的解析图。&lt;/blockquote&gt;
+&lt;p&gt;发给 Manus，我们等了约 60 分钟后，得到如下回复：&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/94b09eef41dc0ddf5f8d6921493e8814.png" alt="图片"/&gt;
+&lt;p&gt;Manus 完成了收集资料、撰写文章的任务，但存在幻觉，比如三位创始人，只有两位 90 后。稿件质量并没有达到《晚点 LatePost》的要求（作者松了一口气）。&lt;/p&gt;
+&lt;p&gt;最后部署成网页时，Manus 出现了一个故障，无法显示图片，因此我们无法确定它是否按照要求处理了图片。从过程文件来看，它完成了最后一个技术解析的框架工作，最后没能做成图。&lt;/p&gt;
+&lt;p&gt;我们明确提出该故障后，Manus 又处理了约 10 分钟，也没有解决。Manus 方面称，这个是已知的问题，正在修复。&lt;/p&gt;
+&lt;p&gt;Manus 制作的网页：&lt;/p&gt;
+&lt;p&gt;https://pages.manus.im/?sId=2mG73dSNoqU6zettnIJ0u1&amp;filename=manus_article.mdx&lt;/p&gt;
+&lt;p&gt;Manus 解决问题的过程回放链接：&lt;/p&gt;
+&lt;p&gt;https://manus.im/share/2mG73dSNoqU6zettnIJ0u1?replay=1&lt;/p&gt;
+&lt;p&gt;发给 Open Manus （调用 Claude 3.7 模型），等待 7 分钟，消耗 25.7 万 token（花费 10 元人民币），得到如下两版回复：&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/8ee65136be075e5b3e47e093261a4194.png" alt="图片"/&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/9f200c33b664c27220752e627b1a2ce0.png" alt="图片"/&gt;
+&lt;p&gt;Open Manus 也能像 Manus 那样完成资料收集、稿件撰写任务，但内容丰富度、模型幻觉处理上比 Manus 差。比如它把肖弘、季逸超、张涛处理成了化名。&lt;/p&gt;
+&lt;p&gt;Open Manus 也无法处理图片，但最后反馈了两个版本，一个无法显示图片，另一个用 ASCII 符给他们三人画了一样的肖像，并生成了技术解析图。&lt;/p&gt;
+&lt;p&gt;黄帧昕对本文亦有贡献。&lt;/p&gt;
+&lt;p&gt;题图：从左到右依次为季逸超、肖弘、张涛。拍摄于 2024 年 7 月。来源：Manus 团队成员。&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Sat, 08 Mar 2025 21:03:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>特朗普或将延长TikTok出售期限；贝壳将被调入港股通；拉里·佩奇成立人工智能初创公司丨百亿美元公司动向</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2842</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：徐煜萌、王与桐、龚方毅&lt;/span&gt;
+                        &lt;span&gt;发布日期：03月07日 23:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;特朗普或将延长 TikTok 出售期限。&lt;/p&gt;
+&lt;p&gt;本周四，美国总统特朗普在白宫回应有关 TikTok 的问题时表示，如果 4 月 5 日前无法达成协议，他可能会延长 TikTok 的出售期限。&lt;/p&gt;
+&lt;p&gt;此前，“不卖就禁” 法案曾在 1 月 19 日生效。TikTok 一度在美国暂停服务，并从应用商店下架。次日特朗普上任后签署行政令，批准 75 天（也就是 4 月 5 日之前）的宽限期，并提议 TikTok 美国业务成立合资企业，美国持有 50% 股份。&lt;/p&gt;
+&lt;p&gt;目前，竞购 TikTok 的团队至少有两支。一支由前洛杉矶道奇队老板 Frank McCourt 牵头，成员包括美国社交平台 Reddit 联合创始人 Alexis Ohanian ；另一支以科技企业家 Jesse Tinsley 为首，成员包括在 YouTube 拥有 3.5 亿订阅者的网红 Mr Beast。&lt;/p&gt;
+&lt;p&gt;贝壳将在 3 月 10 日被调入港股通。&lt;/p&gt;
+&lt;p&gt;根据上交所 3 月 7 日的公告，贝壳会在下一个港股交易日（即 3 月 10 日）被调入港股通，有机会接受近期颇为活跃的南下内资的投资配置。贝壳 2022 年年中在港股上市，目前是恒生综合指数大型股成分股，根据沪港两地的机制，由于贝壳是同股不同权公司，它还需要在考察日前的 183 个港股交易日（含考察日当日）中，日均市值不得低于 200 亿港元（贝壳市值超过 2200 亿港元）。&lt;/p&gt;
+&lt;p&gt;Google 联创再创业，探索人工智能和制造业的结合。&lt;/p&gt;
+&lt;p&gt;Google 的联合创始人拉里·佩奇（Larry Page）近期成立了一家名为 Dynatomics 的新公司，想要开发一种能将设计直接转化为工厂生产线上的实际产品的 AI 系统。拉里·佩奇还找来了曾经投资的电动飞机初创企业 Kittyhawk 首席技术官的 Chris Anderson 来负责这个项目。&lt;/p&gt;
+&lt;p&gt;制造业长期依赖很难被数字世界的技术改造和重塑，比如在互联网时代就有一批创业者和大公司下场尝试，但多以失败告终；但 AI 或许带来了新的机会，毕竟十年前就提到的 “超级大脑” 现在终于有技术路径实现了。&lt;/p&gt;
+&lt;p&gt;宝马或因不符合 USMCA 条款被征收高额加墨关税。&lt;/p&gt;
+&lt;p&gt;特朗普本周对遵守美墨加协定（USMCA）的汽车厂商给予一个月的关税缓征期，市场预期特朗普或将削弱对加墨两国的关税，包括福特汽车、通用汽车、Stellantis 在内的部分汽车厂商股价出现反弹。大众汽车于周四表示，其在北美生产的汽车符合 USMCA 的要求，或避免受到新关税政策的影响；马自达也表示，未来 30 天内，其在墨西哥生产的 Mazda3 和 CX-30 也不会受到关税影响，但正在等待政府的最终明确指导。&lt;/p&gt;
+&lt;p&gt;不过，宝马的情况并不乐观。宝马的一位发言人对媒体表示，宝马反对加征关税，其在美国和墨西哥生产的汽车不符合 USMCA 的规定，可能会被征收高额关税。据悉，宝马在美国销售的汽车中约有 10% 从墨西哥进口。&lt;/p&gt;
+&lt;p&gt;合肥经开区对换电模式应用推广企业给予专项奖补。&lt;/p&gt;
+&lt;p&gt;安徽省合肥市经济技术开发区管理委员会 3 月 6 日发布《关于支持新能源汽车换电模式应用试点工作发展方案（讨论稿）》，将对开展新能源汽车换电模式应用推广的企业给予专项奖补。当天，蔚来推出了车型限时专项补贴，蔚来品牌及旗下乐道品牌用户购车可依据车型价格享受 2000 元至 1 万元补贴。&lt;/p&gt;
+&lt;p&gt;“星际之门” 第一集：部署 6.4 万块英伟达 AI 芯片。&lt;/p&gt;
+&lt;p&gt;在今年 1 月 21 日，OpenAI、软银集团和甲骨文在美国白宫宣布联合发起 “星际之门”（Stargate）项目，称要在未来四年投入 5000 亿美元，用于建设美国的人工智能基础设施。&lt;/p&gt;
+&lt;p&gt;这个曾被特朗普质疑的项目已经有了初步进展：德克萨斯州阿比林已被选为最新的数据中心所在地，为建设这个数据中心，预计到 2026 年底，64000 个英伟达 GB200 芯片将被初步部署；在今年夏天至少要完成 16000 个芯片的部署。这些 GB200 芯片将耗资数十亿美元。&lt;/p&gt;
+&lt;p&gt;OpenAI 和软银还在积极考察美国其他州作为未来 “星际之门” 数据中心园区的潜在选址。“星际之门” 项目的不断扩张和升级，最后可能都转化成了英伟达的订单。&lt;/p&gt;
+&lt;p&gt;苹果和高通要正面刚。&lt;/p&gt;
+&lt;p&gt;苹果公司长期以来一直依赖外部供应商提供关键芯片组件，尽管已有一些 SoC 芯片的研发成果，但其他诸如基带芯片、Wi-Fi 芯片和蓝牙芯片等，则依旧依赖高通、博通等公司。&lt;/p&gt;
+&lt;p&gt;最近媒体报道，苹果已经在这些领域迎来突破，比如自研基带芯片 C1 的 iPhone 16e 已经面世；代号为 Ganymede 的 C2 芯片也正在开发中；代号为 Prometheus 的 C3 芯片预计于 2026 年至 2027 年间面世。苹果希望所有产品都能彻底告别高通基带芯片。&lt;/p&gt;
+&lt;p&gt;最近高通推出了 X85 5G 调制解调器-射频（RF）系统，这是高通第八代 5G 调制解调器到天线解决方案和第四代 AI 驱动的 5G 连接系统。&lt;/p&gt;
+&lt;p&gt;高通 CEO Cristiano Amon 在近期接受采访时表示：“X85 是首款集成大量 AI 技术的调制解调器，其性能范围大幅扩展，能够处理更微弱的信号，对比高通与苹果的技术能力，这款产品将会拉大高端安卓设备和 iOS 设备之间的差距。” 他还提到，预计高通将于 2027 年停止向苹果供应调制解调器。&lt;/p&gt;
+&lt;p&gt;人类在月球上也能导航了。&lt;/p&gt;
+&lt;p&gt;美国航空航天局（NASA）与意大利航天局合作的月球全球导航卫星系统接收器实验（LuGRE）已经成功在月球表面获取和跟踪地球导航信号，这意味着 GNSS（Global Navigation Satellite System，全球导航卫星系统） 信号可以在月球上接收和跟踪，为 NASA 的探索任务提供准确、自主的位置、速度和时间信息。&lt;/p&gt;
+&lt;p&gt;并且 LuGRE 在前往月球途中也打破了 GNSS 信号获取的海拔纪录，地球与月球之间的近地空间任务也能依赖 GNSS 信号导航定位了。&lt;/p&gt;
+&lt;p&gt;叮咚买菜首次实现全年 GAAP 盈利。&lt;/p&gt;
+&lt;p&gt;2024 年第四季度，叮咚买菜收入 59.1 亿元，同比增长 18.3% 。商品交易总额（GMV）同比增 18.4 % 至 65.5 亿元，华东大本营是增长主力，江苏、浙江两省 GMV 同比增速均超过 20%，上海 GMV 同比增速为 16.8% 。&lt;/p&gt;
+&lt;p&gt;核心数据也有优化。月均交易用户数同比增加 16.1% 至 774 万。每位用户平均收入（ARPU）、平均订单量均有上涨，涨幅分别为 3.7% 和 3% 。履约支出的效率进一步提高，履约费用率同比降低 1.8 个百分点。&lt;/p&gt;
+&lt;p&gt;经历过社区团购烧钱补贴 “圈地” 大战，此前叮咚买菜深陷亏损，2021 年亏损达到峰值 64 亿元。2021 年下半年，叮咚开启降本增效，调整战略至 “效率优先，兼顾规模”，先后从华南、川渝等区域的多个城市撤出，并发力自有品牌，终于在三年后实现全年 GAAP（通用会计准则）盈利。&lt;/p&gt;
+&lt;p&gt;2024 年，该公司 GMV 同比增 16% 至 255.6 亿元， GAAP 净利润 3.04 亿元，去年亏损 0.91 亿元。&lt;/p&gt;
+&lt;p&gt;复星旅文 3 月 19 日将退市。&lt;/p&gt;
+&lt;p&gt;复星旅游文化日前发布公告，将于 3 月 19 日港股收盘后撤销上市公司地位。这场私有化约耗时 3 个月。公司说退市是为转型为轻资产运营模式，并继续投资核心业务、建立可持续增长的引擎。若作为上市公司，这场转型耗费时间、人力成本太大。复星旅文 2023 年前主要业务模式是直接投资开发度假村、高端酒店，但疫情期间陷入亏损。2023 年起，复星旅游调整、收缩业务。&lt;/p&gt;
+&lt;p&gt;全球咖啡商购买量削减至最低水平，只买 “当前必需品”。&lt;/p&gt;
+&lt;p&gt;据媒体报道，目前全球咖啡贸易商和供应商已将咖啡购买量削减至最低水平。因为减产，美国洲际交易所阿拉比卡咖啡期货价格自去年 11 月以来上涨 70%。在本周美国国家咖啡协会年会上，多位贸易商和供应商说目前仅能采购 “当前必需品”。另据媒体援引一项民意调查，因为高价抑制需求，叠加巴西咖啡明年可能丰收，至今年年底，阿拉比卡咖啡豆价格可能下跌 30%。&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Fri, 07 Mar 2025 23:03:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>3700 次预训练寻找 “线性注意力” 非共识，MiniMax-01 开发者讲述 4 年探索</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2843</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：程曼祺&lt;/span&gt;
+                        &lt;span&gt;发布日期：昨天 20:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/739ba501230af5e0a00f417edbe812bb.webp" alt="图片"/&gt;
+&lt;p&gt;上期播客中，我们与清华的两位博士生，肖朝军和傅天予，聊了稀疏注意力机制的改进，也以注意力为线索，串起了大模型的优化史。&lt;/p&gt;
+&lt;p&gt;这篇聊关于注意力机制的另一大改进方向：线性注意力。&lt;/p&gt;
+&lt;p&gt;MiniMax 在今年 1 月发布了参数为 4560 亿的开源大模型 MiniMax-01，该模型就用到了他们开发的线性注意力机制 “Lightning Attention”。&lt;/p&gt;
+&lt;p&gt;我们邀请了这个项目的负责人，MiniMax 高级研究总监钟怡然，来与我们一起聊线性注意力的研发过程。钟怡然在 MiniMax 负责大模型网络架构设计，目前正开发多模态深度推理模型。&lt;/p&gt;
+&lt;p&gt;钟怡然曾担任上海人工智能实验室青年科学家，是新架构探索组的 PI（项目负责人）；他在澳洲国立大学获得博士学位，师从李宏东教授和 Richard Hartley 院士。他和他的团队已在一些国际顶级学术会议和期刊上发表了 20 余篇关于模型新架构的论文，覆盖了当前多类非 Transformer 架构，如线性注意力机制（线性注意力）、长卷积（Long Convolution）和线性循环网络（Linear RNN）。&lt;/p&gt;
+&lt;p&gt;在 2021 年，线性注意力还是一个 “看起来很美好的泡泡”，怡然和团队就开始探索线性架构的实现。&lt;/p&gt;
+&lt;p&gt;当 2024 年年中，MiniMax 开始用大量算力资源训练线性架构的 4560 亿参数的新一代模型 01 时，线性架构能在大规模模型上 work 是非共识。但 MiniMax 创始人闫俊杰最后拍板，投了公司超过 80% 的研发资源。&lt;/p&gt;
+&lt;p&gt;训练模型不是戏剧性的豪赌。在训 MiniMax-01 前，MiniMax 团队通过 3700 次预训练测试，去预测这种新架构在更大参数的模型是否也有好的表现（这其中不少都是小规模实验）。&lt;/p&gt;
+&lt;p&gt;在效率上，从计算方法推导，当序列非常长，线性注意力在计算效率上的优势会越来越大于稀疏注意力。&lt;/p&gt;
+&lt;p&gt;但从效果上，也就是线性注意力架构的模型能否和 Transformer 模型一样聪明，甚至更聪明。现在还没有谁能给出有绝对说服力的答案。&lt;/p&gt;
+&lt;p&gt;这也是之后 MiniMax 的技术进展，可能会揭晓的悬念。&lt;/p&gt;
+&lt;p&gt;* 以下是本期播客实录，有文字精简。正文中的（注：……）为编者注。&lt;/p&gt;
+&lt;p&gt;“线性注意力在越大的模型上，优势越明显”&lt;/p&gt;
+&lt;p&gt;晚点：怡然，可以先和我们的听友简单介绍一下自己？&lt;/p&gt;
+&lt;p&gt;钟怡然：我目前是 MiniMax 的高级研究总监，主要负责模型结构设计和多模态理解大模型。我主导设计了 MiniMax-01 新一代的网络架构，此前曾担任上海人工智能实验室青年科学家，是新架构探索组的 PI（项目负责人），负责新一代非 Transformer 架构的研发及视听多模态融合。&lt;/p&gt;
+&lt;p&gt;我们同时也在新架构的工程上进行研究，相当于新架构的一些并行策略。针对国产集群通信系统效率不足的现状推出了异步优化器，在计算机视觉和自然语言处理上都验证了它的有效性。&lt;/p&gt;
+&lt;p&gt;晚点：其实不止你们，各公司都在优化注意力机制，这个大背景是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：因为 Transformer 有个大 bug：显存开销和计算是二次复杂度（注：二次复杂度就是平方增长——随着模型要处理的序列的增长，计算复杂度是平方增长）。FlashAttention 主要解决了显存占用的问题， 但计算复杂度问题依然存在。&lt;/p&gt;
+&lt;p&gt;学术界最早尝试用 “稀疏注意力” 减少计算量，但它不能完全解决二次复杂度的问题。不过有一段时间，算力的增加掩盖了二次复杂度的紧迫性：从 V100 到 A100 再到 H100（英伟达的三代高性能 GPU），算力提升非常大。所以现在很多的大模型仍然采用 Transformer 架构，它的序列长度也可以做到一定的扩增，比如说到 128K、256K。&lt;/p&gt;
+&lt;p&gt;我们就一直想解决计算的二次复杂度的问题，于是，在 2021 年，当线性注意力还处于研究初期时，我们开始尝试这个方向。线性注意力的机制其实十分简单，注意力的计算是 Q、K、V 相乘。&lt;/p&gt;
+&lt;p&gt;如果直接左乘，也就是先乘 Q、K 再乘 V 的话，它就是二次复杂度；如果先乘 K、V，再乘 Q 的话，它就是线性复杂度（即一次方复杂度）不会增长特别多。那线性注意力就是把左乘变成右乘的形式。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/8566a46edcfdf75152b8d1b892a7310f.webp" alt="图片"/&gt;
+&lt;p&gt;Transformer 原始注意力机制（Vanilla self attention）计算方式（左）和线性注意力（Linearized self attention）（右）的对比。&lt;/p&gt;
+&lt;p&gt;原始注意力是先 Q、K 相乘，再乘 V，而线性注意力是从左乘（先乘左边）转为右乘，最后计算复杂度从二次变为一次（从 N² 变为 N）。&lt;/p&gt;
+&lt;p&gt;图中符号的意义：&lt;/p&gt;
+&lt;p&gt;晚点：你们当时有试过稀疏注意力的方向吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：我们在 2021 年的时候试过，但它当时的效果和运行效率都不太行。其实跟线性注意力是同样的问题：那时稀疏的效果比不上 Softmax Attention，速度顶多快一丢丢。&lt;/p&gt;
+&lt;p&gt;而且我注意到稀疏注意力是有损逼近。因为 Attention Metrics（注意力值组成的矩阵）是一个完整的 N×N 的矩阵，而稀疏注意力仅在其中计算有限个 Attention Score（注意力值，即两个词之间的相关性）。所需算力自然会降低，但这是一个有损的逼近。我们认为这得不偿失。&lt;/p&gt;
+&lt;p&gt;晚点：那 NSA 和 MoBA，包括最近微软亚研院 SeerAttention 这些新的成果——它们都是属于稀疏注意力的大方向，你怎么看待它们的效果和效率表现？带来了什么新认知？&lt;/p&gt;
+&lt;p&gt;钟怡然：具体我们还在做进一步的实验。从我们现在的实验上来说的话，Lightning Attention（MiniMax-01 中使用的混合注意力机制）是我们当前测试的方案中，随着模型参数越大，增益越明显的一个优化的方向。&lt;/p&gt;
+&lt;p&gt;我们测试过 MLA（DeepSeek 提出的一种减少显存开销的注意力改进），也测试过 TPA（注：清华提出的一种减少显存开销的注意力改进）。我们发现那些方法随着模型的增大，优势就会变得比较小，也就是说，它的压缩方式对模型大小是有要求的。&lt;/p&gt;
+&lt;p&gt;而 Lightning Attention ，它是模型越大时，展现的优势越明显。现在放出来的 NSA、MoBA、SeerAttention，我们认为他还没有真正做工业级的 Scale Up（规模扩大）。&lt;/p&gt;
+&lt;p&gt;晚点：MoBA 不是也放了工程代码吗？在线上跑了一年了。&lt;/p&gt;
+&lt;p&gt;钟怡然：那需要开源让其他开发者能真正看一下，在几百 B 参数的模型上，它与 Transformer 比是否具备优势。目前，它们的性能对比最多在 7B 规模上得到了验证。而在 2023 年中期左右，我们对 Lightning Attention 的验证就差不多到了 7B。&lt;/p&gt;
+&lt;p&gt;晚点：稀疏注意力和线性注意力在不同大小模型上的效果差异，在几 B 参数的模型之后会有明显区别？&lt;/p&gt;
+&lt;p&gt;钟怡然：7B 以上基本就可以看到。而 MiniMax-01 是一个总参数 4560 亿，激活 459 亿的 MoE 模型。（注：MoE 是混合专家系统，其核心机制是通过动态路由在推理时仅激活部分子模型，即 “专家”，显著降低计算资源消耗。）&lt;/p&gt;
+&lt;p&gt;晚点：总体来说，现在学界或者工业界是稀疏注意力做的人多，还是线性注意力做的人多？&lt;/p&gt;
+&lt;p&gt;钟怡然：这两个方向其实尝试的人都比较多。2023 年以后，线性注意力是比较火的，因为 Mamba 那时候大火，带火了这个方向。&lt;/p&gt;
+&lt;p&gt;晚点：从对 Transformer 的 Full Attention 改动程度上说，是不是稀疏改得相对少一些，线性会改动多一些？&lt;/p&gt;
+&lt;p&gt;钟怡然：对，稀疏本质上还是一个 Transformer，它只是对 Attention Score 的计算方式做了一些改进。而线性注意力是改变了 QxKxV 相乘的计算方式。学术界对它的叫法很多，你可以把它叫作线性注意力，也可以把它叫作线性 Transformer。&lt;/p&gt;
+&lt;p&gt;晚点：线性注意力和 Transformer 以前的 RNN（循环神经网络） 有什么区别？&lt;/p&gt;
+&lt;p&gt;钟怡然：它本质上也是一种循环，不过以前的 RNN 最大的问题是它没法并行化，Linear RNN （线性循环网络）让它能够做大规模的并行化。&lt;/p&gt;
+&lt;p&gt;50% 的把握，投 80% 的资源&lt;/p&gt;
+&lt;p&gt;晚点：接下来我们可以从头聊一聊，你们从 2021 年开始做线性注意力，到今天，这样一步步，是个什么过程。&lt;/p&gt;
+&lt;p&gt;钟怡然：2021 年 7 月，我们启动了 cosFormer 项目，这也是我们首次接触线性注意力领域，相关研究成果发表在了 ICLR 上。cosFormer 如今在线性注意力上的知名度还可以。从那时起，我们发现这个方向大有可为。&lt;/p&gt;
+&lt;p&gt;当时想法很简单：一方面，做 Transform 的人已经很多了，即便在这个领域做到极致，也不过是跟在别人后面。但是，线性注意力作为一个新兴方向，关注者较少，与其追随他人，不如另辟蹊径。&lt;/p&gt;
+&lt;p&gt;其实线性注意力领域的一些论文出来得也很早，几乎与 Transformer 同时。但它的效果不好、速度又慢，所以导致大家觉得它是一个 “美好的泡泡”，看起来很好，但是实际用起来不行。&lt;/p&gt;
+&lt;p&gt;2021 年- 2022 年，我们密集产出，探索了很多方法，包括线性注意力机制、长卷积（Long Convolution）和线性循环网络（Linear RNN），我们探索了现有的几乎所有线性方案。到了 2022 年底，我们所研发的方法在语言建模方面，已经能够达到与 Transformer 近乎相同的效果 。&lt;/p&gt;
+&lt;p&gt;晚点：当时你们是去测哪些 benchmark，就是你们怎么去判断说当时的线性架构已经和 Transformer 差不多了？&lt;/p&gt;
+&lt;p&gt;钟怡然：当时测的都是学术上的数据集。例如会关注困惑度、建模精度等，同时也会在一些常见的大模型数据榜单上，基于相同数据对比线性和 Transformer 的结果，也测过 Long Range Arena（注：由 Yi Tay 等研究者在 2020 年提出的针对长序列场景的测试基准）这类长文本 benchmark。&lt;/p&gt;
+&lt;p&gt;在实验室阶段，我们第一步是解决线性注意力的建模精度问题，第二步是处理速度问题。线性注意力存在一个棘手的问题，它虽然理论复杂度是线性，但实际上跑起来很慢，这是因为右乘操作涉及一系列循环操作，而这对于 GPU 极不友好，这就导致实际运行效率远低于理论复杂度。为解决这一难题，我们在 2020 年推出了 TNL 和 Lightning Attention。Lightning Attention 就是让它的实际效率更接近它的理论计算复杂度。&lt;/p&gt;
+&lt;p&gt;所以这一段，在上海人工智能实验室期间，我们认为它已经达到了 Scale Up ready 的状态。我们自认为已经解决了精度问题，也解决了推理效率问题。&lt;/p&gt;
+&lt;p&gt;晚点：当时做到这个 Scale Up ready 状态，最大是在多大模型上做了测试？&lt;/p&gt;
+&lt;p&gt;钟怡然：最大是训到了 15B 的模型。&lt;/p&gt;
+&lt;p&gt;晚点：你们当时没有继续往下做更大规模的 Scaling Up 的测试，是因为在实验室里会有一些资源的限制吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：当时对我来说，需要把它真正做到 Scale Up，我就面临一个找金主的过程。&lt;/p&gt;
+&lt;p&gt;那时我是比较着急的，因为我判断，最迟在 2024 年底，基于线性注意力的大模型必然会诞生，不是我们做出来，就是 Google、OpenAI 等其他机构。既然要诞生，为什么不在我们自己手里了？我们是当时最懂线性注意力的人。&lt;/p&gt;
+&lt;p&gt;晚点：最懂指中国，还是指全球？&lt;/p&gt;
+&lt;p&gt;钟怡然：基本上是全球。包括现在比较活跃的松林（杨松林）之前也是我们组员。所以当时其实就是有个想法，想找到人愿意投资这个方法，支持我们把它（线性架构） Scale Up。&lt;/p&gt;
+&lt;p&gt;晚点：你最后找到的 “金主” 就是 MiniMax？&lt;/p&gt;
+&lt;p&gt;钟怡然：这实际上是一个双向的过程。之前我在商汤工作时，就在俊杰手下。我记得在 2023 年底，俊杰恰好约我一起吃饭，正好聊到了线性注意力的问题。&lt;/p&gt;
+&lt;p&gt;晚点：你是不是也想过自己创业？&lt;/p&gt;
+&lt;p&gt;钟怡然：我考虑过，但这很难。基础架构创新需要的投资金额非常高，而我们仅在算法上具备优势。&lt;/p&gt;
+&lt;p&gt;大模型很复杂——首先架构要好，再者训练数据要好，最后训练方式也要对，三环是缺一不可；任何一个地方掉了链子，都会没法证明你想要证明的东西。首先我得保证这家公司能做一流的预训练，在这一点上已经砍掉很多公司了。&lt;/p&gt;
+&lt;p&gt;晚点：你当时见一些投资人，他们的反馈是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：他们比较喜欢聊，你的应用方向是什么？变现渠道是什么？将来怎么样去盈利？&lt;/p&gt;
+&lt;p&gt;晚点：公司方面，你当时看到的，能做一流预训练的公司都有哪些？&lt;/p&gt;
+&lt;p&gt;钟怡然：大小公司算上，我觉得第一个是字节跳动，第二个是 MiniMax。&lt;/p&gt;
+&lt;p&gt;晚点：Kimi （月之暗面）不是吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：关于 Kimi，我得到的消息比较少，所以当时在我眼里，只有两个选择，要不然就是海外了。&lt;/p&gt;
+&lt;p&gt;晚点：你和字节聊，得到了什么反馈？&lt;/p&gt;
+&lt;p&gt;钟怡然：我感觉字节的兴致不是很高。作为一家大公司，虽然有数据也有人，但要让他们真正转型，去花那么大精力去做一个未知的方向，比较难。&lt;/p&gt;
+&lt;p&gt;晚点：回到 2023 年下半年，你和闫俊杰聊，他的反馈是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：早在 2021 年，我和俊杰已非常熟悉。经过交流，我们发现他是很愿意去尝试的，并且愿意调配公司绝大部分精力投入其中。&lt;/p&gt;
+&lt;p&gt;因为这个模型是一个主模，研发要耗费公司 80% - 90% 的资源，牵扯到数据团队、工程团队、算法团队等众多部门，需要大量人员齐心协力才能完成 。&lt;/p&gt;
+&lt;p&gt;晚点：闫俊杰比较认可你，是因为他们之前在线性注意力机制上也有一些探索？&lt;/p&gt;
+&lt;p&gt;钟怡然：之前他们在这块的工作不太多，当时正处于下一代模型技术选型阶段。俊杰或许认为我的工作比较扎实，他对这个工作比较信任。&lt;/p&gt;
+&lt;p&gt;当然，俊杰看这件事的视角与我不同，我认为有 99% 的成功率。而对他而言，可能觉得成功与失败的概率各 50%。对我们这些一直深入钻研的人来说，我们熟知其中关键要点，所以我们是很相信能够 Scale Up 的。&lt;/p&gt;
+&lt;p&gt;晚点：闫俊杰有 50% 把握，就敢上 80% 的资源，这个赌性是不是有点大？&lt;/p&gt;
+&lt;p&gt;钟怡然：这确实是要赌的。但我们有 Scaling Laws 的测试去一步一步验证，他不是一开始就 all in 全部弄起来。我们是先在成本可控的范围里做小的模型，再做大的模型。&lt;/p&gt;
+&lt;p&gt;3700 次预训练验证非共识：从 “美好的泡泡” 到 4560 亿参数的 MiniMax-01&lt;/p&gt;
+&lt;p&gt;晚点：在你们一步步去验证这个想法的过程中，你们又看到了什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：2023 年底，我们用的还是一个纯线性的方案，训练出了一版 15B 规模的模型，从效果来看与 Transformer 相差无几。&lt;/p&gt;
+&lt;p&gt;但是，后续当我们扩大模型规模后却发现，无论是 Lightning Attention，还是其他线性方法，都存在一个最大的问题——在 Retrieval（召回）上存在缺陷。&lt;/p&gt;
+&lt;p&gt;所以我们不得不选择了一个比较折中的方案，通过混合架构——每 7 层线性注意力加入 1 层 Softmax 注意力进行优化。&lt;/p&gt;
+&lt;p&gt;晚点：可以给我们的听友也解释一下，Retrieval 是个什么样的能力？以及注意力机制改进都会去测的、检验 Retrieval 能力的 “大海捞针” 的任务是个什么任务？&lt;/p&gt;
+&lt;p&gt;钟怡然：Retrieval 指的是召回或检索能力。以 “大海捞针” 任务为例，给定一篇长文，其中存在一段话或一句话与其他内容格格不入，此时就需要用定点召回能力找出来。“大海捞针” 是测试，在很长的长文中，模型能不能找到这根格格不入的针，这是一项基础能力 。&lt;/p&gt;
+&lt;p&gt;线性注意力在执行这项任务时先天不足，这也很正常。因为线性注意力的 KV 缓存是一个固定值，无论输入文本多长，都会被压缩至一个固定大小的存储中。这个过程会导致它检索能力较差。&lt;/p&gt;
+&lt;p&gt;晚点：你当时会压力山大吗？因为已经要上规模了，出现这种情况。&lt;/p&gt;
+&lt;p&gt;钟怡然：我们是有保底方案的，就是混合。但我们当时觉得这个方案确实不好看、不够优雅。&lt;/p&gt;
+&lt;p&gt;晚点：所以你们最后去改善纯线性注意力召回 能力比较差的方式，就是你们现在在技术报告里写的—— 7 层线性注意力混合 1 层 Softmax 注意力？&lt;/p&gt;
+&lt;p&gt;钟怡然：对，我们也试了每隔十四层、十六层混合一个 Softmax Attention ——测试了不同的混合比例。从最终结果来看，受影响最大的是检索能力，而在语言建模方面，不同混合比例下的能力差异不是很大。&lt;/p&gt;
+&lt;p&gt;晚点：在做的过程中间，具体以什么比例混合？有任何理论指引或解释吗？能帮助提前判断一下效果的？&lt;/p&gt;
+&lt;p&gt;钟怡然：这个没有，我们是自己试出来的。我们甚至试过最极端的情况——仅采用一层 Softmax Attention（注：指大几十层的模型中，只有一层是 Softmax，其他都是线性注意力），效果也还算不错。&lt;/p&gt;
+&lt;p&gt;我们最终选了现在这个方案，主要是因为已经比较激进地改了架构，我们担心最终效果会受损，所以选了一个相对保守的 1:7 的比例。比如之前 Jamba 的混合层数，也是 1:8 、1:7 这种。&lt;/p&gt;
+&lt;p&gt;（注：Jamba 是由 AI21 Labs 于 2024 年推出的首个 SSM（状态空间模型）-Transformer 混合架构大模型，支持 256K 上下文窗口。）&lt;/p&gt;
+&lt;p&gt;晚点：那最开始，是怎么想到要用混合这种方式的？&lt;/p&gt;
+&lt;p&gt;钟怡然：这其实是非常符合直觉的一种尝试。&lt;/p&gt;
+&lt;p&gt;晚点：在有了这个混合的方案后，你们的 Scaling Laws 实验的过程是怎样的？&lt;/p&gt;
+&lt;p&gt;钟怡然：做 Scaling Laws 实验的首要目的，是验证这个技术方向是否存在问题，混合方案的实验和做 Scaling Law 测试是同时展开的。&lt;/p&gt;
+&lt;p&gt;我们对多种线性方案进行了测试。除了 Lightning Attention，还涵盖了 HGRN2、Mamba。&lt;/p&gt;
+&lt;p&gt;晚点：这么多实验，要花多少资源？&lt;/p&gt;
+&lt;p&gt;钟怡然：我们大概训了 3700 个模型才跑出来一篇文章。因为决定 Scaling Up 是一项重大决策，毕竟，没人愿意投几千万资金去训练一个大模型，最后却以失败告终。&lt;/p&gt;
+&lt;p&gt;尤其是这种开拓性工作，必须把基础工作做得极扎实。我们要仔细斟酌参数和注意力结构的选择，不同方案都需要对它们测一系列 benchmark，最终在速度和效果间找到平衡。所以一套完整且严格的对比实验是必须的。如果拍脑袋，确实可以省下这部分实验成本，但无疑会增加后续项目失败的概率 。&lt;/p&gt;
+&lt;p&gt;晚点：训了 3700 个模型，是全部从头训练，3700 次预训练的意思吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：全部都是从头训的，不同的大小、不同的参数。所以跑 Scaling Law 是一个成本很高的一个实验。&lt;/p&gt;
+&lt;p&gt;晚点：你们一开始预估的就是要训这么多次吗？总共花了多少资源？&lt;/p&gt;
+&lt;p&gt;钟怡然：我们最早就有预估，就是 3700 次。我们把需要的卡数、资源数和要训的模型数做了个 excel 表，我们根据这些表去训出来就行了。&lt;/p&gt;
+&lt;p&gt;晚点：最后你们这个混合的线性注意力结构，带来的实际效率提升是怎样的？&lt;/p&gt;
+&lt;p&gt;钟怡然：就是你的序列长度是 1M（100 万） 的情况下，它比 Full Attention 的整体处理速度要快 2700 倍。&lt;/p&gt;
+&lt;p&gt;“探索新架构让我们跟进深度推理没这么快，但我们跑的是下半场”&lt;/p&gt;
+&lt;p&gt;晚点：这是速度上，效果上，线性注意力怎么保障效果？比如，在 MiniMax-01、Kimi-k1.5 以及 DeepSeek-R1 发布之后，我在朋友的电脑上看了实际测试情况，场景是我们输入了一篇约 2 万字的英文文章，详细讲述了海外社交媒体的使用方式，其中涉及很多功能，我们希望模型回答一个具体问题——人们如何使用社交媒体上的短视频功能。结果 MiniMax-01、DeepSeek-R1 表现都不及 Kimi-k1.5，会回答一些别的东西，这是什么原因导致了差异呢？&lt;/p&gt;
+&lt;p&gt;钟怡然：其实你所提及的这种能力，与训练数据严格相关。我们只能确保模型具备展现该能力的潜力，但要让模型切实拥有这种能力，训练数据起着至关重要的作用。你提出的这个问题，正是我们下一代模型需要解决的问题。&lt;/p&gt;
+&lt;p&gt;晚点：目前 MiniMax-01 不是一个推理模型，像 R1 还有 1.5 它是推理模型。那你们现在这个架构去做推理，就是去结合强化学习，它的潜力、方法是怎样的？&lt;/p&gt;
+&lt;p&gt;钟怡然：我 “盗用” 一下另一家国内大模型公司的结论，他们认为 Linear 架构在推理上会更强一点，他们也在线性架构模型上开展过深度推理的相关实验，结果显示线性模型表现更为出色。&lt;/p&gt;
+&lt;p&gt;晚点：那你们自己看到的是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：我们正在做，现在还不能说得更详细。因为最开始我们并没有选择去马上跟 o1（这个方向），当时国内有一大批追随者，但我们的想法是先扎实提升自身技术能力。我们认为单纯强调推理能力，可能仅会在某些特定方面增强模型性能。然而，R1 发布后，我们发现融入这些推理能力，模型的外推能力显著提升 ，泛化能力更好。&lt;/p&gt;
+&lt;p&gt;晚点：你们当时研判要把技术基础先做扎实，这些指的是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：我们希望这个模型能在内部榜单上跟 4o 差不多，或者跟世界顶尖模型差不多。当时的话 4o 是最先进的模型。&lt;/p&gt;
+&lt;p&gt;晚点：你们会比较去追求多模态吗？4o 就是一个混合模态的模型。&lt;/p&gt;
+&lt;p&gt;钟怡然：后来我也接手了多模态理解大模型相关工作。当时在构建多模态模型方面，存在两条可行路径：一是原生多模态，二是基于 adapter（适配器）形式的多模态。经过考量，我判断我们当时应采用 adapter 形式。因为在那时，原生多模态的实现路径尚未完全打通，比如 Gemini-2.0 还未发布。&lt;/p&gt;
+&lt;p&gt;这个方案优势明显。其一，我们能够快速验证数据是否存在问题；其二，效果能够迅速显现。只需投入较小成本，就能获得性能较好的模型。从我们发布的 VL01 来看，benchmark 结果还是不错的。&lt;/p&gt;
+&lt;p&gt;晚点：所以可以这么理解，MiniMax-01 在 MiniMax 主线模型中算得上是一次重大转型或升级，此前 MiniMax 的 ABAB 系列，采用的是 Transformer 架构，现在的 MiniMax-01 是线性架构 ——你们语言的、多模态的和未来的模型进展都会在这个新架构上。&lt;/p&gt;
+&lt;p&gt;钟怡然：对，其实这段的模型更迭很快。&lt;/p&gt;
+&lt;p&gt;晚点：为什么 MiniMax 愿意去投入做这个改动比较大的、比较激进的方案？&lt;/p&gt;
+&lt;p&gt;钟怡然：首先，我们想展现自身的技术实力，我们是一家勇于创新的公司，敢押注新技术。并且我们已经将序列长度提升到了 4M（400 万），如果我们愿意的话，我们把它提升到 10M （1000 万）也是能够承受的序列长度。&lt;/p&gt;
+&lt;p&gt;不过（如果要做 10 M）当下需要考虑的是如何构建 10M 的数据，以及在实现 10M 序列长度后，到底能干什么。目前我们还是打算先将 1M 以内的相关工作做到极致，然后再把它往外推。&lt;/p&gt;
+&lt;p&gt;晚点：推理之后你们想探索什么？我指从 o1 之后，强化学习被全面引入 Transformer 的整个流程当中，下一个变化可能是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：现在行业还是在做深度推理，这波其实刚刚起来，我们也还处于跟进阶段。但我们认为长文本处理在未来仍是一个趋势。我们比较高兴看到像 kimi、DeepSeek，都推出了各自针对长文本优化的模型架构，这意味着大家都踏入了长文本这条赛道。&lt;/p&gt;
+&lt;p&gt;在我看来，俊杰其实也比较清楚：我们打的是一个长线，短期在效果上一定会落后，因为我们做了新架构，相同的算力和资源的情况下，我们是没有太多人力去做深度推理的，这会导致我们跟随深度推理的脚步慢一点。&lt;/p&gt;
+&lt;p&gt;但好处就是，当我们去做深度推理时——我们赶上的步伐会很快。所以在这场跑步当中，我们跑的是下半场。我们赌的就是未来长文本的需求。当线性注意力 Scale Up 到一定程度时，在长文赛道上很难碰到对手。&lt;/p&gt;
+&lt;p&gt;做技术的 “道心” 之争&lt;/p&gt;
+&lt;p&gt;晚点：你怎么看 DeepSeek、Kimi 等公司对稀疏注意力的改进，效率、效果上取得了不错的效果？&lt;/p&gt;
+&lt;p&gt;钟怡然：他们的主要创新之处在于，通过极致工程优化，改善了稀疏注意力以前速度过慢的问题。但它（稀疏注意力）的上限是低的，我并不认为 DeepSeek 会继续走这条道路。因为当模型变得更大，线性注意力相比稀疏注意力的优势会更明显，他们想要 Scale Up，在做实验的过程中也会看到这一点。&lt;/p&gt;
+&lt;p&gt;晚点：线性注意力上限高，而且实际上它可以 work，你觉得这在行业里是一个共识，还是非共识？&lt;/p&gt;
+&lt;p&gt;钟怡然：这是非共识，包括现在大家还是对线性注意力有担忧，哪怕 MiniMax-01 这样的成果已经发布了，一些人还是觉得线性注意力可能规模上去后会不太行。&lt;/p&gt;
+&lt;p&gt;晚点：为什么有这种担忧？&lt;/p&gt;
+&lt;p&gt;钟怡然：可能是 MiniMax-01 的宣传力度不够，导致许多人没关注到。目前很多人的共识是，认为线性注意力属于有损的优化。毕竟从原理上看，用一次计算去逼近二次计算，好像是有损的。但有没有可能这种二次计算复杂度本身就是冗余的呢？而我们认为，它就是一个无损架构、一个无损优化，特别是变成混合架构以后，它的效果甚至还有增强。&lt;/p&gt;
+&lt;p&gt;这个就属于学术方面的 “道心之争”——技术判断和你的相信是什么。&lt;/p&gt;
+&lt;p&gt;晚点：据你所知，OpenAI、Anthropic 等国外 AI 公司，他们有在尝试线性架构吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：他们的架构很可能是基于 Sliding Window Attention（滑动窗口），这也是一种稀疏注意力。他们（Google 等）采用的方法大概率是滑动窗口 +Full Attention。&lt;/p&gt;
+&lt;p&gt;晚点：所以你们对线性的相信，也并不来自全球顶尖公司做了什么或没做什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：对，并且我们是真正把论文转化成产品的，现在 MiniMax 的产品就在用这套架构，这证明我们的技术是比较先进的。论文是在 24 年初，产品（用上这个架构）是在 24 年底。&lt;/p&gt;
+&lt;p&gt;晚点：你刚才讲到，认可线性注意力上限大且能 work，在业界是一个非共识。你现在介意讲这个非共识吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：不介意，我们希望能传播，希望更多人也来做线性注意力，也希望更多人一起开发长文本应用。其实我们开源 MiniMax-01，就是选择知名度。&lt;/p&gt;
+&lt;p&gt;晚点：那么你们对 MiniMax-01 这次开源的反馈和影响力满意吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：有朋友说这个报告写得很好，工作比较 Solid，但是不知道为什么没有很多人知道？我觉得这个现状其实就是要加强传播。同时我们下一代模型也会做得更好。&lt;/p&gt;
+&lt;p&gt;晚点：为什么在开源 MiniMax-01 时，你们只放了最大参数的版本，没有放不同尺寸？因为一些小尺寸的模型，可能对学界、个人开发者、小机构是更友好的，这才让更多人能参与进来。&lt;/p&gt;
+&lt;p&gt;钟怡然：我们是有小尺寸的，但俊杰觉得要更重视效果，希望开源的是效果很好的，然后再考虑小模型开源。另外开源不同模型，就要维护不同的模型，其实需要的人力也更多。&lt;/p&gt;
+&lt;p&gt;晚点：DeepSeek 春节大出圈之后，你们的内部氛围有什么变化吗？&lt;/p&gt;
+&lt;p&gt;钟怡然：DeepSeek 没让我们过年（笑）。我们在加快推理模型的节奏。而且我们要做出比 R1 更好、甚至要达到 o1 或 o3 相近水准的推理模型。&lt;/p&gt;
+&lt;p&gt;我们又选了一个比较激进的方案：它会是一个深度推理的原生多模态模型，这里面最难的点就在于，怎么去平衡文本能力和视觉理解能力，让两个能力都很强。目前实验结论还可以。&lt;/p&gt;
+&lt;p&gt;晚点：这次你有多大把握可以 work？&lt;/p&gt;
+&lt;p&gt;钟怡然：大概七八成。&lt;/p&gt;
+&lt;p&gt;晚点：什么时候会推出这个模型？&lt;/p&gt;
+&lt;p&gt;钟怡然：4 月到 5 月。现在所有的精力都是在提高模型上限上面，我们现在认为模型上限，比去维护产品更加重要。&lt;/p&gt;
+&lt;p&gt;晚点：你如何看待 DeepSeek 其实没有一个好用的产品，但它的影响力特别爆炸？&lt;/p&gt;
+&lt;p&gt;钟怡然：我个人认为，当然模型效果确实出色，这是它能出圈的基础。但另一方面，它的火爆也与许多其他因素相关。&lt;/p&gt;
+&lt;p&gt;我们无法去想这类偶发事件，而是想，如果我们有一项新技术，希望让更多人了解，该怎么做呢？最好的方法就是将其转化为产品。&lt;/p&gt;
+&lt;p&gt;晚点：所以你仍然认为，一个正常的技术公司，只靠技术本身，没有办法长时间有正向反馈和壁垒。&lt;/p&gt;
+&lt;p&gt;钟怡然：对。我们 2023 年时想做线性注意力，确实也用了一些 Lab（上海人工智能实验室）的资源去宣传。但我发现当时我跟所有人聊，都很难说服他们。他们会认为这个新架构模型只在小规模上验证过。&lt;/p&gt;
+&lt;p&gt;当时我就想，我怎么办？我只能去找一个愿意相信这个架构的人，把它放到产品里——证明一个新技术有说服力的最好方式就是把它放到产品里。&lt;/p&gt;
+&lt;p&gt;晚点：你自己在 AI 上的追求是什么？&lt;/p&gt;
+&lt;p&gt;钟怡然：我希望构建一种能真正自我学习、自我进化的模型。把人类看到、听到的所有信息作为输入后，它能自主学习不同模态之间的关系以及像文本处理这类技能，其实文本处理能力也是通过自监督学出来的。&lt;/p&gt;
+&lt;p&gt;如果要实现我的设想，首先需要构建文本模型，其次是多模态模型，第三步是探索如何让模型自主学习不同模态之间的关系。这个过程和人类学习的方式类似，人类从婴儿时期起也是这么学习的。&lt;/p&gt;
+&lt;p&gt;附：文中提到的主要工作的 GitHub 或 arxiv 链接：&lt;/p&gt;
+&lt;p&gt;MiniMax-01：&lt;/p&gt;
+&lt;p&gt;https://github.com/MiniMax-AI/MiniMax-01&lt;/p&gt;
+&lt;p&gt;Lightning Attention：&lt;/p&gt;
+&lt;p&gt;https://github.com/OpenNLPLab/lightning-attention&lt;/p&gt;
+&lt;p&gt;cosFormer：&lt;/p&gt;
+&lt;p&gt;https://github.com/OpenNLPLab/cosFormer&lt;/p&gt;
+&lt;p&gt;Mamba：&lt;/p&gt;
+&lt;p&gt;https://github.com/state-spaces/mamba&lt;/p&gt;
+&lt;p&gt;Jamba：&lt;/p&gt;
+&lt;p&gt;https://github.com/kyegomez/Jamba&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/af6457d1d8e25de2425d257eea10ee85.webp" alt="图片"/&gt;
+&lt;p&gt;题图来源：《电影美丽心灵》&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Wed, 12 Mar 2025 20:03:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>从危机中赚钱的人，相信全球金融系统是个纸牌屋丨晚点周末</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2844</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：曾梦龙、钱杨&lt;/span&gt;
+                        &lt;span&gt;发布日期：昨天 20:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;2020 年 2 月到 3 月，新冠疫情的全球蔓延造成投资者的恐慌。他们不计成本、争先恐后地抛售各类资产，全球资本市场暴跌。比如 10 天之内，美股熔断 4 次，让当时 89 岁的沃伦·巴菲特都感叹 “没见过这种场面”。标普 500 指数仅用 22 个交易日，就从 2 月高点下跌 35%，这也是历史上最快一次超过 30% 的下跌幅度。就连平常被认为能对冲股票风险的债券、黄金、比特币，都未能幸免，均遭遇下跌，其中比特币的单日最大跌幅达 47%。&lt;/p&gt;
+&lt;p&gt;新冠疫情成为又一只史诗级的 “黑天鹅”。它的严重程度不亚于 2008 年全球金融危机、1997 年亚洲金融风暴、1987 年 “黑色星期一”、1930 年代大萧条。而且，由于现代金融市场的高关联性和计算机化，危机发生速度比过去要快得多。不过，在大多数投资者损失惨重、哀鸿遍野之际，一小撮人却因此赚得盆满钵满。&lt;/p&gt;
+&lt;p&gt;报道金融市场近 20 年的《华尔街日报》记者斯科特·帕特森（Scott Patterson）得知，对冲基金环宇资本（Universa Investments）的创始人马克·斯皮茨纳格尔（Mark Spitznagel）用约 5000 万美元的筹码，转眼间就产生了近 30 亿美元的利润。他管理的 “黑天鹅保护协议” 基金，3 个月的回报率超过了 4144%。&lt;/p&gt;
+&lt;p&gt;斯皮茨纳格尔不是孤例。对冲基金潘兴广场资本管理（Pershing Square Capital Management）的创始人比尔·阿克曼（Bill Ackman），在这场灾难中赚得更多。他下注 2600 万美元，最终获得 36 亿美元的收益，回报达 138 倍。《巴伦周刊》评价说，“这是有史以来最伟大的交易之一”。&lt;/p&gt;
+&lt;p&gt;这两件事激发了帕特森的兴趣，老记者的敏锐和直觉让他觉得金融投资可能已经出现新的变化。此前，他捕捉到了量化金融的崛起，写了著作《宽客》（The Quants），里面的人物包括文艺复兴科技的创始人詹姆斯·西蒙斯（James Simons）等。在另一本书《暗池》（Dark Pools）中，他较早地揭露了高频交易和 AI 可能给金融市场带来的风险。&lt;/p&gt;
+&lt;p&gt;经过 3 年的调查研究和采访写作后，帕特森在 2023 年出版著作 Chaos Kings: How Wall Street Traders Make Billions In The New Age Of Crisis。中文版最近推出，书名译为《逆风翻盘：危机时代的亿万赢家》。书的主角是阿克曼、斯皮茨纳格尔、纳西姆·尼古拉斯·塔勒布（Nassim Nicholas Taleb）等在危机中赚钱的人，帕特森称他们为 “乱世之王”（英文原书名 Chaos Kings）。&lt;/p&gt;
+&lt;p&gt;塔勒布是环宇资本的高级科学顾问，曾和斯皮茨纳格尔在 1990 年代创立安皮里卡资本公司，制定了环宇资本的最初策略。但他并不认同自己交易员的身份，更想成为一位知识分子，称乔治·索罗斯也是如此。塔勒布后来逐渐远离金融实操，专注写作，并在社交媒体上针砭时弊，著有《黑天鹅》《反脆弱》《随机漫步的傻瓜》等畅销作品。&lt;/p&gt;
+&lt;p&gt;“塔勒布和斯皮茨纳格尔从数十年的交易中学到的是，从长远来看，成功投资的关键是避免损失很多钱。投资者需要警惕市场发生重大崩盘的风险。” 帕特森说。&lt;/p&gt;
+&lt;p&gt;人可以预测市场崩盘的风险吗？&lt;/p&gt;
+&lt;p&gt;如果以人能否预测市场崩盘的风险为标准，《逆风翻盘》里的人物可以分为两派：一派认为可以预测，以阿克曼为代表；另一派认为不可预测，以塔勒布、斯皮茨纳格尔为代表。两派虽然都能从危机中赚钱，但底层投资思想和具体交易策略截然不同。&lt;/p&gt;
+&lt;p&gt;2020 年 1 月开始，阿克曼就对新冠病毒指数级扩散的未来感到焦虑。但他与众多全球顶级金融机构的高管交流后，发现没人和他有着类似担忧。即使是 “奥马哈先知” 巴菲特，也不能理解阿克曼为何由于 “即将来临的疫情”，要取消原定 5 月参加的伯克希尔·哈撒韦年度股东大会。&lt;/p&gt;
+&lt;p&gt;2 月初，在会见了一位咳嗽的客户后，阿克曼决定采取行动，通知员工远程办公。2 月 23 日，他找到了债券市场的机会，认为市场远没有反映他看到的风险，投资者还沉醉在一直上升的趋势中。阿克曼购买了 2600 万美元的信用违约互换（CDS）合约。这些合约与 710 亿美元的公司债挂钩，包括 420 亿美元的投资级债券、超过 200 亿美元的欧洲债券指数以及 30 亿美元的垃圾债券。CDS 的原理类似保险，如果债券指数大跌，阿克曼将获得巨额回报。&lt;/p&gt;
+&lt;p&gt;3 月，投资者们终于意识到了疫情的危险，市场暴跌，阿克曼狂赚，像 3 月 12 日美股熔断那天，他就赚了 7.8 亿美元。在通过做空债券市场积累 26 亿美元的利润后，阿克曼将这笔利润投入股市，购买希尔顿、伯克希尔·哈撒韦、星巴克、劳氏等公司的股票。在美国政府救市政策的刺激下，阿克曼的股票投资又赚了 10 亿美元。一个来回，他靠 2600 万美元赚了 36 亿美元的收益。&lt;/p&gt;
+&lt;p&gt;阿克曼的成功和他的眼光、嗅觉和敏锐密不可分。他最早出名是因为高调投资星巴克、温蒂汉堡等公司。2008 年次贷危机中，他曾大举做空因美国房屋抵押贷款濒临破产的房利美、房地美等公司。但阿克曼的做空并非全胜，比如他曾说保健品公司康宝莱是个传销组织，押注 10 亿美元做空。结果遇到了对手卡尔·伊坎（电影《华尔街》主角戈登·盖柯的原型之一），伊坎反向做多康宝莱，将阿克曼逼入绝境，被迫清仓输钱。&lt;/p&gt;
+&lt;p&gt;帕特森提及，类似阿克曼 2020 年年初的交易过往至少有两笔：高盛的对冲基金经理约翰·保尔森在 2007 年通过与房地产有关的投机赚取了 150 亿美元；电影《大空头》里克里斯蒂安·贝尔饰演的基金经理原型迈克尔·贝瑞，通过做空与美国房地产相关的衍生产品，实现了近 500% 的收益率。他们和阿克曼一样，逆共识、一次性、大额押注。&lt;/p&gt;
+&lt;p&gt;这种方式虽能获得巨额利润，但无法保证重复成功。帕特森说，保尔森和贝瑞后来都没能复制神话，保尔森还遭遇过重大亏损。阿克曼之前也在康宝莱的交易中做空失败。“相较之下，环宇资本则能不断下注，永无止境。”&lt;/p&gt;
+&lt;p&gt;由于认为市场崩盘不可预测，环宇资本每天都会购买看跌期权，比如市场在一个月内下跌 20%。期权是赋予其所有者在特定时间内以特定价格买卖股票的合约。这意味着，在大多数交易日，它们每天都会遭受小幅损失，持续 “出血”。不过，市场一旦崩盘，这些看跌期权能带来不对称的巨额收益，远超之前累积的损失。斯皮茨纳格尔将其类比为 “保险”，如果发生重大意外，保险赔偿金将远超每天支付累积的保费。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/ef0fffb69a1b06beb8d87f89d33ec23a.webp" alt="图片"/&gt;
+&lt;p&gt;身材修长、头顶明亮的斯皮茨纳格尔称自己的衍生品交易团队为 “海盗”，而非 “海军”（借用乔布斯 “成为海盗比加入海军更有意思” 的名言）。2020 年 3 月，这群海盗忙到几乎没时间休息。许多人每天只在办公室的沙发上或者家里的办公桌上打个盹儿，然后起身，大口喝下咖啡，默不作声地赚上一笔。办公室里回荡着巴赫的和弦。&lt;/p&gt;
+&lt;p&gt;帕特森解释，环宇资本和华尔街主流的投资方法截然相反。主流交易员的投资期望是平均每天都能获得小额增量的收益，岁末年初拿到丰厚奖金。即使市场崩盘造成损失，那他们也是大多数，不会受到苛责惩罚。&lt;/p&gt;
+&lt;p&gt;通常情况下，基金经理的业绩好坏并非取决于他们为投资者赚取了多少利润，而是与同类基金经理的基准表现相比如何。他在《逆风翻盘》中举例：如果一位基金经理亏损 10%，但基准下跌 12%，他将获得不错的奖金——因为他少跌了 2%！“对投资者而言，不利之处在于，基金经理往往倾向于模仿彼此，呈现出羊群般一致的从众行为。”&lt;/p&gt;
+&lt;p&gt;不从众的环宇资本收获了成功。这家 2007 年成立的对冲基金，管理资金最初不到 5 亿美元，但在每次危机导致市场剧烈波动时（如 2008 年全球金融危机、2010 年美股闪崩、2011 年美债降级、2015 年 8 月美股暴跌、2018 年所谓 “末日浩劫”），都赚了钱，规模随之扩大。&lt;/p&gt;
+&lt;p&gt;2020 年疫情全球扩散前，它的管理规模已达 43 亿美元。据《机构投资者》（Institutional Investor），到 2022 年年底，这家仅有 15 年历史的公司已经在为约 200 亿美元的资产提供崩盘保护，跻身全球第 24 大对冲基金。而且，这家公司仅有 21 名员工，意味着平均每名员工管理近 10 亿美元。&lt;/p&gt;
+&lt;p&gt;会计师事务所安永审计过黑天鹅保护协议基金从 2008 年上市交易到 2019 年 12 月的年均资本回报率，发现达到 105%。这还没算上 2020 年年初的暴利，但已经可与世界上最好的对冲基金媲美。&lt;/p&gt;
+&lt;p&gt;帕特森提到，斯皮茨纳格尔现在常与全球顶级投资者交流，其中包括一些主权财富基金和养老基金，比如中国投资有限责任公司、中东政府的大型基金、美国各地的养老基金。这表明保守和稳健的投资机构渐渐认可非主流的投资思想。&lt;/p&gt;
+&lt;p&gt;环宇资本的成功引来了同行模仿，比如有公司也搭建了崩盘策略，还有的甚至推出黑天鹅 ETF。媒体的关注袭来，像《华尔街日报》评论道：“曾经，市场一度由预期股市上涨的多头和预期股市下跌的空头主导。如今，另一个派别正在崛起。这些投资者关注的是波动率，即价格在一段时间内的变动幅度。近年来，关注波动率已从衍生品交易者的专长变成一种独立的交易工具。”&lt;/p&gt;
+&lt;p&gt;但斯皮茨纳格尔和塔勒布对这些模仿和关注没什么好感，觉得它们并不了解实际情况。金融业一直存在从众、慕强和嫉妒心理，盲目跟从适得其反。&lt;/p&gt;
+&lt;p&gt;黑天鹅投资思想是如何诞生的？&lt;/p&gt;
+&lt;p&gt;帕特森将斯皮茨纳格尔和塔勒布交易策略背后的指导思想总结为三个方面：&lt;/p&gt;
+&lt;p&gt;第一，未来由有重大影响力的事件主导，很难甚至不可预测。任何事情都有可能发生（黑天鹅）。就像谚语所说，即使是坏掉的钟，一天也准两次。&lt;/p&gt;
+&lt;p&gt;第二，极端事件比许多人想象的更具破坏性，因为正态分布曲线等标准风险指标无法捕捉极端事件。这意味着，在金融市场上，极端事件通常被低估：这是一个赚钱的机会。这也意味着大多数其他投资者承担的风险比他们意识到的要大。&lt;/p&gt;
+&lt;p&gt;尽管我们周围有种种变化迹象，但我们还是会假设明天的世界将和今天一样，这是人类普遍的弱点。人们关注的是正态分布曲线中心的普通凸起，而不是曲线尾部的疯狂爆炸。形象地说，现在尾部事件成了核心，是尾巴让狗摆动，而不是狗摇动尾巴。&lt;/p&gt;
+&lt;p&gt;第三，回撤率比胜率更重要。斯皮茨纳格尔多年前就意识到一个对任何押注未来结果的人来说都至关重要的真理：控制单次大幅亏损远比取得一系列小额盈利重要。假设投资的股票下跌 50%，那为了回本，股票需要上涨 100%，而非 50%。&lt;/p&gt;
+&lt;p&gt;帕特森在采访中回忆，自己是在 2001 年左右认识塔勒布的。因为当时他发现周围华尔街的人都在阅读一本名叫《随机漫步的傻瓜》的书，作者正是塔勒布。也许出于这样的交情，《逆风翻盘》是第一本深入描绘环宇资本、塔勒布和斯皮茨纳格尔故事和思想的著作。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/13c6049038b93785b1edd284495eeccb.webp" alt="图片"/&gt;
+&lt;p&gt;斯皮茨纳格尔（左）和塔勒布（右）&lt;/p&gt;
+&lt;p&gt;塔勒布 1960 年出生于黎巴嫩，外祖父是黎巴嫩前副总理。1975 年，黎巴嫩爆发内战，塔勒布家族的土地和宅邸被毁，整个家族也开始逃亡。他在法国巴黎大学学习数学和经济学后，移居美国，进入宾夕法尼亚大学沃顿商学院读 MBA，后又去巴黎第九大学念了数学博士。&lt;/p&gt;
+&lt;p&gt;回头来看，塔勒布觉得自己在早年生活就建立了朴素的黑天鹅价值观（人生和世事无常，难以预测）。当时，他最喜爱《第三帝国的兴亡》作者威廉·夏伊勒写的《柏林日记：二战驻徳记者见闻 (1934—1941)》。夏伊勒的日记极具现场感，但根本没有体现对 “二战” 爆发的预见性。&lt;/p&gt;
+&lt;p&gt;这和塔勒布的经历类似，没人预料到黎巴嫩内战即将爆发。尽管战火肆虐，但大多数人认为内战很快就会结束，结果持续了 15 年。十几岁时，他的一个朋友就在俄罗斯轮盘赌中丧命，一个同学在一次混乱中被枪杀。&lt;/p&gt;
+&lt;p&gt;“这个年轻的怀疑论者得到的教训是，人们对于未来的事态发展一无所知。只有在事后回顾时，他们才会声称自己早已预见一切。” 帕特森写道。&lt;/p&gt;
+&lt;p&gt;在沃顿商学院，塔勒布延续了年少时的叛逆（如 15 岁时因用水泥块袭警入狱）。他在接触一些世界上最大公司的 CEO 后，震惊于他们的肤浅、徒有其表，甚至装腔作势。他最大的收获是接触到了当时的新鲜事物 “期权”。塔勒布着迷于极不可能发生事件的期权，它们非常便宜，但事件发生会带来非对称性的巨额回报。&lt;/p&gt;
+&lt;p&gt;1987 年，美国股市处于火热中，塔勒布已经收集了几个月的欧元和美元的廉价期权。10 月 19 日，“黑色星期一” 出现，道琼斯工业平均指数单日下跌约 23%。第二天，美联储宣布大量注入现金。27 岁的塔勒布以 2 美元或 3 美元购买的合约售价飙升至 300 美元、400 美元、500 美元，实现了财务自由。&lt;/p&gt;
+&lt;p&gt;这一年，16 岁的斯皮茨纳格尔在参观芝加哥期货交易所后，放弃进入纽约茱莉亚音乐学院，准备投身交易员事业。他从图书馆借了本《谷物交易商：芝加哥期货交易所的故事》（The Grain Traders）阅读，跟随资深交易员埃弗里特·克里普学习。&lt;/p&gt;
+&lt;p&gt;克里普对他产生了深刻影响。类似 “尽早恐慌，立即止损。”“你必须喜欢亏损，不喜盈利。这违反了人性，但这就是你必须克服的。”“你必须表现得像个愚者，内心更要有一种愚者的觉悟”。种种告诫，刻进了斯皮茨纳格尔的内心。&lt;/p&gt;
+&lt;p&gt;“克里普的独特见解在于，交易的实质并非市场运行机制。他重视的是交易纪律，这也是我初涉交易领域时所领悟的第一课”，斯皮茨纳格尔回忆道，“实际上，整个交易业务均建立在交易纪律这一基石之上，其余皆为细枝末节。交易者须克服舒适心理，将自己置于不适之中。若能战胜此心境，成功的机会便触手可及，也意味着财富增值的契机。”&lt;/p&gt;
+&lt;p&gt;1994 年美国债券市场出现大波动，他秉持纪律活了下来，但许多自信的交易员因此破产。1997 年年初，斯皮茨纳格尔看到电子交易的趋势，放弃了场内交易员的工作，转型为自营商。当年 10 月，亚洲金融危机爆发，他靠做空股市赚了一大笔钱。第二年，从对冲基金长期资本管理公司（LTCM）的崩溃中，他又收获颇丰。&lt;/p&gt;
+&lt;p&gt;接连的成功让斯皮茨纳格尔有机会 “学术休假”，他去了纽约大学柯朗数学科学研究所。这是世界顶尖的应用数学学院，也是华尔街量化人才的聚集地。而且，这所学校刚引进了一位金融学教授塔勒布，讲授 “量化金融中的模型失败”。&lt;/p&gt;
+&lt;p&gt;“不当的风险模型被过度加杠杆的对冲基金和投资银行使用，导致金融体系变得愈加脆弱，如同在沙堆上（或炸药上）建立城堡。这预示着更多崩溃、剧烈波动和金融危机。” 塔勒布说。&lt;/p&gt;
+&lt;p&gt;斯皮茨纳格尔读过塔勒布的著作《动态对冲：管理普通期权与奇异期权》。他觉得这本书让自己从单纯、凭直觉的场内交易领域，进入了复杂的衍生品数学世界。两人在纽约大学见面后，一拍即合，决定合作。一个月后，环宇资本的前身安皮里卡资本公司诞生。&lt;/p&gt;
+&lt;p&gt;斯皮茨纳格尔和塔勒布一样擅长数学，具有叛逆气质。他的父亲是牧师，父母信仰嬉皮士式的自由主义，而他少年时着迷于保守派的议员、杂志和著作。后来，斯皮茨纳格尔成为芝加哥学派和奥地利学派的忠实信徒，并以此指导自己投资，反对美联储的量化宽松干预政策。有段时间，他喜欢系上代表自由市场的经济学家亚当·斯密头像的领带。&lt;/p&gt;
+&lt;p&gt;和塔勒布不同，斯皮茨纳格尔更认同自己交易员的身份。虽然基金几乎每日都在亏损，但他能坚守纪律、承受压力。为了克服人性中对风险的厌恶，他以从事滑翔等高危运动为乐。他会驱车前往沙漠，跳上一架没有引擎的滑翔机。一架飞机会拖着滑翔机飞向天空。被释放后，滑翔机在气流中摆动，编织出不同轨迹。&lt;/p&gt;
+&lt;p&gt;“斯皮茨纳格尔喜欢那种在似乎完全失控的情况下仍能控制局面的感觉。” 帕特森说。&lt;/p&gt;
+&lt;p&gt;塔勒布 33 岁时得过喉癌，虽然痊愈，但他觉得交易压力有损健康。每日亏损给他带来无尽折磨，等待崩盘又显得遥遥无期。在担忧癌症复发的焦虑下，塔勒布在 5 年后退出了安皮里卡资本公司，专心写作，不久出版卖了几百万册的《黑天鹅》。此时，两人打造的黑天鹅投资思想和交易策略也已基本成型，环宇资本成立。&lt;/p&gt;
+&lt;p&gt;准备好迎接下一场危机了吗？&lt;/p&gt;
+&lt;p&gt;如果要更深入理解斯皮茨纳格尔和塔勒布的投资思想，需要具备一定的数学基础。这也是《逆风翻盘》一书的缺憾，省略了不少相关的数学内容。不过，这些数学知识和论证在塔勒布的著作（如《肥尾效应》《非对称风险》）和斯皮茨纳格尔的著作（如《避风港》）中，都有呈现。斯皮茨纳格尔甚至为普通读者推荐了参考读物，来自畅销书作家威廉·庞德斯通的《赌神数学家》（Fortune's Formula）。&lt;/p&gt;
+&lt;p&gt;简单来说，他们强调投资要多用几何或者非线性思维，不要低估极端事件的发生。投资计算的应该是几何平均收益率，而非算术平均收益率。随机结果往往不是标准的正态分布，更有可能是正偏态分布。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/76c574e7bf4dfcd0ffd4600a71966061.webp" alt="图片"/&gt;
+&lt;p&gt;在《避风港》中，斯皮茨纳格尔言辞犀利地抨击了资产配置行业的 “多元化” 教条。“现代投资组合理论” 的开创者、诺奖经济学家哈里·马科维茨有句名言：“分散配置，比如构建一个被动的全市场投资组合，是投资中唯一 ‘免费的午餐’。”&lt;/p&gt;
+&lt;p&gt;斯皮茨纳格尔觉得这根本不是免费的午餐，“多元化要么意味着以较低的潜在风险换取较低的收益率，要么意味着从系统性风险或集中性风险转向杠杆型风险”。&lt;/p&gt;
+&lt;p&gt;比如基金经理在投资组合中加入了黄金和债券，这样虽然降低了组合的波动率，但也牺牲了组合长期的复合收益率。“从根本上说，多元化是对风险的稀释，而非风险的解决方案。它是一种风险逃避。此外，对波动性的估计被混同为风险。”&lt;/p&gt;
+&lt;p&gt;更让人震惊的是，斯皮茨纳格尔通过数学证明（此处省略论证过程），基金经理可以在降低投资组合的风险下，还能提高其复合收益率。这违反了 “高风险、高收益”“低风险、低收益” 的常识认知。&lt;/p&gt;
+&lt;p&gt;数据表明，“3% 的黑天鹅保护协议基金 +97% 标普 500 指数” 的投资组合年化复合收益率要高于 “100% 标普 500 指数” 投资组合 3% 左右。而 “100% 标普 500 指数” 的年化复合收益率要高于黄金、债券、对冲基金和标普 500 指数各种比例混搭的组合（如 25% 的黄金 +75% 的标普 500、25% 的债券 +75% 的标普 500、25% 的对冲基金 +75% 的标普 500）。&lt;/p&gt;
+&lt;p&gt;此外，他测算了约 40 种资产对投资组合风险缓释的效果，包括黄金，商品，10 年期美国国债，瑞士法郎、日元、美元等货币，私人股本，价值策略，动量策略，风险平价，低波动率策略和波动率管理策略，做多波动率，各种对冲基金策略，等等。&lt;/p&gt;
+&lt;p&gt;斯皮茨纳格尔发现，只有黄金和黑天鹅策略能达到降低风险并提高收益的效果。而且，黑天鹅策略具有战略效果，任何时期都有效。相比之下，黄金不是战略性避风港，只在通货膨胀加剧期起到战术对冲作用。如果不是 1970 年代那样的高通胀，黄金无法既降低组合风险又提高收益。&lt;/p&gt;
+&lt;p&gt;他指出，1973 年以来，每当股票在特定年份下跌 15% 以上时，黄金收益率在 5%~70% 之间，平均略高于 40%。在其他年份，黄金的收益率在 -30%~125% 之间，平均不到 7%。斯皮纳茨格尔认为黄金收益率的范围太广，而且需要占到组合 20% 的比重，远没有黑天鹅策略性价比高。黑天鹅策略只需购买占组合 3% 左右的看跌期权，就能起到比黄金更好的效果。&lt;/p&gt;
+&lt;p&gt;至于加密货币，斯皮茨纳格尔觉得数据太少、噪声太大，现在无法准确评估。塔勒布说话更直接。他称，比特币无法作为投资的避风港，因为它与市场高度相关。只需想想 2020 年 3 月的危机中，比特币的跌幅超过市场平均。这就表明它作为对冲市场崩盘风险的工具毫无价值。&lt;/p&gt;
+&lt;p&gt;有意思的是，虽然斯皮茨纳格尔几乎看不起市面所有基金的风险缓释策略，但有一个例外，那就是价值投资。他告诉帕特森：“这个价值取向和我所做的事情非常相似。我买的是人们视为垃圾的东西，大多数时候它们的确是垃圾。”&lt;/p&gt;
+&lt;p&gt;价格之外，价值投资倡导的逆向投资、长期投资、安全边际等说法和黑天鹅投资思想不谋而合。比如巴菲特的名言：“投资的第一条原则：永远不要亏钱。第二条原则：永远不要忘记第一条。” 塞斯·卡拉曼（Seth Klarman）举过的例子：一个连续 10 年年均收益率为 16% 的投资者（净值 4.411），最终积累的财富要超过连续 9 年年均 20% 收益、但第 10 年亏损 15% 的投资者（净值 4.386）。&lt;/p&gt;
+&lt;p&gt;这也是斯皮茨纳格尔强调的几何思维、避免损失。《福布斯》评价道：“斯皮茨纳格尔的数学世界观在某些方面与资本主义世界的终极乐观主义者巴菲特相似。毕竟，他放弃了即时满足，以换取远期的巨额回报，在崩溃中变现和获利。”&lt;/p&gt;
+&lt;p&gt;在《逆风翻盘》中，法国物理学家迪迪埃·索内特（Didier Sornette）是另一位坚持市场崩盘风险可预测的人物。他通过分析动态过程的变化，认为聚焦临界点，某种程度上的预测是可以实现的。索内特不满《黑天鹅》的说法，觉得这会导致人们放弃努力，不再试图弄清未来或了解过去。&lt;/p&gt;
+&lt;p&gt;“黑天鹅的概念是危险的，这让我们回到了科学出现之前的时代，那时候闪电和风暴都是众神愤怒的表现。” 他说。&lt;/p&gt;
+&lt;p&gt;塔勒布觉得，即使索内特在理论上正确，但交易员无法依靠它做出精确预测、指导操作。他认为问题的关键在于如何交易，用什么交易，以及如何管理对市场的风险敞口。“我做了 21 年的交易员，刚开始的时候我还有头发。作为一名交易员，要学会一件事，那就是让你赚钱或让你破产的并不是你的观点，而是你如何表达自己的观点。”&lt;/p&gt;
+&lt;p&gt;他继续解释道，金融工具或策略远比人能否猜对重要得多。例如，如果交易员使用的期权凸性大，即使在 99% 的时间里都猜错了，也不会有什么问题。凸性大意味着能从大波动中受益。因此，做预测是在浪费时间。真正的诀窍在于找出一种不依赖预测的交易策略。&lt;/p&gt;
+&lt;p&gt;“当你预测错误时仅承担较小损失，预测正确时会获得丰厚利润，你便可以将自己从相关资产的统计属性中剥离出来，这才是更重要的”，塔勒布说，“而那些随便看看统计数据并认为这些数据直接与业绩挂钩的人并不会认识到这一点。”&lt;/p&gt;
+&lt;p&gt;巴菲特曾说，“金融衍生品是大规模杀伤性武器”。帕特森借此提醒普通投资者不要轻易模仿和尝试塔勒布、阿克曼等人的投资策略。虽然黄金、债券等传统资产不能像衍生品那样起到高性价比的保护作用，但这对普通投资者已经足够。即使牺牲了收益率，至少保证了本金不会遭受重大损失。&lt;/p&gt;
+&lt;p&gt;塔勒布的建议则是 “杠铃策略”，即在杠铃的一边是约 80% 的安全资产（如短期国债），另一边是约 20% 的高风险资产（如初创科技公司、生物技术公司或新上市的清洁能源股票）。虽然大多数股票不会获得回报，但成功的会有着巨额收益，可能远超之前的亏损（如投中了未来的苹果）。这属于一种变形的黑天鹅策略。&lt;/p&gt;
+&lt;p&gt;他说，普通投资者在自己的投资组合中，应该专注于保护自己的资产，保护其免受黑天鹅事件的影响，而不是押注股市将在长期内持续上涨。&lt;/p&gt;
+&lt;p&gt;帕特森分析，斯皮茨纳格尔和塔勒布的交易策略建立在整个金融系统的弱点之上。它们包括衍生品的广泛应用、风险价值等风险管理工具的误用、杠杆激增、美联储宽松的货币政策，以及投资银行转变为野蛮的对冲基金赌场等。&lt;/p&gt;
+&lt;p&gt;“这些使得全球金融系统宛如一座纸牌屋，一触即溃。” 所以只要这些弱点还在，下一场危机迟早会发生，他们的交易策略仍有效。&lt;/p&gt;
+&lt;p&gt;下一场危机不限于金融市场。帕特森说很多读者只注意到了自己书名前半部分的 “赚取数十亿美元”（Make Billions），却忽视了后半部分的 “新危机时代”（New Age Of Crisis）。&lt;/p&gt;
+&lt;p&gt;他认为，受到极端气候变化、地缘政治不稳定、大流行病、民主危机、AI 快速发展等影响，索内特 20 多年前的预测似乎非常准确，即人类正在经历一场文明的阶段性变革。&lt;/p&gt;
+&lt;p&gt;如今类似的状态描述则是，人类正处于 “长久危机”（permacrisis）或 “多重危机”（polycrisis）之中。&lt;/p&gt;
+&lt;p&gt;本文不构成投资建议。&lt;/p&gt;
+&lt;p&gt;题图来源：《大空头》&lt;/p&gt;
+&lt;p&gt;晚点周末&lt;/p&gt;
+&lt;p&gt;《晚点 LatePost》推出周末版，希望把视线扩展到各种各样的创造者。简单来说，我们想知道谁在创造，并以之影响周边；我们既注视当下，也回顾过去，寻找形塑今日世界的源头；我们关注技术、商业，也关注历史、人文，打量这些领域的交汇处的涌现。&lt;/p&gt;
+&lt;p&gt;让我们关注的可能是一款产品、一家店铺、一种包装的设计思路，也可能是某种工作哲学、产品理念、管理方法，可能是一种有趣新颖的生活方式，甚至是在今天仍然焕发光彩的古老思想。&lt;/p&gt;
+&lt;p&gt;“已经创造出来的东西相比有待创造出来的东西，是微不足道的。” 这是维克多·雨果的话——我们希望《晚点》周末印证这句话。&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Wed, 12 Mar 2025 20:03:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>孵化 DeepSeek 的量化交易：一个数据驱动的隐秘世界</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2845</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：孙海宁、黄俊杰&lt;/span&gt;
+                        &lt;span&gt;发布日期：03月10日 22:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;1994 年，量化公司是当时最神秘最热门的技术公司，他们雇用数学家和物理学家，成批买来高性能计算机做交易。这个行业里的标杆公司是 D.E. Shaw，它能在一天内贡献纽交所超 2% 的订单量。&lt;/p&gt;
+&lt;p&gt;这一年，D.E. Shaw 为计算机行业做了两个贡献。一个副总裁带队，做出了当时罕见的免费电子邮件产品 Juno，成功上市；另一个副总裁离职，带着自己和老板讨论产生的好点子开车去了西雅图，做出了全世界的电商鼻祖、市值超过 20000 亿美元的亚马逊。&lt;/p&gt;
+&lt;p&gt;30 年后，又有一家量化公司的 “副业” 影响整个计算机行业：管理数百亿元的中国头部量化公司幻方，推出大语言模型 DeepSeek R1，没花一分钱营销就震撼全球，用户涌来的速度甚至快过早年的抖音。&lt;/p&gt;
+&lt;p&gt;贝索斯创办亚马逊，或者梁文锋造出 DeepSeek 的主要原因自然不是因为他们做过量化，而是因为他们骨子里都是创业者。但量化投资这个极度追求人才密度且极度保密的行业文化，确实提供了适合大模型研发的环境。&lt;/p&gt;
+&lt;p&gt;招来一群聪明人不必然导致创新，叠加一个简单的环境才够。量化公司证明了这一点，DeepSeek 则证明这也适用于大模型研发。&lt;/p&gt;
+&lt;p&gt;剥离主观因素，在数据里挖掘规律&lt;/p&gt;
+&lt;p&gt;﻿﻿&lt;/p&gt;
+&lt;p&gt;“很多主观投资说难听点，就是靠打听。” 一名从业几十年、调研过数千只基金的投资人说。基金经理们也钻研公开的财务资料，但他们同样乐于组织业内人士研讨会、支付每小时上千元的专家咨询费，甚至雇上千人守在咖啡店门口拍视频，只为更早获得独家信息，抢先同行一步下注。&lt;/p&gt;
+&lt;p&gt;于是，人脉变得和经验一样重要。尽管桥水基金创始人瑞 · 达利欧把利率、汇率的变动原理写成书，反复讲桥水基金凭它们投资，但《纽约时报》的记者觉得达利欧赚钱的真正秘诀是讨好宏观政策决定者，靠他们 “透题” 赚钱，也写了本书论证。&lt;/p&gt;
+&lt;p&gt;量化公司完全放弃这些捷径。他们相信任何事都有人更早知道，自己也没能力超越对手做任何判断。他们全部投资决策基于一个简单的事实：人类行为总是不断重复，因此价格运动有规律可循，而计算机可以捕捉到这个规律。&lt;/p&gt;
+&lt;p&gt;足够多人靠逻辑交易，会产生规律。&lt;/p&gt;
+&lt;p&gt;可口可乐和百事可乐都做汽水生意，受同样的市场环境影响。如果两家公司股价差距没来由地扩大或收窄，那至少有一家定价错误、价差总要回归。四十年前，先发现这个机会的投资者靠程序监测六、七只相关股票的价差变动，就能撑起一只管理 3000 万美元的基金。&lt;/p&gt;
+&lt;p&gt;足够多的人靠情绪交易，也产生规律。&lt;/p&gt;
+&lt;p&gt;可口可乐的投资者中总有自信过头的，他们会更倾向于跟着自己喜欢的消息买入，而把自己不喜欢的消息当作噪音。由此，新消息只会将可口可乐股价向上顶，学界发现过去收益好的公司，未来大概率还会好下去，把这规律称为 “动量效应”。&lt;/p&gt;
+&lt;p&gt;量化研究员贾乾说，股票每天收益的波动中，最多可能有 5% 可被解释。他的工作就是找到能刻画规律、解释波动的 “因子”，基于它们构建投资策略。可口可乐未来走势与百事可乐过往股价、可口可乐过往涨幅相关，股价、涨幅数据就能作为 “因子” 投入量化模型。&lt;/p&gt;
+&lt;p&gt;因子可能是上面这样容易理解的信息，也可以更加复杂。&lt;/p&gt;
+&lt;p&gt;特朗普习惯把各种耸人听闻的想法随手发在 Twitter 上，他第一任期内，J.P. Morgan 的研究员通过程序分析特朗普上万条推文的语义、构建 “Volfefe” 指数，并验证它可以解释美国国债利率变动。靠买卖国债赚钱的量化模型可以把 Volfefe 指数当作因子。&lt;/p&gt;
+&lt;p&gt;量化公司文艺复兴创始人西蒙斯研究过月球周期对市场的影响。路径之一可能是：月动影响潮汐、潮汐影响航运、航运影响油价。但他最终无功而返。传导链条太长、中间变量太多，因子对价格影响就难以识别。&lt;/p&gt;
+&lt;p&gt;机器学习方法在量化行业普及后，很多左右股价变化的因子已经完全无法用逻辑理解。研究员确定评价因子的标准，输入开盘价、收盘价、成交量等 “原始因子”，程序就能自动组合、迭代出更能预测股价的新因子。投资机构 WorldQuant 曾分享过一个实际用于交易的 “较为简单” 的因子：&lt;/p&gt;
+&lt;p&gt;((rank(correlation(sum(((open * 0.178404) + (close * (1 - 0.178404))), 12.7054), sum(adv120, 12.7054), 16.6208)) &lt; rank(delta(((((high + low / 2) * 0.178404) + (vwap * (1 - 0.178404))), 3.69741))) * -1)&lt;/p&gt;
+&lt;p&gt;除了能增加因子对价格的解释能力外，没人知道公式中的 0.178404 等数字有什么现实意义。但量化研究员不介意。“如果是意义非常明显的信号，早就被用于交易了。有些信号你不理解，但它们就在那里，而且可能相对较强。” 文艺复兴 CEO 彼得 · 布朗说。&lt;/p&gt;
+&lt;p&gt;量化研究员轩浩告诉我们，基于现实意义、拍脑袋想因子十分困难，“一天能想十个，就是天才了”。人找的因子通常能持续几个月、半年帮基金赚到钱。而机器挖出来的因子失效非常快，“但架不住每天能产生几千个。”&lt;/p&gt;
+&lt;p&gt;如果知道因子的人多了，抢着做同一种交易，它就会失效。这让量化行业在保密方面近乎偏执。头部量化公司会要求离职员工 18-24 个月内既不能自己交易、也不能去其他公司任职。“俗称 Gardening Leave，回家种花。” 轩浩说。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/69ca543bbd9e16b3466b4dda03afab7f.png" alt="图片"/&gt;
+&lt;p&gt;LinkedIn 简历中的 Gardening Leave&lt;/p&gt;
+&lt;p&gt;D.E. Shaw 创始人大卫 · 肖曾说自己公司安保水平媲美中央情报局。被记者问 D.E Shaw 是否用神经网络算法构思策略时，这名拥有数十亿美元财富的创始人回答：“我可以告诉你，然后必须杀了你。”&lt;/p&gt;
+&lt;p&gt;单次买卖可赚可赔，量化公司只关注大量交易时击败市场的概率。2000 年初，文艺复兴的大奖章基金每天交易 15-30 万次，“我们只在 50.75% 的情况下是对的。” 一名员工说，但这已足够成就公司大奖章基金一年管 38 亿美元、赚 21 亿美元的成绩。&lt;/p&gt;
+&lt;p&gt;雇聪明人，在简单环境里解决复杂问题&lt;/p&gt;
+&lt;p&gt;美国国家数学博物馆每年举行一次 “数学大师” 锦标赛：聚起一群聪明人，比谁能在限时内能解出最多这样的数学问题：找到最小正整数 m，使 m²+7m+89 能被 77 整除。&lt;/p&gt;
+&lt;p&gt;2014 年比赛夜的参与者有陶哲轩，他 24 岁成为加州大学洛杉矶分校数学系终身教授，31 岁获得 “菲尔兹奖”——数学界的诺贝尔奖。不过他只是第二，赢过他的是约翰 · 奥弗德克，量化公司 Two Sigma 的联合创始人。&lt;/p&gt;
+&lt;p&gt;奥弗德克可能也不是 Two Sigma 最聪明的人。2015 年时，这家公司已经招了 130 名博士和 6 名国际数学奥林匹克竞赛获奖者。奥弗德克前东家 D.E. Shaw 直接说自己招聘时有 “毫无歉意的精英主义”，前美国财政部长、哈佛大学校长劳伦斯 · 萨默斯在 2006 年想去 D.E. Shaw 工作，同样要做智力测验。&lt;/p&gt;
+&lt;p&gt;受量化公司青睐的候选人往往来自数学、计算机、统计学等专业，金融、商科背景不是加分项。&lt;/p&gt;
+&lt;p&gt;创立幻方前，梁文锋在浙江大学读通信工程，之后也偏好雇高中或大学时参加全国或国际学科竞赛，比如 NOI（全国青少年信息学奥林匹克竞赛）、IOI （国际信息学奥林匹克竞赛），拿到好名次、最好是金牌的年轻人。没竞赛背景，最好本科能考上北大、浙大、清华等高校，学计算机、电子信息工程专业。&lt;/p&gt;
+&lt;p&gt;“科学家做这行的优势不是数学或计算能力，而在于他们的科学思维。” 西蒙斯说，他们更不可能接受统计学上的偶然事件。&lt;/p&gt;
+&lt;p&gt;2022 年 2 月，一名拿过奖的首席分析师写 “定量分析” 研报说宁德时代未来可能跌超 20%。尽管他事后被证明结论正确，但推导方式却诉诸偶然：一年前，同为行业龙头的贵州茅台面临相似的市场环境，两家公司股价走势长得也像，他据此推测茅台过去的跌幅可以指引宁德时代的未来表现。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/9ad0be484749be53b41ef06560ea10fb.png" alt="图片"/&gt;
+&lt;p&gt;现在已经被撤回的研报中，贵州茅台和宁德时代的走势对比&lt;/p&gt;
+&lt;p&gt;量化则是不同的研究范式。Two Sigma 面试员工时，一个例题是如何用数学方法验证 “CEO 离职，公司股价下跌”。应试者和面试官会讨论实验方案：&lt;/p&gt;
+&lt;p&gt;如何确定收集的数据样本足够多、足够全面？如何定义下跌——是用一天的跌幅，还是一周、一个月？如何控制对照组和测试组尽可能相似？如何区分 CEO 离职是因为能力不足还是正常退休？如何区分股价下跌是因为 CEO 离职，还是在被大盘向下拽？用哪个统计值做推断、它超过多少时，要以多少置信度推翻假设？&lt;/p&gt;
+&lt;p&gt;哪怕选邻居时，量化公司也和传统金融行业保持距离。Two Sigma、D.E. Shaw 们不在华尔街设办公室；幻方总部位于杭州，它和同行们的北京办公室也聚集在清华科技园，而不是国贸、金融街。选址本身就是一个宣言：不靠人情世故、不靠勾兑信息，潜心研究也能赚大钱。&lt;/p&gt;
+&lt;p&gt;去过 D.E. Shaw 办公室的投资人觉得那里安静得像图书馆研究室；文艺复兴公司内有能容纳 100 人的礼堂，定期举办科学讲座，比如结直肠癌研究的最新进展。“当听到有人谈论有趣的统计应用时，有助于激发思考。” 一名员工说。&lt;/p&gt;
+&lt;p&gt;希望聪明人持续创新，最好的方法是减少管控、干预。&lt;/p&gt;
+&lt;p&gt;轩浩就职于一家全球顶级量化投资机构，其内部有多个小组互不透风、独立交易，就像一个个小投资机构：各组只要控制好风险，投资方法论并不需要一致，每年扣掉交给公司的提成、数据接口等成本后，剩下的利润都归自己所有。“有一个组瞄准一种另类资产，做一套策略赚了数十亿元。所有人都财富自由了。”&lt;/p&gt;
+&lt;p&gt;另一类量化公司偏好集体决策，全员共同打磨一个交易系统，但依然给员工自由发挥的空间。在文艺复兴，员工可以出入同事办公室，寻求建议或发起合作。研究员花大量时间用于成果展示，“如果没有取得太大的进步，你会感到有压力。” 一名员工说。评判标准十分清晰：一天结束，账户里的钱是变多还是变少。&lt;/p&gt;
+&lt;p&gt;这与互联网公司显著不同。大厂的中层管理者把手下人数与晋升机会挂钩，不会轻易允许下属参与其他团队分工，自己还要在双月会上争抢更多业务领地。所有人都要在 KPI 或 OKR 中提前写定自己下周、下个月、下个季度要干什么。在难以分清个人成绩和公司体系力量的大公司，只能用各种管理手段。&lt;/p&gt;
+&lt;p&gt;幻方的管理风格与文艺复兴类似，并被 DeepSeek 团队继承。后者办公区会议室两侧都设置了随手能推开的门，“给偶然留出空隙”。“我们一般不前置分工。” 梁文锋说，员工没有 KPI，“遇到问题，自己就会拉人讨论。” 当想法显出潜力，公司会自上而下调配资源。&lt;/p&gt;
+&lt;p&gt;一种方式，用到极致&lt;/p&gt;
+&lt;p&gt;把数十亿美元交给机器打点，完全相信它们是件反人性的事，哪怕对行业先驱也如此。最早尝试机器学习算法时，西蒙斯并不放心：“我不理解为什么模型一直要求买入而不是卖出？这就是个黑箱！”&lt;/p&gt;
+&lt;p&gt;缓解焦虑不是靠退回人工干预，而是穷尽数据、算力，将算法的潜力发挥到极致。文艺复兴的数据库从 18 世纪开始，现在 “每天增长 40TB（1TB = 1000GB）”，他们还有 “52000 个计算核心与 150GB 每秒的全球传输速度”。Two Sigma 则有 “超过 7200 个服务器”“来自 10000 多个数据源的超过 300PB 数据（1PB = 1000TB）”。&lt;/p&gt;
+&lt;p&gt;调用资源、设计量化策略时则要执着于每一个细节。轩浩举例：一个模型预测股价要涨 20%，应该以什么概率相信它？模型说要下 1000 单，那应该在 10 秒、20 秒还是 1 分钟内执行完？卖的时候，是真要等到涨到 20%、市场交易量变小的时候，还是趁有人愿意买，涨 15% 就提前止盈？&lt;/p&gt;
+&lt;p&gt;不是每一分投入都有相应的回报，结果出现前，量化研究员甚至不确定自己努力方向是否正确。伊黎试过从文本信息中提取因子，先人工看完 1000 条样本、打上标签，用它们训练一个自动打标的语义分析模型，还要训练另一个模型验证打标准确性。输入第三个模型分析后，她终于得出几十个因子，测试完，所幸有五个可以用。&lt;/p&gt;
+&lt;p&gt;大模型迭代与之类似。GPT 模型理论架构最早来自 Google，OpenAI 成为最终受益者，是因为敢在前景模糊时，租卡、买数据，花千万美元一次又一次训练更大的模型。1.17 亿参数，表现平平；15 亿，仍不惊艳；1750 亿，智能涌现。&lt;/p&gt;
+&lt;p&gt;黄仁勋问 OpenAI 联合创始人苏茨克沃：研发 GPT 模型时，你一直相信扩大规模能提高性能吗？“这是一个直觉。我有一个很强烈的信念，更大意味着更好。” 苏茨克沃回答。&lt;/p&gt;
+&lt;p&gt;一个量化从业者感慨梁文锋从浙大信息与通信工程专业毕业后，没有选择当时很好、之后会更好的就业机会，自己花几年闭门琢磨用算法买股票，“这么搞就不好再找工作了”。&lt;/p&gt;
+&lt;p&gt;到了 2021 年，大语言模型的影响主要还停留在学界，ChatGPT 没诞生。当时头部量化投资公司个个用了机器学习，但只有幻方花出上亿元买来一万张英伟达显卡，运行各种大型 AI 模型。&lt;/p&gt;
+&lt;p&gt;成功的创业者往往押中一套正确的方法，将它贯彻到极致。前者多少靠运气，后者只能靠信念，是 AI 取代不了的决策。&lt;/p&gt;
+&lt;p&gt;文中贾乾、轩浩、伊黎均为化名。&lt;/p&gt;
+&lt;p&gt;题图来源：《模仿游戏》&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Mon, 10 Mar 2025 22:03:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>从价格战到 “立标准”，瑞幸想在茶饮赛道走更远</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2846</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：未知作者&lt;/span&gt;
+                        &lt;span&gt;发布日期：昨天 13:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;瑞幸打算烧钱补贴 5 亿杯 “九块九”，但这次不是咖啡。&lt;/p&gt;
+&lt;p&gt;3 月 3 日，“鲜萃轻轻茉莉·轻乳茶” 上市，瑞幸宣布广撒 5 亿张 9.9 元优惠券为新品护航——数量上是初代产品 “轻轻茉莉” 上新时的 5 倍之多。5 天后，新品单日销量突破 167 万杯，刷新瑞幸茶饮单日单品销售纪录。&lt;/p&gt;
+&lt;p&gt;不同于代言人、杯袋、贴纸等上新物料标配，本次上新瑞幸在茶饮品类展现出了更多野心：在中国标准化研究院技术指导下，瑞幸制定了 “三个 100” 轻乳茶标准（100% 真茶鲜萃，100% 动物乳脂，100 大卡左右的单杯热量），向门店投放了 2 万多台自研萃茶机以保证出品品质。&lt;/p&gt;
+&lt;p&gt;3 月 10 日，轻乳茶系列迅速再次上新——这次是杭州钱塘产季限定的「鲜萃轻轻龙井」，以手工采摘的春季鲜叶、传统的炒制工艺，给消费者带来 “茉莉 + 龙井” 的双重轻乳茶选择。&lt;/p&gt;
+&lt;p&gt;在构筑起数万家的庞大线下门店网络后，瑞幸咖啡开始为自身的经营品类做加法。茶饮市场足够大、且消费者心智和供应链复用也更为顺畅。但在英雄辈出的茶饮行业，存量下的同质化竞争同样激烈。&lt;/p&gt;
+&lt;p&gt;2024 年，国内市场奶茶店数量超 51.5 万家，而咖啡门店仅为 20 万家左右。瑞幸能在如此高度竞争的茶饮市场中，用轻乳茶产品占据一席之地，离不开它在咖啡领域中所积累的产品创新能力、营销能力和规模优势。只是最终能否复制咖啡市场的成功，仍待市场检验。&lt;/p&gt;
+&lt;p&gt;茶饮品牌纷纷退出价格战，但瑞幸还想继续&lt;/p&gt;
+&lt;p&gt;降价是现制饮品行业这几年的重要关键词。据红餐大数据，从 2020 年到 2023 年，茶饮单杯 10 元以下的消费占比，从 7% 上升至 30%；20 元以上的消费占比，则从 33% 迅速下降至 4%。&lt;/p&gt;
+&lt;p&gt;2023 年行业处于疫情恢复 + 放开加盟的新阶段，虽然价格战影响品牌利润，但低价刺激叠加跑马圈地带来的营收增长，仍能让茶饮品牌暂时接受以价换量的局面。&lt;/p&gt;
+&lt;p&gt;同时，低价策略也需要更标准化的产品支撑，天然供应链简单、更加清爽的轻乳茶产品，顺势成为茶饮行业的新顶流。&lt;/p&gt;
+&lt;p&gt;2024 年 6 月开始，轻乳茶新品扎堆面世，人均配置 9.9 元及以下的促销活动，一些品牌将 9.9 元的频率从每周拉高到每日。瑞幸轻乳茶产品 “轻轻茉莉”8 月份上市，1 亿杯 9.9 元优惠券配合销售，首月杯量便突破 4400 万杯。&lt;/p&gt;
+&lt;p&gt;但 2024 年茶饮市场已然高速增长不再、存量市场见顶。据艾媒咨询发布的《2024 年中国新式茶饮行业发展状况及消费趋势调查分析报告》，茶饮市场规模的年同比增长率在 2023 年短暂回温至 13.5% 后，2024 年回落至仅 6.4%，并预计到 2026 年后，持续下降至 3% 及以下。&lt;/p&gt;
+&lt;p&gt;门店统计数据也显示，在 2024 年除个别品牌外，茶饮头部品牌的门店数量增速均显著下降。窄门餐眼统计，2024 年结束时，茶饮门店总数一年减少 1.6 万间。&lt;/p&gt;
+&lt;p&gt;在国内增量不足、同质化内卷激烈的市场环境中，即使是价格战，也无法打开上升空间，还留下了侵蚀品牌利润的负面影响。优惠的价格和力度难以维持，很多茶饮品牌卷不动了。&lt;/p&gt;
+&lt;p&gt;但瑞幸继续卷价格的决心却很坚决。作为 5 亿张优惠券的对比， 2024 年瑞幸出杯量为 30 亿杯。&lt;/p&gt;
+&lt;p&gt;产品上来看，瑞幸做轻乳茶相对顺手。在行业中，现制咖啡通常被视为更接近零售业务。由于咖啡的烘焙、保存和制作过程可以高度标准化、自动化，因此能够稳定地提供优质且可复制的饮用体验。&lt;/p&gt;
+&lt;p&gt;而轻乳茶的原料同样不复杂，主要涉及茶叶、奶、糖和包材四种原材料。作为 2020 年就尝试过推出 “类轻乳茶产品” 的咖啡品牌，这些都与瑞幸现有供应链高度重合，采购规模将能带来更多的成本优势，支撑起下个阶段的全方位竞争。&lt;/p&gt;
+&lt;p&gt;同时，瑞幸也向门店推行了自研萃茶设备 “瑞掇菁”，让茶汤的制备接近咖啡一样的标准化。通过机器控制水温和萃取时间，最大程度地保留茶叶中的营养成分与香气，保证流程风味的统一。门店店员的操作减轻，从咖啡师转为茶饮师不需要复杂培训。&lt;/p&gt;
+&lt;p&gt;类似的事情其实在咖啡行业也发生过，2012 年星巴克收购茶瓦纳以后，也成功进入了茶饮领域，其布局全球的供应链为茶饮品的推广提供着持续支持。&lt;/p&gt;
+&lt;p&gt;瑞幸曾经在咖啡领域时间更长、战线更长的 9.9 元战争中度过危险的业绩拐点。从规模上来说，瑞幸 2.2 万家的门店数量， 在咖啡茶饮行业也是数一数二。而规模效应可以带来总成本的降低，庞大的规模可以让他们的原料采购成本低于行业平均水平。瑞幸在 2024 年 Q3 一个季度的净利润（13.03 亿元），超过很多茶饮品牌前三季度的净利润总和。&lt;/p&gt;
+&lt;p&gt;更好的产品，来自更高的标准&lt;/p&gt;
+&lt;p&gt;价格战可以为初入茶饮行业的瑞幸带来流量，但留住消费者却需要有说服力的产品。&lt;/p&gt;
+&lt;p&gt;一般认为，咖啡的主力消费者比新茶饮的主力消费者更成熟化（前者 25~35 岁，后者 18~24 岁）、且消费的频次更高。原因之一是，在大众认知中，相对咖啡，茶饮产品更加不健康、热量更高。——对瑞幸来说，这种认知会影响到现有用户奶茶消费黏性的养成属性。&lt;/p&gt;
+&lt;p&gt;类似的健康担忧其实是行业性的：消费者可以一眼看到瓶装饮品的配料表，但现制茶饮更接近餐饮行业，消费者真正能直接比较的往往只有价格。很多时候只能通过暗访调查、制作台的原料露出、甚至是离职员工的披露，才能了解到部分产品的原料配料信息。&lt;/p&gt;
+&lt;p&gt;过去几年，食品安全、健康趋势逐渐成为消费者关注的重点，一些品牌因原料问题而引起争议，甚至生意下滑。&lt;/p&gt;
+&lt;p&gt;据千瓜数据统计，小红书站内泛健康敏感用户月活 1.4 亿，美食饮品相关笔记在大健康赛道中互动总量排名第二。“纯净”“元素”“新鲜”“天然” 这几个关键词在品类成分词的增幅中位居前四。&lt;/p&gt;
+&lt;p&gt;一些品牌也正在作出改变，例如主动公开配方原料，不过在行业内并未形成共识，且不同品牌公开的数据维度不一，尚未形成统一的标准或规范。&lt;/p&gt;
+&lt;p&gt;行业的规范化还需要各参与方的共同努力。在这种背景下，瑞幸的第二项举措就是 “立标准”。制定并提倡的轻乳茶标准，是行业规范化的一次尝试，也是细化至某一核心品类的标准，能够为消费者提供更为明确的评价标准和心理预期。&lt;/p&gt;
+&lt;p&gt;具体而言，瑞幸明确一杯品质轻乳茶，分别在轻、乳、茶三个维度符合如下标准：一杯热量 100 大卡左右（450mL 左右、不另外加糖）；100% 动物乳脂；100% 真茶鲜萃。&lt;/p&gt;
+&lt;p&gt;为了满足这一标准，瑞幸也在新品 “鲜萃轻轻茉莉·轻乳茶” 中将奶和茶的使用原料升级，并向消费者承诺做到 “0 植脂末、0 反式脂肪酸、0 阿斯巴甜、0 氢化植物油、0 茶粉、0 香精” 。&lt;/p&gt;
+&lt;p&gt;瑞幸在上游供应链端的建设由来已久。从全球寻豆绑定高品质核心产区、大规模产地直采，到鲜果处理加工厂、烘焙基地等自有工厂布局，都是瑞幸在规模化基础上，为支撑前端产品创新能力所配置的稳定高质出品的后端保障。&lt;/p&gt;
+&lt;p&gt;为了这次轻乳茶的升级，瑞幸在 “中国茉莉之乡” 广西横州设立了专属茉莉花产区示范基地，从种植、培育到采摘严格品控把关。&lt;/p&gt;
+&lt;p&gt;左手咖啡右手茶，瑞幸 20000 店之后&lt;/p&gt;
+&lt;p&gt;定标准、铺硬件、升级同系列产品、大手笔营销，都是长线布局。如此看重轻乳茶并押注 “咖啡 + 茶” 双产品战略背后，是瑞幸对全时段消费场景的企图，也是对现制饮品市场的长期谋划。&lt;/p&gt;
+&lt;p&gt;从外部环境来看，茶饮的需求端成熟，接受度更高，门店单量不存在显著的爬坡期。尤其是在下沉市场，茶饮的接受程度比咖啡更高，渗透率也更高。GeoQ Data 品牌数据显示，连锁茶饮产业的县域门店占全国总数高达 33%，而县域市场咖啡门店数量占比仅在 17% 左右。&lt;/p&gt;
+&lt;p&gt;细分到轻乳茶这个品类，短短几年增量从 100 亿元涨到了 500 亿元，很多头部茶饮品牌的轻乳茶产品堪称上新即销冠、稳定贡献 20% 左右的销售份额。&lt;/p&gt;
+&lt;p&gt;从内部驱动力来看，轻乳茶在消费者心目中的受欢迎程度，也有助于瑞幸继续改善同店销售增长这一核心经营指标。&lt;/p&gt;
+&lt;p&gt;自 2023 年后，为了应对来自其他咖啡品牌的竞争，瑞幸显著加速了其门店扩张节奏、以扩大市场份额，从创立到 10000 家门店，瑞幸花了五年半。而再次新增 10000 家门店，瑞幸仅用了 13 个月。&lt;/p&gt;
+&lt;p&gt;受扩张速度影响，瑞幸自营门店的同店销售指标，曾在短期内受到一定影响。随着规模、成本和效率优势趋于巩固，瑞幸同店销售自去年开始改善，开店速度也逐渐恢复至价格战前的正常水平，并在去年 12 月同店日均杯量销售率实现转正，且首次在作为咖啡淡季的第四季度实现两位数的营业利润率。&lt;/p&gt;
+&lt;p&gt;可以预见，持续改善同店销售增长指标，将会是瑞幸在一段时间内的重点工作。且从中长期来看，国内咖啡消费仍处于早期阶段，要继续提升咖啡消费人群基数和人均咖啡消费杯量，也是未来瑞幸同店经营指标的核心驱动力。&lt;/p&gt;
+&lt;p&gt;瑞幸曾经用生椰拿铁成功开创了咖啡饮品化，迅速扩大了咖啡消费人群；如今，瑞幸又在现有 3.3 亿累计交易用户上做文章，尝试通过深耕轻乳茶这类饮品化产品更进一步提升他们的消费频次。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/25880c2e8f9e1d830a38f583f031a6e6.jpg" alt="图片"/&gt;
+&lt;p&gt;据雪湖资本在 2022 年的调查，瑞幸咖啡的用户群体非常年轻，小于 18 岁的占 6%，19~24 岁的占 30%，25~30 岁的占 26%，这些用户同时也是茶饮高频消费者。&lt;/p&gt;
+&lt;p&gt;为咖啡市场培育更大的发展空间，也是瑞幸坚持在产品创新、品类拓展和营销活动上做投入的原因。瑞幸咖啡在 2024 年 Q4 业绩会上曾表示，该品牌 9.9 元咖啡活动将持续开展。瑞幸咖啡董事长兼 CEO 郭谨一说：“瑞幸致力于让更多消费者能够用优惠的价格便捷地享受到高品质的咖啡体验，致力于让高品质咖啡成为人们日常生活的一部分。”&lt;/p&gt;
+&lt;p&gt;中国消费者的 “饮品菜单” 还未固化，无论是对瑞幸还是对行业来说，饮品的边界仍然还有很大的拓宽空间。&lt;/p&gt;
+&lt;p&gt;题图来源：瑞幸咖啡&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Wed, 12 Mar 2025 13:03:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>零跑 2025 生存计划：低价智驾抢占大众市场，控制成本保持盈利</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2847</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：司雯雯、龚方毅、龚方毅&lt;/span&gt;
+                        &lt;span&gt;发布日期：今天 00:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;零跑去年四季度实现 8000 万元净利润，成为中国第二家盈利的造车新势力。凭借这一成绩，这家成立 9 年的公司获得了前所未有的市场关注，股价逼近 2023 年 7 月的历史高点。&lt;/p&gt;
+&lt;p&gt;今年前两个月零跑售出 5.04 万辆车，在新造车公司里只落后于理想和小鹏。在 3 月 10 日的财报电话会，零跑董事长朱江明将公司今年的销量目标从原来的 “冲击 50 万辆” 上修至 “50 万至 60 万辆”。&lt;/p&gt;
+&lt;p&gt;增长的重点将落在定价 10 万元至 15 万元、同时搭载激光雷达的 B 系列车型上。零跑将首次直接挑战比亚迪、吉利等传统巨头的主力市场。朱江明自己也承认公司面临的最大挑战就是日益加剧的 “内卷”。&lt;/p&gt;
+&lt;p&gt;然而，零跑不打算以牺牲利润，它想在扩张的同时保持全年盈利。而它的生存计划概括起来大概是：低价智驾攻占大众市场，控制成本保持盈利。&lt;/p&gt;
+&lt;p&gt;押注 “同价位最便宜激光雷达车型”&lt;/p&gt;
+&lt;p&gt;﻿&lt;/p&gt;
+&lt;p&gt;中国汽车市场竞争态势，倏地从去年单纯价格战转向今年的低价高阶智驾。比亚迪将高速 NOA 压至 7.88 万元、长安承诺 8 月在 10 万级车型配备激光雷达、广汽丰田已将激光雷达版铂智 3X 定价 14 万元。&lt;/p&gt;
+&lt;p&gt;零跑带着预售 10.98 万元起、激光雷达版 12.98 万元的 B10 进入这一市场。其中，后者支持高速和城区智能领航辅助驾驶。朱江明说这一定价策略早在半年前确定，并非受竞争影响。&lt;/p&gt;
+&lt;p&gt;他对 B10 的定位是 “同级别带激光雷达最便宜的车型”，对 B 系列的市场策略就是把智驾作为标配。&lt;/p&gt;
+&lt;p&gt;零跑目前划定了 A、B、C、D 四个产品系列，对应从低到高的细分市场。C 系列目前是主力，其中 C10、C16 月销平均过万，整个 C 系列去年占了公司总销量的四分之三。&lt;/p&gt;
+&lt;p&gt;但朱江明认为汽车行业需要长远规划，一步错可能需要数年恢复。所以即将上市的 SUV B10、轿车 B01 和两厢车 B05 会采用更集成的新一代电子电气架构 LEAP 3.5。&lt;/p&gt;
+&lt;p&gt;它部分版本搭载高通 8650 芯片，座舱、智驾、车身、动力各自的域控制器被集成为一个中央域控。电驱也将集成 VCU（Vehicle Control Unit，整车控制器）、MCU （(Microcontroller Unit，微控制单元）等。&lt;/p&gt;
+&lt;p&gt;面对行业可能只有六七家车企存活的局面，朱江明表示零跑将确保各产品线持续增长，同时为 C 系列提供技术升级，会在今年改款的时候升级技术架构和智驾系统。&lt;/p&gt;
+&lt;p&gt;克制投入，给 B 系列的低价竞争挤出毛利空间&lt;/p&gt;
+&lt;p&gt;目前零跑车卖得不贵，但去年四季度 13% 以上的毛利率也不算低了。它对今年的预期是全年毛利率 10%-11% 并取得年度盈利。&lt;/p&gt;
+&lt;p&gt;B 系列又成了关键。朱江明要求定价更低的 B 系列 “肯定不能亏本”。具体实现方法除了上面提到的电子电气架构的迭代，也会和 C 系列在产品平台上尽量共用研发结果和零部件。&lt;/p&gt;
+&lt;p&gt;但毕竟 B 系列还是在拖现在的毛利率后腿，为了扩大收入的同时增加毛利率，零跑正拓展零部件外供，比如 LEAP 3.5 架构可能以 “黑盒” 方式对外供应，但目前不会支持整个系统技术出口。&lt;/p&gt;
+&lt;p&gt;节流方面，零跑即便在最核心的 “三电” 部分也是部分租赁厂房。被机构热炒的预研机器人，按照朱江明的说法也是为了解决装备问题，代替人工、提升效率、降低劳动成本。&lt;/p&gt;
+&lt;p&gt;从曾经发不出工资，到现在月销 4 万辆，零跑的生存哲学是对增长渴望、对投入克制。朱江明对 2025 年有信心，但他的 “安全线” 是年销 100 万辆。他预期三年内做到。但在这个市场里，时间从不等人。&lt;/p&gt;
+&lt;p&gt;题图来源：零跑汽车&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Thu, 13 Mar 2025 00:03:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>富士康弄了个大模型；零跑提前季度盈利；Cursor母公司寻求百亿美元估值丨百亿美元公司动向</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2848</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：徐煜萌、王与桐、龚方毅&lt;/span&gt;
+                        &lt;span&gt;发布日期：03月10日 23:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;富士康也弄了个大模型。&lt;/p&gt;
+&lt;p&gt;富士康的大模型叫 FoxBrain，以 Meta Llama 3.1 为基础架构，具备推理能力。富士康说他们用了 120 块英伟达 H100 在大约四周内完成了 FoxBrain 的训练。他们打算将 FoxBrain 开源，以便与行业伙伴合作。&lt;/p&gt;
+&lt;p&gt;零跑汽车营收同比接近翻倍，提前实现季度盈利。&lt;/p&gt;
+&lt;p&gt;2024 年，零跑汽车共交付了 29.27 万台新车，同比增长 103.8%，带动营收同比增长 92% 至 321.6 亿元，毛利率从去年的 0.5% 改善至 8.4%。四季度，零跑首次实现单季度净利润、较原计划提前一年，规模约为 8000 万元。&lt;/p&gt;
+&lt;p&gt;零跑的销售主力为 C 系列，C 系列销量占去年总销量的 76.6%。截至去年末，零跑共有销售门店 695 家，服务门店 427 家。零跑表示，通过优化经销商结构和投资人区域分布的策略，去年渠道盈利率超过 80%。&lt;/p&gt;
+&lt;p&gt;引发全球 AI 编程热的 Cursor 母公司寻求百亿美元估值。&lt;/p&gt;
+&lt;p&gt;媒体报道，开发 AI 编程助手 Cursor 的母公司 Anysphere 正在以估值 100 亿美元寻求融资。三个月前，Anysphere 的估值是 25 亿美元。上一轮融资时，Anysphere 的估值是其年度经常性收入（ARR）的 25 倍，若此轮融资成功，这一比例将跃升至 66 倍。&lt;/p&gt;
+&lt;p&gt;在 AI 编程成为风口的当下，AI 编程工具的估值都纷纷上涨，上个月，AI 编程编辑器 Windsurf 的开发商 Codeium 也在以 30 亿美元的估值寻求融资，该数额是其 ARR 的 70 倍。&lt;/p&gt;
+&lt;p&gt;编程能力也是大模型 “打榜” 时的重要指标之一，换句话说，好的大模型一般也都有很强的编程能力，这也成为人们期待 AI 编程工具的基础。&lt;/p&gt;
+&lt;p&gt;智元机器人发布了具身基座模型，看视频学人类。&lt;/p&gt;
+&lt;p&gt;“稚晖君” 创办的智元机器人，在今天发布了具身基座模型智元启元大模型（GenieOperator-1）。在放出的 demo 以及官方的介绍中，GO-1 具备通用性和智能，能做一些以往人能做但机器人不能做的容错率低的事，比如给玻璃杯里倒水。&lt;/p&gt;
+&lt;p&gt;具身智能行业的共同瓶颈是过往数据积累不足，导致机器没有足够多可以学习的内容，因此行业也出现了遥操、仿真等不同的训练方法。而此次智元称，该模型可以结合互联网视频和真实人类示范学习，解决难题，并且以后也能在数据量不多的新场景以低成本学习。&lt;/p&gt;
+&lt;p&gt;字节又开源了一项优化技术，能降低 40% 的训练成本。&lt;/p&gt;
+&lt;p&gt;在今年 2 月，字节跳动提出了 UltraMem 的架构，能最多降低 83% 的成本。&lt;/p&gt;
+&lt;p&gt;今天，字节跳动开源了一项针对 MoE（混合专家模型）架构的关键优化技术，叫 COMET，称能将大模型训练效率提升 1.7 倍，成本节省 40%。这个技术此前已实际应用于字节的万卡集群训练，累计节省了数百万 GPU 小时训练算力。&lt;/p&gt;
+&lt;p&gt;保时捷控股去年因大众汽车减值损失 199 亿欧元。&lt;/p&gt;
+&lt;p&gt;作为大众汽车的最大股东，保时捷控股预计 2024 财年税后净亏损约 200 亿欧元，其中 199 亿欧元来自对大众的投资资产贬值。此外，保时捷控股另一家持股公司保时捷股份汽车也产生了 34 亿欧元的减值损失。目前，保时捷控股持有大众 31.9% 的股份，以及保时捷股份汽车 12.5% 的股份。&lt;/p&gt;
+&lt;p&gt;不敌美团 Keeta，英国外卖公司 “户户送” 退出香港。&lt;/p&gt;
+&lt;p&gt;英国外卖公司 “户户送”（Deliveroo）将于 4 月 7 日退出香港市场，并出售部分资产给香港外卖市占率前二的 FoodPanda。&lt;/p&gt;
+&lt;p&gt;据市场情报机构 Measurable AI ，按订单量计，2018 年，户户送在香港排名第一，市占率一度超 80%，2019 年被 Foodpanda 反超后长居香港第二。美团 Keeta 2023 年 5 月进入香港，短短半年后，户户送就被 Keeta 反超，排名降至第三。&lt;/p&gt;
+&lt;p&gt;有外卖员告诉媒体，对于户户送的撤退并不意外。他说，在 Keeta 每月可挣 1 至 2 万港元，在 FoodPanda 可挣约 1 万港元，而户户送仅一千港元。&lt;/p&gt;
+&lt;p&gt;户户送官方通报称，香港市场占集团全球总交易额的 5%。“香港市场特有的多项因素让董事局考虑过多个策略性方案。但基于户户送对资本投放的严谨要求，董事局最后认为继续于香港营运并不符合股东的最大利益。”&lt;/p&gt;
+&lt;p&gt;户户送成立于 2013 年， 2015 年进入香港特区。&lt;/p&gt;
+&lt;p&gt;百世完成私有化。&lt;/p&gt;
+&lt;p&gt;3 月 7 日，百世集团宣布完成私有化，并于 3 月 10 日暂停股票交易。百世成立于 2007 年， 2017 年上市。2014 - 2023 年，百世连年亏损，仅在 2021 年录得正向净利润。2022 年，其曾因连续 30 个交易日的平均收盘价低于每股 1 美元而收到纽交所退市警告。&lt;/p&gt;
+&lt;p&gt;2021 年 10 月，百世将中国业务以 68 亿元人民币的价格卖给极兔，此后聚焦于快运、国际、供应链业务。2023 年 11 月，百世公告称，收到一份由公司创始人、董事会主席兼 CEO 周韶宁以及阿里巴巴、菜鸟网络组成的买方集团提出的收购要约。&lt;/p&gt;
+&lt;p&gt;2024 年 6 月，百世宣布已与该买方集团签订私有化合并协议，收购价格为每股 2.88 美元，股权价值约为 5420 万美元。&lt;/p&gt;
+&lt;p&gt;小红书要帮电商商家出海。&lt;/p&gt;
+&lt;p&gt;小红书发布 “电商出海领航计划”，要帮助电商商家把货卖到国外。小红书商家签署协议成为出海商家后，可在后台勾选商品，选择 “开启” 或 “暂停” 出海，并在笔记、直播、店铺等板块展示商品。小红书还为商家提供 AI 翻译、官方合作物流等服务。该计划目前处于内测阶段，首期覆盖美国、中国香港和澳门。&lt;/p&gt;
+&lt;p&gt;奈雪的茶市值自上市缩水九成，预计去年亏损超 8 亿元。&lt;/p&gt;
+&lt;p&gt;3 月 7 日，奈雪的茶发布业绩预告，公司预计去年收入约为 48 亿元至 51 亿元，同比下滑 1%-7%，净亏损约 8.8 亿元至 9.7 亿元，由盈转亏。公司说净亏损主要由于消费市场表现疲软、竞争加剧和关闭表现不及预期的门店。2021 年，奈雪的茶登陆港交所，市值一度高于 300 亿元。截至今日收盘，奈雪股票收跌 20.73% 至 1.3 港元 / 股，市值自上市缩水九成。&lt;/p&gt;
+&lt;p&gt;泡泡玛特获得美泰授权，推出芭比娃娃系列。&lt;/p&gt;
+&lt;p&gt;为庆祝国际妇女节，芭比娃娃系列 3 月 8 日起在泡泡玛特官网发售。这一系列包含 10 款经典芭比玩偶，从 1959 年的初代芭比一直到 2022 年的芭比娃娃 Extra，其中 1995 年的生日快乐芭比是隐藏款。&lt;/p&gt;
+&lt;p&gt;据天风证券统计，截至去年 6 月，泡泡玛特收购、自研的艺术家 IP 共计 73 个。把潮玩做成 IP 运营生意的泡泡玛特，过去一年股价增长 435.1% 至 112.1 港元 / 股。&lt;/p&gt;
+&lt;p&gt;皮爷咖啡 CEO 计划五年内业务翻倍。&lt;/p&gt;
+&lt;p&gt;皮爷咖啡 CEO 埃里克·劳特巴赫（Eric Lauterbach）日前接受媒体采访，说计划五年内业务翻倍，并承认过去增长不如预期。劳特巴赫说公司要适应消费者，包括推出较浅的烘焙咖啡、扩大在 Costco 和机场授权店的数量、扩展产品至胶囊咖啡领域。皮爷咖啡诞生于 1966 年的伯克利，以深烘著名，是星巴克的前身。&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Mon, 10 Mar 2025 23:03:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>乐高收入、利润新高；安克创新要做机器人；Manus要和阿里通义千问合作丨百亿美元公司动向</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2849</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：曾兴、王与桐、龚方毅&lt;/span&gt;
+                        &lt;span&gt;发布日期：昨天 23:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;市场份额扩大，乐高收入、利润创新高。&lt;/p&gt;
+&lt;p&gt;乐高 CEO 说，乐高扩大产品范围吸引了更多新的消费者，正在从竞争对手那里抢夺市场份额。比如由积木和人造植物组成的乐高花植系列，同时吸引了年轻女孩和更年长的女性。CEO 说去年乐高在每个市场的份额都获得增长，尤其是美国的增长势头强劲，且这种势头持续到今年。去年，乐高营收同比增长 13%、至 743 亿丹麦克朗，营业利润 187 亿丹麦克朗，同比增长 10%，均创新高。&lt;/p&gt;
+&lt;p&gt;乐高今年计划进一步扩大门店规模，将在全球新开 85 家门店。产能方面，去年乐高扩大了在墨西哥、匈牙利和中国现有工厂的产能，今年初越南工厂将投产，而美国弗吉尼亚州的工厂预计在 2027 年建成。&lt;/p&gt;
+&lt;p&gt;做充电宝的安克创新要做机器人，还要一次做三款。&lt;/p&gt;
+&lt;p&gt;去年 10 月，安克创新就曾传出要组建机器人团队的消息。今天有了更详细的动向：安克创新将机器人本体分为三个阶段和三种本体类型，分别是以扫地机器人、割草机器人为主的二维基础型本体，以无人机和机器狗为主的三维移动型本体，以人形机器人为主的三维交互型本体。&lt;/p&gt;
+&lt;p&gt;目前，安克创新会利用现有团队和技术进行扫地机器人等本体的开发，目标是创造业务规模和现金流。同时，针对机器狗和人形机器人等品类，安克创新已开始招人。&lt;/p&gt;
+&lt;p&gt;安克创新以充电宝、数据线等移动设备周边产品起家，后来产品品类逐渐扩充至 3D 打印机、无线蓝牙耳机、蓝牙音箱、光伏及储能产品等。现在，他们又要开始新的尝试了。&lt;/p&gt;
+&lt;p&gt;Manus 要和阿里通义千问合作。&lt;/p&gt;
+&lt;p&gt;近日引发热议的 Monica 公司旗下 AI 产品 Manus，今日宣布与阿里通义千问团队达成合作。双方将基于通义千问系列开源模型，在国产模型和算力平台上实现 Manus 的全部功能。此前，Monica 联合创始人、首席科学家季逸超曾透露，Manus 基于美国 AI 公司 Anthropic 的 Claude 大模型和阿里的千问大模型（Qwen）的微调模型开发。&lt;/p&gt;
+&lt;p&gt;加拿大便利店巨头继续推进收购 7-11 母公司。&lt;/p&gt;
+&lt;p&gt;当地时间 3 月 10 日，加拿大便利店巨头 Alimentation Couche-Tard（ACT）声明称，将以 “友好且坚持的态度” 继续推进收购 7-11 便利店母公司柒和伊控股。ACT 表示融资和潜在的反垄断监管都不是问题，收购后不会关闭日本业务门店或裁员，计划在全球范围内投资 7-11 品牌，以实现增长并延续品牌的 “标志性传统”。&lt;/p&gt;
+&lt;p&gt;金价高企，老凤祥去年收入、净利双降。&lt;/p&gt;
+&lt;p&gt;去年老凤祥收入同比下降两成、约 567.9 亿元，净利润 19.5 亿元，同比下滑 12%。公司在年报里说，业绩下滑主因黄金价格不断新高，导致黄金珠宝消费疲软。据中国黄金协会的统计，去年中国黄金首饰消费量为 532 吨，同比减少了四分之一。消费疲软还影响公司销售网点扩张，去年老凤祥的加盟店净减少了 166 家，截至去年底，老凤祥在境内外共有 5838 家门店。&lt;/p&gt;
+&lt;p&gt;高通收购一家端到端边缘 AI 开发平台，加速端侧智能的到来。&lt;/p&gt;
+&lt;p&gt;高通公司近日正式宣布已与 Edge Impulse 达成收购协议。Edge Impulse 的端到端边缘 AI 平台能够帮助开发者在各种边缘设备上快速创建、部署和监控 AI 模型。通过此次收购，高通将显著增强其在边缘 AI 开发方面的能力，尤其是在低功耗、高性能的硬件优化和模型部署方面&lt;/p&gt;
+&lt;p&gt;自大模型出现后，手机、手表、家居设备、汽车等智能终端被期待具备本地模型能力，以减少云端智能带来的时延和隐私泄露风险。作为智能终端芯片的主要供应商，高通被寄予厚望。此次收购有望加速高通在端侧智能领域的研发进度，推动智能终端的智能化发展。&lt;/p&gt;
+&lt;p&gt;苹果要推出折叠屏 iPad 了。&lt;/p&gt;
+&lt;p&gt;自 2018 年以来，不断有苹果要做折叠屏的消息传出。最近苹果的折叠屏终于有了新进展：苹果正在研发不仅限于可折叠屏 iPhone 的新技术，还计划推出一款配备 18.8 英寸可折叠屏幕的 iPad Pro。&lt;/p&gt;
+&lt;p&gt;媒体报道，该 iPad Pro 不仅在屏幕尺寸上实现了突破，更将引入一项革命性的技术——屏下 3D 人脸识别系统，实现真正的全面屏设计。这款 iPad 预计于 2028 年发布。&lt;/p&gt;
+&lt;p&gt;追觅要做大家电。&lt;/p&gt;
+&lt;p&gt;3 月 11 日，追觅宣布将进入冰箱、空调、洗衣机、厨电等大家电领域。现在追觅国内产品系列包括洗地机、扫地机、手持吸尘器、吹风机等，以 “高速马达” 为核心竞争力的清洁类产品。去年 “双十一” 期间，追觅宣布全品类核心渠道 GMV 超过 21 亿元，同比增长超 100%。&lt;/p&gt;
+&lt;p&gt;特斯拉股价创四年多来单日最大跌幅，市值较历史高点蒸发近半。&lt;/p&gt;
+&lt;p&gt;特斯拉 3 月 10 日股价大跌 15.43%，创下四年多来单日最大跌幅。去年 12 月 17 日，美国大选结果公布带动特斯拉市值达到 1.5 万亿美元的历史高点，但近 3 个月以来的波动下跌已使得特斯拉市值蒸发约 45%，回到了美国大选前的水平。特斯拉股价大跌有多重因素影响，包括销量与利润的双重下滑，马斯克政治举措引发的抗议，以及投资者对马斯克注意力被政治活动分散的担忧。&lt;/p&gt;
+&lt;p&gt;马斯克跨越多个领域的业务活动，依赖特斯拉的市值表现，面对近期的股价大跌，马斯克并不轻松，他在当天的媒体采访中也表示为政府工作使得 “经营非常困难”。不过，马斯克得到了美国总统特朗普的支持，特朗普宣布其将在次日上午购买一辆全新的特斯拉，11 日美股盘前，特斯拉股票出现 2.66% 的上涨。&lt;/p&gt;
+&lt;p&gt;禾赛科技去年实现全年盈利，预计今年出货量翻 2 至 3 倍。&lt;/p&gt;
+&lt;p&gt;禾赛科技 2024 年营收 20.8 亿元，同比增长 10.7%，调整后净利润为 1370 万元，成为首家实现全年盈利的上市激光雷达企业。去年，禾赛激光雷达总交付量达 50.19 万台，同比增长 126.0% ，其中四季度的增幅最高，同比增长 153.1% 至 22.21 万台，超过 2023 年全年。四季度，禾赛营收 7.2 亿元，同比增长 28.3%，毛利率为 39%，略低于 2023 年同期。&lt;/p&gt;
+&lt;p&gt;禾赛预计今年激光雷达的出货量还将大幅提升，达到 120 万至 150 万台，其中机器人领域激光雷达预计将达 20 万台，营收将达到 30 亿至 35 亿元，其中 ADAS 占总收入约 60% 至 65%。&lt;/p&gt;
+&lt;p&gt;得益于比亚迪、长安等车企发起的智驾平权运动，今年以禾赛、速腾为代表的智驾供应商都经历了一波股价上涨，禾赛市值较年初已上涨了 15.85%，速腾则上涨了 39.9%。智驾大规模上车，智驾供应商开始忙着扩产，禾赛今年要把产能提高到 200 万台，其全新产线将于第三季度正式投产，德赛西威日前也计划增发 A 股为扩产筹募更多资金。&lt;/p&gt;
+&lt;p&gt;大众集团去年营收 3247 亿欧元，预计今年利润率持平。&lt;/p&gt;
+&lt;p&gt;2024 年，大众汽车集团共卖出 900 万台汽车，同比减少 3.5%，它在全球其他地区的销量与 2023 年持平，但在中国下降了 10%。全年营收 3247 亿欧元，同比微增 1 %，汽车销售收入同比略有下降，为 2659 亿欧元；营业利润为 191 亿欧元，同比下降 15%，营业利润率为 5.9%。&lt;/p&gt;
+&lt;p&gt;今年对大众依旧难言轻松，美国拟对加墨两国征收 25% 的进口关税政策，并威胁要对欧盟加征关税，贸易冲突加剧带来了新的挑战。大众集团预计今年的盈利能力将基本持平，营业利润率为 5.5% 至 6.5%。大众表示，由于专注新车型开发，预计中国市场的盈利将下降 5 亿至 10 亿欧元，但在德国进行的降本行动将节省下 10 亿欧元。&lt;/p&gt;
+&lt;p&gt;一批制造业公司开始准点下班。&lt;/p&gt;
+&lt;p&gt;本周起，美的开始强制员工 18:20 下班，同时禁止员工就餐后返回工位加班。今年 1 月，美的向中国境内员工发布简化工作方式的六条禁令，其中就包括 “严禁下班时间开会和形式主义加班”。&lt;/p&gt;
+&lt;p&gt;大疆也自 2 月 27 日起强制员工 21 点下班。据《经济观察报》，在大疆深圳总部，21 点后，主管和 HR 会分三轮赶人下班，HRBP 背着 “必须清场” 的 KPI；上海办公室则到 21 点就准时关灯。&lt;/p&gt;
+&lt;p&gt;他们加强工时管理的大背景，是海外市场提高供应链合规要求。2024 年 11 月，欧盟理事会通过《强迫劳动条例》，禁止强迫劳动产品在欧盟市场上流通、销售和出口。据国际劳工组织，强迫劳动具备两个特征：惩罚的威胁，非自愿的劳动或服务。按照该组织标准，正常情况下，轮班工人每天工作 8 小时，每周 48 小时，或者每周 40 小时。&lt;/p&gt;
+&lt;p&gt;特朗​普称 TikTok 出售交易可能 “很快” 达成。&lt;/p&gt;
+&lt;p&gt;特朗普上周末说他正与四组买家谈判，TikTok 美国业务的出售交易可能 “很快”（soon）达成。他没有说明具体竞购者，也没有表现出倾向性，而称 “四个都很好”。&lt;/p&gt;
+&lt;p&gt;上周四，特朗普说如果 4 月 5 日前无法达成协议，他可能会再次延长 TikTok 的出售期限。&lt;/p&gt;
+&lt;p&gt;目前，公开宣称参与 TikTok 竞购的团队包括：由前洛杉矶道奇队老板 Frank McCourt 牵头的团队，成员包括美国社交平台 Reddit 联合创始人 Alexis Ohanian ；以科技企业家 Jesse Tinsley 为首的团队，成员包括在 YouTube 拥有 3.5 亿订阅者的网红 Mr Beast。&lt;/p&gt;
+&lt;p&gt;此外，据媒体报道，AI 聊天机器人和搜索引擎公司 Perplexity，以及曾托管 TikTok 美国数据的科技公司甲骨文（Oracle），也参与竞购。2020 年，甲骨文曾联合沃尔玛提出收购 TikTok Global 20% 股份，后未成行。TikTok Global 是当时新成立的美国公司，将拥有 TikTok 在全球的大部分业务。当年，微软也曾参与 TikTok 收购谈判。&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Wed, 12 Mar 2025 23:03:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>晚点独家丨smart 股权结构不受股东调整影响，将推混动车型</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2850</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：王笑渔、龚方毅&lt;/span&gt;
+                        &lt;span&gt;发布日期：今天 00:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;《台州宣言》宣布后，吉利持续推进品牌聚焦与资源整合，比如几何和翼被整合到吉利银河品牌、集团各品牌智驾方案归拢到 “千里浩瀚” 一个体系里。他们与沃尔沃合资的领克和极星和各有调整。&lt;/p&gt;
+&lt;p&gt;在一系列调整之后，吉利与奔驰合资的 smart 品牌全球合资公司的动向也受到外界关注，尤其近期奔驰也有重要人事变化，smart 品牌全球公司董事、负责奔驰大中华区业务的唐仕凯（Hubertus Troska）即将退休。&lt;/p&gt;
+&lt;p&gt;近日我们从 smart 合资公司管理层方面独家了解到，smart 并未受到股东调整的影响，也没有其他的合并或重组的计划。&lt;/p&gt;
+&lt;p&gt;新车型方面，smart 精灵 5 号可能会有插电式混动车型，或采用吉利的混动系统。筹备中的精灵 6 号，定位为纯电动轿车，这是 smart 首次进入轿车领域。对此，官方表示 “精灵 6 号正顺利有序推进中。”&lt;/p&gt;
+&lt;p&gt;吉利和奔驰在 smart 上的合作始于 2019 年，当时双方以 50:50 的股比成立 smart 品牌全球合资公司。四位 “C-Suit” 高管是全华班，CEO 是时任领克品牌张家口工厂总经理佟湘北。&lt;/p&gt;
+&lt;p&gt;造车方面，奔驰负责 smart 的产品设计、吉利负责研发和生产、smart 合资公司承担销售和研发智能，有别于过去中国合资车企由外方主导产品和技术，中方只负责生产和销售的传统。&lt;/p&gt;
+&lt;p&gt;去年是 smart 合资的第五年，全年全球销量近 13 万台，同比增长近 7%。销量成绩不算拔尖，但此前奔驰和吉利对 smart 足够宽容。因为，它确实尝试了一种新的合资模式：把中国技术，装入国际汽车品牌，并卖向全球。&lt;/p&gt;
+&lt;p&gt;但今年不同，奔驰对成本和效率格外重视，吉利对品牌和资源也大整合，以应对现在市场的激烈竞争。smart 如何在这种环境下争取到资源，可能会比以往更重要。&lt;/p&gt;
+&lt;p&gt;smart 合资品牌最大的突破就是没做品牌原先标志性的双门车。国产后首款车是 smart 精灵 1 号，定位小型纯电 SUV；第二款是 smart 精灵 3 号，定位是紧凑型 SUV；第三款是 smart 精灵 5 号定位中型 SUV。“精灵 2 号” 的命名留给了两座车，但何时国产是个迷。&lt;/p&gt;
+&lt;p&gt;smart 暂时不做两门车是一方面是想加快从小众市场迈入主流市场，另外一方面是扩充品牌标签。smart 品牌全球公司 CMO 张明霞说，品牌是用户去塑造的，更多元化的用户客群本身就是个标签。smart 积累的用户群，家庭结构在变，消费观念也在变，要满足他们需求，就得进入不同细分市场。&lt;/p&gt;
+&lt;p&gt;这一变化正好填补了奔驰战略调整留下的空白。当奔驰精简入门级产品线，将 “新生代豪华” 车型从 7 款减少到 4 款、并聚焦高利润豪华车型时，smart 正好覆盖了 15-30 万元的豪华品牌入门价位市场。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/64b83ca695b9afdb872af1a3e056f6e7.jpg" alt="图片"/&gt;
+&lt;p&gt;梅赛德斯-奔驰的布里斯班旗舰店&lt;/p&gt;
+&lt;p&gt;在中国市场，精品小车难免会面临定价虚高的尴尬。同样的价格，消费者能够买到尺寸更大的车型。尤其是精灵 1 号所处的 15 万 - 20 万元价位段里，能买到的中型 SUV 有比亚迪宋 L、深蓝 S07 等，甚至还能买到中大型 SUV 零跑 C16。&lt;/p&gt;
+&lt;p&gt;去年 4 月，精灵 1 号起售价调降 2.41 万元、至 15.49 万元。精灵 3 号则降至 16.49 万起售、降幅 4.5 万元。类似的，smart “老对手”MINI，主动加入价格战。去年底，纯电 MINI COOPER 上市后两个月就采取限时优惠，将起售价从 18.98 万元降调整至 14.88 万元。&lt;/p&gt;
+&lt;img src="https://www.latepost.com/uploads/contentImg/9fe4233aadb25ba7888f11b8904871f2.png" alt="图片"/&gt;
+&lt;p&gt;从左至右：5 号、1 号、3 号&lt;/p&gt;
+&lt;p&gt;2022 年 5 月，smart 机器人科技有限公司在上海成立，负责全栈自研高阶智驾，总人数约 150 人。CEO 陈大宇曾负责宝马高阶自动驾驶产品开发工作。&lt;/p&gt;
+&lt;p&gt;为了快速追上中国同行的进度，smart 自研智驾软件架构、软件集成以及绝大部分的应用层，他们还在内蒙古乌兰察布有一个数据中心，采购了小几百张 H100 加速卡，用于支撑应用层开发。&lt;/p&gt;
+&lt;p&gt;还有一些底层硬件则和吉利共用。比如，smart 精灵 5 号车机和领克 Z10 同为亿咖通·马卡鲁计算平台。佟湘北告诉我们，smart 会尽量利用吉利集团的力量采购通用的硬件，可以拿到比自己单独采购更低的价格。但他反复强调，与用户直接相关的应用层，smart 要按照自己品牌调性来定义。&lt;/p&gt;
+&lt;p&gt;题图来源：smart 官网&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Thu, 13 Mar 2025 00:03:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>利润下滑 15% 之后，大众视成本控制为最高优先级丨一分钟财报</title>
+      <link>https://www.latepost.com/news/dj_detail?id=2851</link>
+      <description>
+                &lt;style&gt;
+                    .article-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }
+                    .article-meta { color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }
+                    .article-meta span { display: inline-flex; align-items: center; }
+                    .article-meta span::before { content: ''; display: inline-block; width: 4px; height: 4px; background: #666; border-radius: 50%; margin-right: 8px; }
+                    .article-content { font-size: 16px; color: #2c3e50; }
+                    .article-content p { margin-bottom: 20px; line-height: 1.8; }
+                    .article-content img { max-width: 100%; height: auto; margin: 24px 0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                    .article-content blockquote { background: #f8f9fa; border-left: 4px solid #4a90e2; margin: 20px 0; padding: 20px; font-style: italic; border-radius: 0 8px 8px 0; }
+                    .article-content h1 { font-size: 24px; margin: 32px 0 16px; color: #2c3e50; }
+                    .article-content h2 { font-size: 20px; margin: 28px 0 14px; color: #2c3e50; }
+                &lt;/style&gt;
+                &lt;div class='article-container'&gt;
+                    &lt;div class='article-meta'&gt;
+                        &lt;span&gt;作者：赵宇、龚方毅&lt;/span&gt;
+                        &lt;span&gt;发布日期：今天 00:03&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class='article-content'&gt;
+                &lt;p&gt;---&lt;/p&gt;
+&lt;p&gt;“中国汽车市场高度动态变化，竞争极其激烈。” 3 月 11 日，大众集团 CEO 奥博穆（Oliver Blume）在德国沃尔夫斯堡总部告诉在场媒体。&lt;/p&gt;
+&lt;p&gt;去年大众集团全球交付量同比下滑 2.3%、至 902.3 万辆，主要受一汽-大众和上汽大众两家合资公司同比少交付 32.3 万辆新车的影响。&lt;/p&gt;
+&lt;p&gt;大众集团 CFO 兼 COO 阿诺·安德里茨（Arno Antlitz）试图挽回投资者的信心。他说，今后两年，大众将专注于面向中国本土市场新车型的开发和推广，预计这些车型在设计、技术和成本方面具备绝对竞争力。&lt;/p&gt;
+&lt;p&gt;截至 2024 年底，大众集团在中国共有 23555 名全职雇员，不到德国本土雇员总数的十二分之一。但对于大众管理层来说，中国的重要性丝毫不亚于德国。&lt;/p&gt;
+&lt;p&gt;按照规划，2025 年，大众将推出奥迪品牌与上汽合作的首批车型，以及基于 PPE 平台的第二款奥迪车型。2026 年，大众还计划推出更多新款车型。&lt;/p&gt;
+&lt;p&gt;优先降本以保证资本开支强度&lt;/p&gt;
+&lt;p&gt;﻿&lt;/p&gt;
+&lt;p&gt;受中国市场交付量下滑影响，大众集团 2024 财年汽车销售收入同比下滑 0.9%、至 2658.9 亿欧元。得益于金融服务业务的增长，总营收没有下降，反而同比增长 0.7%、至 3246.6 亿欧元。&lt;/p&gt;
+&lt;p&gt;受交付减少影响，去年大众集团营业利润为 190.6 亿欧元，同比下降 15.4%；营业利润率为 5.9%，同比降低 1.1 个百分点，低于安德里茨去年初 “营业利润率可达 7% 至 7.5%” 的预期，但比去年 11 月修正后的 5.6% 利润率目标高出 0.3 个百分点。&lt;/p&gt;
+&lt;p&gt;其中，大众品牌年度利润率是 2.9%，远低于 6.5% 的既定目标。&lt;/p&gt;
+&lt;p&gt;2024 财年，大众集团汽车部门的净现金流为 50 亿欧元，同比减少 57 亿欧元，主要原因是大众在去年进行了高额投资，以及裁员等业务重组带来的固定成本大幅增加。&lt;/p&gt;
+&lt;p&gt;在年报发布后的业绩电话会上，安德里茨称，“投资支出已在 2024 财年达到峰值，但 2025 年仍会处于较高水平。”&lt;/p&gt;
+&lt;p&gt;对于接下来要做的投资，奥博穆解释称，“明智且广泛地投资有前途的、面向未来的创新是绝对必要的。” 大众集团预计，2025 年，汽车业务的净现金流会从 50 亿欧元进一步下降，最低预期是 20 亿欧元，原因包括用于未来的研发投资支出，以及大约 20 亿欧元的重组现金支出。&lt;/p&gt;
+&lt;p&gt;奥博穆在 2024 年年报的致股东信章节写道，“我们正在持续优化成本结构、提高盈利能力并进一步增强财务稳健性。” 他希望 2025 年成为大众集团全面展现实力、加速前进的一年。&lt;/p&gt;
+&lt;p&gt;大众的确已经把 “降本” 放在集团层面的更高位置。在奥博穆此次给出的 2025 年十大战略重点事项中，“成本控制” 排在首位，其次是产品和中国市场。而在 2022 年 9 月刚就任大众 CEO 时，奥博穆提出的十大战略重点事项中，并不包括 “成本控制” 一项，排名前三的分别是：总体规划、产品和中国市场。&lt;/p&gt;
+&lt;p&gt;为了降本，大众决定不再遵守已经承诺数十年的工作保障协议。到 2030 年，大众将在德国本土裁撤超 3.5 万名员工。截至 2024 年底，大众集团在全球 100 多个国家或地区共雇佣 61.4 万名全职员工，其中 47.8% 在德国本土。&lt;/p&gt;
+&lt;p&gt;在中国更倚仗本土合作厂商&lt;/p&gt;
+&lt;p&gt;2024 年 1-12 月，中国汽车市场的新能源渗透率同比提升 11.9 个百分点、达到 47.6%。大众集团的情况则没这么乐观——大众去年在中国市场累计交付约 20 万辆电动车，只占同期新车交付总量的 6.8%。&lt;/p&gt;
+&lt;p&gt;电动化是大众集团汽车业务的明确发展方向。奥博穆在股东信中强调，“出行的未来是电动的。就其性能特征而言，它优于内燃机技术。”&lt;/p&gt;
+&lt;p&gt;要追赶中国自主品牌，大众需要在电动车市场加快步伐。&lt;/p&gt;
+&lt;p&gt;过去，大众做电动车更多依靠自研，但事实证明效率不高。现在，大众转而将希望寄托于中国本土合作厂商。眼下，大众软件子公司 CARIAD 中国、大众汽车（中国）科技有限公司 VCTC 正与中国新势力车企小鹏汽车合作开发下一代电子电气架构，希望最早在 2025 年底将其推向市场。VCTC 是大众在集团层面建立的唯一聚焦智能网联汽车转型的研发中心，于 2023 年 5 月成立，到去年底已经有 3000 名研发人员。&lt;/p&gt;
+&lt;p&gt;奥博穆还在业绩会上说，得益于与小鹏、地平线达成的战略合作，大众的新车型研发进度已明显提速，成本也会有所降低。奥博穆强调，“我们的目标是减少 30% 的工程时间和 30% 的成本。”&lt;/p&gt;
+&lt;p&gt;2024 年，大众集团在中国汽车市场的份额同比下滑约 2 个百分点，但燃油车业务依然赚钱，这支撑了在华电动车投资的。不过，他也向投资者预警，“我们预计 2025 年的中国市场将充满挑战，新车价格折扣将进一步增加。”&lt;/p&gt;
+&lt;p&gt;题图来源：视觉中国&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description>
+      <pubDate>Thu, 13 Mar 2025 00:03:24 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
