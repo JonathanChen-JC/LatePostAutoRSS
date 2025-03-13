@@ -87,6 +87,30 @@ class LatePostRSSGenerator:
             output_file: 输出的RSS文件名
             max_entries: RSS中包含的最大文章数量，默认为20
         """
+        # 确保文章目录存在
+        if not os.path.exists(self.articles_dir):
+            os.makedirs(self.articles_dir)
+            print(f"创建文章目录: {self.articles_dir}")
+        
+        # 获取所有markdown文件
+        markdown_files = []
+        if os.path.exists(self.articles_dir):
+            markdown_files = [f for f in os.listdir(self.articles_dir) 
+                            if f.endswith('.md') and f.startswith('latepost_article_')]
+            if not markdown_files:
+                print("未找到任何文章文件")
+        
+        # 如果没有找到任何文章文件，使用基本的RSS结构
+        if not markdown_files:
+            fg = FeedGenerator()
+            fg.title('晚点LatePost')
+            fg.description('晚点LatePost的文章更新')
+            fg.link(href='https://www.latepost.com')
+            fg.language('zh-CN')
+            fg.rss_file(output_file, pretty=True)
+            print(f"RSS文件已生成: {output_file}")
+            return
+        
         fg = FeedGenerator()
         fg.title('晚点LatePost')
         fg.description('晚点LatePost的文章更新')
