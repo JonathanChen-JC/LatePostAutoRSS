@@ -45,6 +45,20 @@ def feed():
                         # 创建一个基本的非空feed结构
                         persistence._create_basic_feed()
                 else:
+                    # 检查是否有项目自带的feed.xml
+                    project_feed_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'feed.xml')
+                    if os.path.exists(project_feed_path) and os.path.abspath(project_feed_path) != os.path.abspath('feed.xml'):
+                        try:
+                            with open(project_feed_path, 'r', encoding='utf-8') as f:
+                                project_feed_content = f.read().strip()
+                            if project_feed_content and '<?xml version=' in project_feed_content and '<rss' in project_feed_content and '</rss>' in project_feed_content:
+                                print(f"使用项目自带的feed.xml作为初始RSS结构")
+                                with open("feed.xml", 'w', encoding='utf-8') as f:
+                                    f.write(project_feed_content)
+                                return send_file('feed.xml', mimetype='application/rss+xml')
+                        except Exception as e:
+                            print(f"读取项目自带feed文件时出错: {str(e)}")
+                    
                     # 创建一个基本的非空feed结构
                     persistence._create_basic_feed()
             except Exception as e:

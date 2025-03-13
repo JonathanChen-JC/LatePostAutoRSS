@@ -26,12 +26,25 @@ def regenerate_feed():
     
     if not existing_articles:
         print("未找到任何文章文件，将创建基本的非空RSS结构")
+        # 使用持久化存储的_ensure_feed_not_empty方法，该方法已增强，会检查项目自带的feed.xml
         if persistence:
             persistence._ensure_feed_not_empty()
             return True
         else:
             # 如果没有持久化存储，手动创建基本结构
             try:
+                # 先检查是否有项目自带的feed.xml
+                project_feed_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'feed.xml')
+                if os.path.exists(project_feed_path):
+                    with open(project_feed_path, 'r', encoding='utf-8') as f:
+                        project_feed_content = f.read().strip()
+                    if project_feed_content and '<?xml version=' in project_feed_content and '<rss' in project_feed_content and '</rss>' in project_feed_content:
+                        print(f"使用项目自带的feed.xml作为初始RSS结构")
+                        with open("feed.xml", 'w', encoding='utf-8') as f:
+                            f.write(project_feed_content)
+                        return True
+                
+                # 如果没有可用的项目自带feed.xml，创建基本结构
                 timestamp = datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")
                 basic_feed = f'''<?xml version='1.0' encoding='UTF-8'?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">

@@ -461,12 +461,34 @@ class GitPersistence:
         if os.path.exists(self.feed_file):
             current_feed_time = os.path.getmtime(self.feed_file)
         
+        # 检查项目自带的feed.xml是否存在且非空
+        # 这里假设项目自带的feed.xml与当前feed.xml路径相同，但在初始化时可能被覆盖
+        # 因此我们在这里检查是否有备份或者是否可以从项目代码中恢复
+        project_feed_empty = True
+        try:
+            # 获取项目根目录下的feed.xml内容
+            project_feed_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'feed.xml')
+            if os.path.exists(project_feed_path) and os.path.abspath(project_feed_path) != os.path.abspath(self.feed_file):
+                with open(project_feed_path, 'r', encoding='utf-8') as f:
+                    project_feed_content = f.read().strip()
+                project_feed_empty = not project_feed_content or project_feed_content == '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>'
+                if not project_feed_empty:
+                    print(f"找到项目自带的非空feed.xml: {project_feed_path}")
+        except Exception as e:
+            print(f"读取项目自带feed文件时出错: {str(e)}")
+            project_feed_empty = True
+        
         # 决定使用哪个feed文件
         if current_feed_empty:
             if backup_feed_exists and not backup_feed_empty:
                 # 当前feed为空但备份非空，使用备份
                 print(f"当前feed.xml为空，使用非空的备份feed.xml")
                 shutil.copy2(backup_feed_path, self.feed_file)
+                return True
+            elif not project_feed_empty:
+                # 当前feed为空，备份也为空或不存在，但项目自带feed非空，使用项目自带feed
+                print(f"当前feed.xml为空，使用项目自带的非空feed.xml")
+                shutil.copy2(project_feed_path, self.feed_file)
                 return True
             else:
                 # 当前feed为空且备份也为空或不存在，创建基本结构
