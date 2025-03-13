@@ -97,9 +97,37 @@ class GitPersistence:
                 # 确保远程仓库配置正确
                 self._run_command('git remote remove origin')
                 self._run_command(f'git remote add origin {repo_with_token}')
-                # 确保文章目录存在
-                if not os.path.exists(self.articles_dir):
-                    os.makedirs(self.articles_dir)
+                
+                # 检查仓库中是否存在feed.xml和latepost_articles
+                has_feed = os.path.exists(self.feed_file)
+                has_articles = os.path.exists(self.articles_dir)
+                
+                # 如果仓库中不存在这些文件，则使用项目自带的文件
+                if not has_feed or not has_articles:
+                    print("仓库中缺少必要文件，将同步项目自带文件")
+                    # 如果存在备份的feed.xml，使用备份文件
+                    if not has_feed and os.path.exists('feed.xml.bak'):
+                        shutil.copy2('feed.xml.bak', self.feed_file)
+                    # 确保文章目录存在
+                    if not has_articles:
+                        os.makedirs(self.articles_dir, exist_ok=True)
+                else:
+                    print("检查Git仓库中的文章文件是否需要同步")
+                    # 比较Git仓库和本地文件的修改时间
+                    if os.path.exists('latepost_articles.bak'):
+                        for article in os.listdir(self.articles_dir):
+                            if article.endswith('.md'):
+                                repo_file = os.path.join(self.articles_dir, article)
+                                local_file = os.path.join('latepost_articles.bak', article)
+                                if os.path.exists(local_file):
+                                    repo_mtime = os.path.getmtime(repo_file)
+                                    local_mtime = os.path.getmtime(local_file)
+                                    if repo_mtime > local_mtime:
+                                        print(f"使用Git仓库中的较新文件: {article}")
+                                        shutil.copy2(repo_file, local_file)
+                    print("文件同步检查完成")
+                    print("使用仓库中的现有文件")
+                
                 print("Git仓库克隆成功")
                 return True
         else:
@@ -108,9 +136,23 @@ class GitPersistence:
                 # 确保远程仓库配置正确
                 self._run_command('git remote remove origin')
                 self._run_command(f'git remote add origin {self.repo_url}')
-                # 确保文章目录存在
-                if not os.path.exists(self.articles_dir):
-                    os.makedirs(self.articles_dir)
+                
+                # 检查仓库中是否存在feed.xml和latepost_articles
+                has_feed = os.path.exists(self.feed_file)
+                has_articles = os.path.exists(self.articles_dir)
+                
+                # 如果仓库中不存在这些文件，则使用项目自带的文件
+                if not has_feed or not has_articles:
+                    print("仓库中缺少必要文件，将同步项目自带文件")
+                    # 如果存在备份的feed.xml，使用备份文件
+                    if not has_feed and os.path.exists('feed.xml.bak'):
+                        shutil.copy2('feed.xml.bak', self.feed_file)
+                    # 确保文章目录存在
+                    if not has_articles:
+                        os.makedirs(self.articles_dir, exist_ok=True)
+                else:
+                    print("使用仓库中的现有文件")
+                
                 print("Git仓库克隆成功")
                 return True
         
@@ -155,9 +197,9 @@ class GitPersistence:
                         if os.path.isfile(s):
                             shutil.copy2(s, d)
                 
-                backup_feed = os.path.join(temp_dir, os.path.basename(self.feed_file))
-                if os.path.exists(backup_feed):
-                    shutil.copy2(backup_feed, self.feed_file)
+                # 强制使用本地feed.xml覆盖仓库版本
+                if os.path.exists('feed.xml.bak'):
+                    shutil.copy2('feed.xml.bak', self.feed_file)
                 
                 print("备份文件恢复完成")
                 return True
@@ -205,7 +247,11 @@ class GitPersistence:
             if checkout_result is None:
                 print(f"无法切换到{target_branch}分支，尝试创建并切换")
                 self._run_command(f'git checkout -b {target_branch}')
-        
+            
+            # 强制使用本地feed.xml覆盖仓库版本
+            if os.path.exists('feed.xml.bak'):
+                shutil.copy2('feed.xml.bak', self.feed_file)
+
         # 推送到远程仓库
         if self.git_token:
             repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')

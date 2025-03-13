@@ -3,11 +3,6 @@ from main import LatePostRSSGenerator
 
 def regenerate_feed():
     """重新生成RSS Feed"""
-    # 如果feed.xml不存在，直接返回
-    if not os.path.exists('feed.xml'):
-        print("feed.xml不存在，无法重新生成")
-        return False
-        
     # 获取当前目录下的所有文章
     articles_dir = "./latepost_articles"
     if not os.path.exists(articles_dir):
@@ -40,21 +35,14 @@ def regenerate_feed():
     # 初始化RSS生成器
     generator = LatePostRSSGenerator(articles_dir=articles_dir, last_id=last_id)
     
-    # 备份原有的feed.xml
-    if os.path.exists('feed.xml'):
-        with open('feed.xml', 'r', encoding='utf-8') as f:
-            original_content = f.read()
-            
-        # 如果生成失败，恢复原有内容
-        try:
-            generator.generate_rss(max_entries=20)
-        except Exception as e:
-            print(f"生成RSS时发生错误: {e}")
-            with open('feed.xml', 'w', encoding='utf-8') as f:
-                f.write(original_content)
-            return False
-    
-    return True
+    try:
+        # 生成新的RSS Feed
+        generator.generate_rss(max_entries=20)
+        print("RSS Feed生成成功")
+        return True
+    except Exception as e:
+        print(f"生成RSS时发生错误: {e}")
+        return False
 
 if __name__ == "__main__":
     print("开始重新生成RSS Feed...")
