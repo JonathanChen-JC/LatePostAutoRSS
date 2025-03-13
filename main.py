@@ -289,14 +289,20 @@ def main():
         last_id = None
     
     # 如果持久化存储中没有最新ID，尝试从文章目录中获取
-    if not last_id and os.path.exists('./latepost_articles'):
-        article_files = [f for f in os.listdir('./latepost_articles') 
-                        if f.endswith('.md') and f.startswith('latepost_article_')]
-        if article_files:
-            article_ids = [int(f.replace('latepost_article_', '').replace('.md', '')) 
-                          for f in article_files]
-            last_id = max(article_ids)
-            print(f"从文章目录中获取到最新ID: {last_id}")
+    if not last_id:
+        articles_dir = './latepost_articles'
+        if os.path.exists(articles_dir):
+            article_files = [f for f in os.listdir(articles_dir) 
+                            if f.endswith('.md') and f.startswith('latepost_article_')]
+            if article_files:
+                article_ids = [int(f.replace('latepost_article_', '').replace('.md', '')) 
+                              for f in article_files]
+                last_id = max(article_ids)
+                print(f"从文章目录中获取到最新ID: {last_id}")
+            else:
+                print("未找到任何文章文件")
+        else:
+            print(f"文章目录不存在: {articles_dir}")
     
     rss_generator = LatePostRSSGenerator(last_id=last_id) if last_id else LatePostRSSGenerator()
     
