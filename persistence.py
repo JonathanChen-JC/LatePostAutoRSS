@@ -230,6 +230,12 @@ class GitPersistence:
         """
         获取最新文章ID
         """
+        # 确保文章目录存在
+        if not os.path.exists(self.articles_dir):
+            print(f"文章目录不存在，正在创建: {self.articles_dir}")
+            os.makedirs(self.articles_dir)
+            return None
+            
         existing_articles = [f for f in os.listdir(self.articles_dir) 
                            if f.endswith('.md') and f.startswith('latepost_article_')]
         
