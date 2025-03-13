@@ -97,6 +97,9 @@ class GitPersistence:
                 # 确保远程仓库配置正确
                 self._run_command('git remote remove origin')
                 self._run_command(f'git remote add origin {repo_with_token}')
+                # 确保文章目录存在
+                if not os.path.exists(self.articles_dir):
+                    os.makedirs(self.articles_dir)
                 print("Git仓库克隆成功")
                 return True
         else:
@@ -105,6 +108,9 @@ class GitPersistence:
                 # 确保远程仓库配置正确
                 self._run_command('git remote remove origin')
                 self._run_command(f'git remote add origin {self.repo_url}')
+                # 确保文章目录存在
+                if not os.path.exists(self.articles_dir):
+                    os.makedirs(self.articles_dir)
                 print("Git仓库克隆成功")
                 return True
         
