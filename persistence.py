@@ -85,6 +85,9 @@ class GitPersistence:
         
         # 克隆仓库
         print("正在克隆Git仓库...")
+        # 确保移除任何已存在的origin配置
+        self._run_command('git remote remove origin')
+        
         if self.git_token:
             repo_with_token = self.repo_url.replace('https://', f'https://{self.git_username}:{self.git_token}@')
             clone_result = self._run_command(f'git clone {repo_with_token} .')
