@@ -297,18 +297,21 @@ class RSSUpdater:
                 new_added_count += 1
                 logger.info(f"添加新文章: ID={article_id}, 标题={article_data['title']}")
             
-            # 按ID降序排列（假设ID随时间递增）
-            all_entries.sort(key=lambda x: int(x['id']), reverse=True)
-
-            # 通过ID去重并保留最新50篇
-            seen_ids = set()
-            unique_entries = []
+            # 合并所有条目并去重（保留最新ID）
+            entries_dict = {}
             for entry in all_entries:
-                if entry['id'] not in seen_ids:
-                    seen_ids.add(entry['id'])
-                    unique_entries.append(entry)
-                if len(unique_entries) >= 50:
-                    break
+                entry_id = entry['id']
+                # 只保留每个ID最新的条目
+                if entry_id not in entries_dict or int(entry_id) > int(entries_dict[entry_id]['id']):
+                    entries_dict[entry_id] = entry
+            
+            # 按ID降序排列
+            sorted_entries = sorted(entries_dict.values(), 
+                                  key=lambda x: int(x['id']), 
+                                  reverse=True)
+            
+            # 保留前50篇
+            unique_entries = sorted_entries[:50]
 
             # 创建新的FeedGenerator
             fg = FeedGenerator()
@@ -333,7 +336,7 @@ class RSSUpdater:
 
             # 生成feed.xml
             fg.rss_file(self.feed_path, pretty=True)
-            logger.info(f"feed.xml已更新，共包含{len(latest_entries)}篇文章，其中新增{new_added_count}篇")
+            logger.info(f"feed.xml已更新，共包含{len(unique_entries)}篇文章，其中新增{new_added_count}篇")
             return True
         
         except Exception as e:
