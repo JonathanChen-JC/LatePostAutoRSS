@@ -187,7 +187,7 @@ class RSSUpdater:
             return None
     
     def update_feed(self, new_article_ids):
-        """更新feed.xml，添加新文章，并保留最新的20篇文章"""
+        """更新feed.xml，添加新文章，并保留最新的50篇文章"""
         try:
             # 创建新的FeedGenerator
             fg = FeedGenerator()
@@ -261,8 +261,8 @@ class RSSUpdater:
             # 按发布日期排序（最新的在前）
             all_entries.sort(key=lambda x: x['date_obj'], reverse=True)
             
-            # 只保留最新的20篇文章
-            latest_entries = all_entries[:20]
+            # 只保留最新的50篇文章
+            latest_entries = all_entries[:50]
             
             # 将排序后的条目添加到feed
             for entry in latest_entries:
