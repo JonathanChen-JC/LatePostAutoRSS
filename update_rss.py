@@ -78,8 +78,15 @@ class RSSUpdater:
                 # 转换为RFC822格式
                 return dt.strftime('%a, %d %b %Y %H:%M:%S +0000')
             else:
-                # 如果无法解析，返回当前时间
-                return datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
+                # 尝试解析其他可能的日期格式
+                try:
+                    # 尝试直接解析RFC822格式
+                    dt = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S %z')
+                    return date_str  # 已经是正确格式，直接返回
+                except ValueError:
+                    # 如果无法解析，返回当前时间
+                    logger.warning(f"无法解析日期格式: {date_str}，使用当前时间")
+                    return datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
         except Exception as e:
             logger.error(f"日期转换出错: {date_str}, 错误: {str(e)}")
             return datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
@@ -214,19 +221,36 @@ class RSSUpdater:
                             # 保存所有现有条目，无论是否在新文章列表中
                             if article_id:  # 确保文章ID有效
                                 existing_article_ids.add(article_id)
-                                all_entries.append({
-                                    'title': title_elem.text,
-                                    'link': link_elem.text,
-                                    'description': desc_elem.text,
-                                    'pubDate': pubdate_elem.text,
-                                    'id': article_id,
-                                    'date_obj': datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
-                                })
-                                logger.info(f"从现有feed.xml中读取文章: ID={article_id}, 标题={title_elem.text}")
+                                try:
+                                    date_obj = datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
+                                    all_entries.append({
+                                        'title': title_elem.text,
+                                        'link': link_elem.text,
+                                        'description': desc_elem.text,
+                                        'pubDate': pubdate_elem.text,
+                                        'id': article_id,
+                                        'date_obj': date_obj
+                                    })
+                                    logger.info(f"从现有feed.xml中读取文章: ID={article_id}, 标题={title_elem.text}")
+                                except Exception as date_error:
+                                    logger.warning(f"解析文章日期出错: {str(date_error)}，使用当前时间")
+                                    # 使用当前时间作为备选
+                                    current_time = datetime.now()
+                                    rfc822_time = current_time.strftime('%a, %d %b %Y %H:%M:%S +0000')
+                                    all_entries.append({
+                                        'title': title_elem.text,
+                                        'link': link_elem.text,
+                                        'description': desc_elem.text,
+                                        'pubDate': rfc822_time,
+                                        'id': article_id,
+                                        'date_obj': current_time
+                                    })
+                                    logger.info(f"从现有feed.xml中读取文章(使用当前时间): ID={article_id}, 标题={title_elem.text}")
                     
                     logger.info(f"从现有feed.xml中读取了{len(all_entries)}篇文章")
                 except Exception as e:
                     logger.error(f"解析现有feed.xml出错: {str(e)}，将创建新的feed.xml")
+                    # 即使解析出错，也不要放弃之前的文章，尝试读取文章文件夹中的文章
             
             # 添加新文章
             new_added_count = 0
@@ -277,6 +301,10 @@ class RSSUpdater:
             fg.link(href=self.base_url)
             fg.description('晚点LatePost的文章更新')
             fg.language('zh-CN')
+            
+            # 设置lastBuildDate为当前时间
+            current_time = datetime.now()
+            fg.lastBuildDate(current_time)
             
             # 将排序后的条目添加到feed
             for entry in latest_entries:
