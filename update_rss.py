@@ -187,7 +187,7 @@ class RSSUpdater:
             return None
     
     def update_feed(self, new_article_ids):
-        """更新feed.xml，添加新文章"""
+        """更新feed.xml，添加新文章，并保留最新的20篇文章"""
         try:
             # 创建新的FeedGenerator
             fg = FeedGenerator()
@@ -196,8 +196,10 @@ class RSSUpdater:
             fg.description('晚点LatePost的文章更新')
             fg.language('zh-CN')
             
+            # 存储所有文章条目（新文章和现有文章）
+            all_entries = []
+            
             # 如果feed.xml已存在，先读取现有条目
-            existing_entries = []
             if os.path.exists(self.feed_path):
                 tree = ET.parse(self.feed_path)
                 root = tree.getroot()
@@ -214,17 +216,22 @@ class RSSUpdater:
                         id_match = re.search(r'id=(\d+)', link)
                         article_id = id_match.group(1) if id_match else None
                         
-                        if article_id and article_id not in new_article_ids:
-                            existing_entries.append({
-                                'title': title_elem.text,
-                                'link': link_elem.text,
-                                'description': desc_elem.text,
-                                'pubDate': pubdate_elem.text,
-                                'id': article_id
-                            })
+                        # 保存所有现有条目，无论是否在新文章列表中
+                        all_entries.append({
+                            'title': title_elem.text,
+                            'link': link_elem.text,
+                            'description': desc_elem.text,
+                            'pubDate': pubdate_elem.text,
+                            'id': article_id,
+                            'date_obj': datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
+                        })
             
             # 添加新文章
             for article_id in new_article_ids:
+                # 检查是否已存在该文章（避免重复添加）
+                if any(entry.get('id') == article_id for entry in all_entries):
+                    continue
+                    
                 article_file = os.path.join(self.articles_dir, f"latepost_article_{article_id}.md")
                 if not os.path.exists(article_file):
                     logger.warning(f"文章文件不存在: {article_file}")
@@ -235,21 +242,30 @@ class RSSUpdater:
                 if not article_data:
                     continue
                 
-                # 添加到feed
-                fe = fg.add_entry()
-                fe.title(article_data['title'])
-                fe.link(href=article_data['link'])
+                # 转换日期字符串为RFC822格式
+                pub_date = self._convert_date_to_rfc822(article_data['date'])
                 
                 # 转换Markdown为HTML
                 html_content = self._markdown_to_html(article_data)
-                fe.description(html_content)
                 
-                # 设置发布日期
-                pub_date = self._convert_date_to_rfc822(article_data['date'])
-                fe.pubDate(pub_date)
+                # 添加到所有条目列表
+                all_entries.append({
+                    'title': article_data['title'],
+                    'link': article_data['link'],
+                    'description': html_content,
+                    'pubDate': pub_date,
+                    'id': article_id,
+                    'date_obj': datetime.strptime(pub_date, '%a, %d %b %Y %H:%M:%S %z') if pub_date else datetime.now()
+                })
             
-            # 添加现有条目
-            for entry in existing_entries:
+            # 按发布日期排序（最新的在前）
+            all_entries.sort(key=lambda x: x['date_obj'], reverse=True)
+            
+            # 只保留最新的20篇文章
+            latest_entries = all_entries[:20]
+            
+            # 将排序后的条目添加到feed
+            for entry in latest_entries:
                 fe = fg.add_entry()
                 fe.title(entry['title'])
                 fe.link(href=entry['link'])
@@ -258,7 +274,7 @@ class RSSUpdater:
             
             # 生成feed.xml
             fg.rss_file(self.feed_path, pretty=True)
-            logger.info(f"feed.xml已更新，添加了{len(new_article_ids)}篇新文章")
+            logger.info(f"feed.xml已更新，共包含{len(latest_entries)}篇文章，其中新增{len(new_article_ids)}篇")
             return True
         
         except Exception as e:
