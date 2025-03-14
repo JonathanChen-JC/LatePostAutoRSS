@@ -1,7 +1,7 @@
 import os
 import re
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 import xml.etree.ElementTree as ET
 from feedgen.feed import FeedGenerator
 import html
@@ -67,37 +67,29 @@ class RSSUpdater:
     def _convert_date_to_rfc822(self, date_str):
         """将日期字符串转换为RFC822格式"""
         try:
-            # 处理'昨天'格式
-            if date_str.startswith('昨天'):
-                time_match = re.search(r'(\d{2}):(\d{2})', date_str)
-                if time_match:
-                    hour, minute = time_match.groups()
-                    dt = datetime.now() - timedelta(days=1)
-                    dt = dt.replace(hour=int(hour), minute=int(minute), second=0, microsecond=0)
-                    return dt.astimezone(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S +0000')
-
-            # 处理常见日期格式
+            # 处理常见的日期格式，如：03月08日 21:03
             match = re.search(r'(\d{2})月(\d{2})日\s+(\d{2}):(\d{2})', date_str)
             if match:
                 month, day, hour, minute = match.groups()
+                # 假设年份是当前年份
                 year = datetime.now().year
-                dt = datetime(year, int(month), int(day), int(hour), int(minute), tzinfo=timezone.utc)
+                # 创建datetime对象
+                dt = datetime(year, int(month), int(day), int(hour), int(minute))
+                # 转换为RFC822格式
                 return dt.strftime('%a, %d %b %Y %H:%M:%S +0000')
-
-            # 尝试解析RFC822格式
-            try:
-                dt = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S %z')
-                return dt.strftime('%a, %d %b %Y %H:%M:%S +0000')
-            except ValueError:
-                pass
-
-            # 默认返回当前UTC时间
-            logger.warning(f"无法解析日期格式: {date_str}，使用当前时间")
-            return datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S +0000')
-
+            else:
+                # 尝试解析其他可能的日期格式
+                try:
+                    # 尝试直接解析RFC822格式
+                    dt = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S %z')
+                    return date_str  # 已经是正确格式，直接返回
+                except ValueError:
+                    # 如果无法解析，返回当前时间
+                    logger.warning(f"无法解析日期格式: {date_str}，使用当前时间")
+                    return datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
         except Exception as e:
             logger.error(f"日期转换出错: {date_str}, 错误: {str(e)}")
-            return datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S +0000')
+            return datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
     
     def _markdown_to_html(self, markdown_content):
         """将Markdown内容转换为HTML"""
@@ -214,12 +206,7 @@ class RSSUpdater:
                     tree = ET.parse(self.feed_path)
                     root = tree.getroot()
                     
-                    # 定义RSS命名空间
-                    namespaces = {'ns': 'http://purl.org/rss/1.0/'}
-                    
-                    # 显式注册命名空间并查询item元素
-                    namespaces = {'atom': 'http://www.w3.org/2005/Atom', 'content': 'http://purl.org/rss/1.0/modules/content/'}
-                    for item in root.findall('./channel/item', namespaces):
+                    for item in root.findall('./channel/item'):
                         title_elem = item.find('title')
                         link_elem = item.find('link')
                         desc_elem = item.find('description')
@@ -232,9 +219,7 @@ class RSSUpdater:
                             article_id = id_match.group(1) if id_match else None
                             
                             # 保存所有现有条目，无论是否在新文章列表中
-                            # 即使ID提取失败也保留条目
-                            if article_id:
-                                existing_article_ids.add(article_id)
+                            if article_id:  # 确保文章ID有效
                                 existing_article_ids.add(article_id)
                                 try:
                                     date_obj = datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
@@ -263,9 +248,6 @@ class RSSUpdater:
                                     logger.info(f"从现有feed.xml中读取文章(使用当前时间): ID={article_id}, 标题={title_elem.text}")
                     
                     logger.info(f"从现有feed.xml中读取了{len(all_entries)}篇文章")
-        except ET.ParseError as e:
-            logger.error(f"XML解析错误: {str(e)}")
-            raise
                 except Exception as e:
                     logger.error(f"解析现有feed.xml出错: {str(e)}，将创建新的feed.xml")
                     # 即使解析出错，也不要放弃之前的文章，尝试读取文章文件夹中的文章
@@ -307,46 +289,34 @@ class RSSUpdater:
                 new_added_count += 1
                 logger.info(f"添加新文章: ID={article_id}, 标题={article_data['title']}")
             
-            # 合并所有条目并去重（保留最新ID）
-            entries_dict = {}
-            for entry in all_entries:
-                entry_id = entry['id']
-                # 只保留每个ID最新的条目
-                if entry_id not in entries_dict or int(entry_id) > int(entries_dict[entry_id]['id']):
-                    entries_dict[entry_id] = entry
+            # 按发布日期排序（最新的在前）
+            all_entries.sort(key=lambda x: x['date_obj'], reverse=True)
             
-            # 按发布时间降序排列（兼容无ID的情况）
-            sorted_entries = sorted(all_entries,
-                                  key=lambda x: x['date_obj'],
-                                  reverse=True)
+            # 只保留最新的50篇文章
+            latest_entries = all_entries[:50]
             
-            # 保留前50篇
-            unique_entries = sorted_entries[:50]
-
             # 创建新的FeedGenerator
             fg = FeedGenerator()
             fg.title('晚点LatePost')
             fg.link(href=self.base_url)
             fg.description('晚点LatePost的文章更新')
             fg.language('zh-CN')
-
-            # 设置带时区的lastBuildDate
-            current_time = datetime.now(timezone.utc)
+            
+            # 设置lastBuildDate为当前时间
+            current_time = datetime.now()
             fg.lastBuildDate(current_time)
-
-            # 添加条目
-            for entry in unique_entries:
+            
+            # 将排序后的条目添加到feed
+            for entry in latest_entries:
                 fe = fg.add_entry()
                 fe.title(entry['title'])
                 fe.link(href=entry['link'])
                 fe.description(entry['description'])
-                # 确保pubDate带有时区信息
-                pub_date = datetime.fromtimestamp(int(entry['id']), tz=timezone.utc)
-                fe.pubDate(pub_date.strftime('%a, %d %b %Y %H:%M:%S +0000'))
-
+                fe.pubDate(entry['pubDate'])
+            
             # 生成feed.xml
             fg.rss_file(self.feed_path, pretty=True)
-            logger.info(f"feed.xml已更新，共包含{len(unique_entries)}篇文章，其中新增{new_added_count}篇")
+            logger.info(f"feed.xml已更新，共包含{len(latest_entries)}篇文章，其中新增{new_added_count}篇")
             return True
         
         except Exception as e:
