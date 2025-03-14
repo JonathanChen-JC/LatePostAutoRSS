@@ -3,7 +3,7 @@ import time
 import logging
 import threading
 from datetime import datetime
-from flask import Flask
+from flask import Flask, send_from_directory
 from simple_scraper import SimpleLatePostScraper
 from update_rss import RSSUpdater
 from feed_initializer import initialize_feed
@@ -87,6 +87,11 @@ def rss_update_worker():
 def index():
     """首页"""
     return f"<h1>晚点LatePost RSS自动更新服务</h1><p>最后更新时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>"
+
+@app.route('/feed.xml')
+def serve_rss():
+    """提供RSS feed文件"""
+    return send_from_directory('.', 'feed.xml')
 
 def main():
     """主函数"""

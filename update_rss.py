@@ -149,28 +149,32 @@ class RSSUpdater:
             tree = ET.parse(self.feed_path)
             root = tree.getroot()
             
-            # 查找第一个item元素的link
+            # 查找所有item元素
             items = root.findall('./channel/item')
             if not items:
                 logger.warning("feed.xml中没有找到item元素")
                 return None
             
-            # 获取第一个item的link
-            link_elem = items[0].find('link')
-            if link_elem is None or not link_elem.text:
-                logger.warning("item中没有找到link元素")
+            # 存储所有文章ID
+            article_ids = []
+            
+            # 遍历所有item，提取ID
+            for item in items:
+                link_elem = item.find('link')
+                if link_elem is not None and link_elem.text:
+                    link = link_elem.text
+                    id_match = re.search(r'id=(\d+)', link)
+                    if id_match:
+                        article_ids.append(int(id_match.group(1)))
+            
+            if not article_ids:
+                logger.warning("未找到有效的文章ID")
                 return None
             
-            # 从link中提取ID
-            link = link_elem.text
-            id_match = re.search(r'id=(\d+)', link)
-            if not id_match:
-                logger.warning(f"无法从link中提取ID: {link}")
-                return None
-            
-            article_id = id_match.group(1)
-            logger.info(f"最新文章ID: {article_id}")
-            return article_id
+            # 获取最大的ID作为最新文章ID
+            latest_id = str(max(article_ids))
+            logger.info(f"最新文章ID: {latest_id}")
+            return latest_id
         
         except Exception as e:
             logger.error(f"获取最新文章ID出错: {str(e)}")
@@ -231,7 +235,7 @@ class RSSUpdater:
                 fe.link(href=article_data['link'])
                 
                 # 转换Markdown为HTML
-                html_content = self._markdown_to_html(article_data['content'])
+                html_content = self._markdown_to_html(article_data)
                 fe.description(html_content)
                 
                 # 设置发布日期
