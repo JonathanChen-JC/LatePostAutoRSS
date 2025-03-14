@@ -217,8 +217,9 @@ class RSSUpdater:
                     # 定义RSS命名空间
                     namespaces = {'ns': 'http://purl.org/rss/1.0/'}
                     
-                    # 使用命名空间查询item元素
-                    for item in root.findall('./ns:channel/ns:item', namespaces):
+                    # 显式注册命名空间并查询item元素
+                    namespaces = {'atom': 'http://www.w3.org/2005/Atom', 'content': 'http://purl.org/rss/1.0/modules/content/'}
+                    for item in root.findall('./channel/item', namespaces):
                         title_elem = item.find('title')
                         link_elem = item.find('link')
                         desc_elem = item.find('description')
@@ -262,6 +263,9 @@ class RSSUpdater:
                                     logger.info(f"从现有feed.xml中读取文章(使用当前时间): ID={article_id}, 标题={title_elem.text}")
                     
                     logger.info(f"从现有feed.xml中读取了{len(all_entries)}篇文章")
+        except ET.ParseError as e:
+            logger.error(f"XML解析错误: {str(e)}")
+            raise
                 except Exception as e:
                     logger.error(f"解析现有feed.xml出错: {str(e)}，将创建新的feed.xml")
                     # 即使解析出错，也不要放弃之前的文章，尝试读取文章文件夹中的文章
