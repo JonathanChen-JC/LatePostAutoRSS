@@ -214,7 +214,11 @@ class RSSUpdater:
                     tree = ET.parse(self.feed_path)
                     root = tree.getroot()
                     
-                    for item in root.findall('./channel/item'):
+                    # 定义RSS命名空间
+                    namespaces = {'ns': 'http://purl.org/rss/1.0/'}
+                    
+                    # 使用命名空间查询item元素
+                    for item in root.findall('./ns:channel/ns:item', namespaces):
                         title_elem = item.find('title')
                         link_elem = item.find('link')
                         desc_elem = item.find('description')
@@ -227,7 +231,9 @@ class RSSUpdater:
                             article_id = id_match.group(1) if id_match else None
                             
                             # 保存所有现有条目，无论是否在新文章列表中
-                            if article_id:  # 确保文章ID有效
+                            # 即使ID提取失败也保留条目
+                            if article_id:
+                                existing_article_ids.add(article_id)
                                 existing_article_ids.add(article_id)
                                 try:
                                     date_obj = datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
@@ -305,9 +311,9 @@ class RSSUpdater:
                 if entry_id not in entries_dict or int(entry_id) > int(entries_dict[entry_id]['id']):
                     entries_dict[entry_id] = entry
             
-            # 按ID降序排列
-            sorted_entries = sorted(entries_dict.values(), 
-                                  key=lambda x: int(x['id']), 
+            # 按发布时间降序排列（兼容无ID的情况）
+            sorted_entries = sorted(all_entries,
+                                  key=lambda x: x['date_obj'],
                                   reverse=True)
             
             # 保留前50篇
