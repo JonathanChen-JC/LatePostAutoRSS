@@ -87,7 +87,13 @@ class RSSUpdater:
     def _markdown_to_html(self, markdown_content):
         """将Markdown内容转换为HTML"""
         # 这里使用简单的转换规则，实际项目中可以使用专门的Markdown解析库
-        html_content = markdown_content
+        # 检查输入是否为字典类型，如果是，则提取content字段
+        if isinstance(markdown_content, dict):
+            content = markdown_content.get('content', '')
+        else:
+            content = markdown_content
+            
+        html_content = content
         
         # 转换段落
         html_content = re.sub(r'^([^\n#>!].+)$', r'<p>\1</p>', html_content, flags=re.MULTILINE)
