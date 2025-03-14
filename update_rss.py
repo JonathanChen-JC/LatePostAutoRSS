@@ -217,14 +217,16 @@ class RSSUpdater:
                         article_id = id_match.group(1) if id_match else None
                         
                         # 保存所有现有条目，无论是否在新文章列表中
-                        all_entries.append({
-                            'title': title_elem.text,
-                            'link': link_elem.text,
-                            'description': desc_elem.text,
-                            'pubDate': pubdate_elem.text,
-                            'id': article_id,
-                            'date_obj': datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
-                        })
+                        if article_id:  # 确保文章ID有效
+                            all_entries.append({
+                                'title': title_elem.text,
+                                'link': link_elem.text,
+                                'description': desc_elem.text,
+                                'pubDate': pubdate_elem.text,
+                                'id': article_id,
+                                'date_obj': datetime.strptime(pubdate_elem.text, '%a, %d %b %Y %H:%M:%S %z') if pubdate_elem.text else datetime.now()
+                            })
+                            logger.info(f"从现有feed.xml中读取文章: ID={article_id}, 标题={title_elem.text}")
             
             # 添加新文章
             for article_id in new_article_ids:
