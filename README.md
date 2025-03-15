@@ -17,7 +17,7 @@
 项目采用Python开发，主要组件包括：
 
 - **爬虫模块**：使用requests和BeautifulSoup爬取晚点网站文章
-- **RSS生成模块**：使用feedgen库生成标准RSS feed
+- **RSS生成模块**：使用XML处理库生成标准RSS feed
 - **持久化模块**：支持Git仓库同步，确保数据一致性
 - **Web服务**：基于Flask提供Web访问接口
 - **健康检查**：内置自我ping机制，保持服务活跃
@@ -57,7 +57,7 @@ python main.py
 
 1. 在Render上创建新的Web Service
 2. 选择从GitHub仓库部署
-3. 配置必要的环境变量
+3. 配置必要的环境变量（GIT_REPO_URL, GIT_USERNAME, GIT_EMAIL, GIT_TOKEN, SERVICE_URL）
 4. 部署服务
 
 ## 使用说明
@@ -76,12 +76,12 @@ https://[your-service-url]/feed.xml
 
 ### 文件结构
 
-- `main.py`: 主程序入口
-- `simple_scraper.py`: 晚点网站爬虫模块
-- `update_rss.py`: RSS更新模块
-- `persistence.py`: Git仓库操作模块
-- `feed_initializer.py`: feed.xml初始化模块
-- `health_check.py`: 健康检查模块
+- `main.py`: 主程序入口，包含Flask应用和RSS更新线程
+- `simple_scraper.py`: 晚点网站爬虫模块，负责爬取文章内容
+- `update_rss.py`: RSS更新模块，负责更新feed.xml
+- `persistence.py`: Git仓库操作模块，负责同步feed.xml
+- `feed_initializer.py`: feed.xml初始化模块，负责初始化feed.xml
+- `health_check.py`: 健康检查模块，解决免费托管服务的稳定性问题
 - `latepost_articles/`: 存储爬取的文章（Markdown格式）
 - `feed.xml`: 生成的RSS feed文件
 
@@ -94,12 +94,37 @@ https://[your-service-url]/feed.xml
 5. 将更新后的feed.xml推送到Git仓库
 6. 提供Web访问接口，供用户获取RSS feed
 
+## 核心模块说明
+
+### 爬虫模块 (simple_scraper.py)
+
+- 使用requests库发送HTTP请求，获取晚点网站文章内容
+- 使用BeautifulSoup解析HTML，提取文章标题、作者、发布日期和正文
+- 支持批量爬取指定ID范围的文章
+- 将爬取的文章保存为Markdown格式
+
+### RSS更新模块 (update_rss.py)
+
+- 解析和更新feed.xml文件
+- 从现有feed.xml中获取最新文章ID
+- 将新爬取的文章添加到feed.xml中
+- 维护feed.xml的文章数量上限
+
+### 持久化模块 (persistence.py)
+
+- 提供Git仓库操作功能
+- 支持克隆、拉取和推送操作
+- 比较本地和远程feed.xml的更新时间，选择较新的版本
+
+### 健康检查模块 (health_check.py)
+
+- 提供健康检查端点
+- 实现自我ping机制，保持服务活跃
+- 解决免费托管服务的稳定性问题
+
 ## 注意事项
 
 - 本项目仅用于个人学习和研究，请勿用于商业用途
 - 请遵守网站的robots.txt规则和使用条款
-- 爬虫设置了随机延迟和真实的User-Agent，减少对目标网站的影响
-
-## 许可证
-
-MIT License
+- 爬虫设置了随机延迟和请求头，模拟人类行为，减轻对目标网站的压力
+- 默认每小时检查一次更新，可根据需要调整RSS_UPDATE_INTERVAL参数
