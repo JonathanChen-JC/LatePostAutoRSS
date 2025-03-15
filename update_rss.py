@@ -1,152 +1,201 @@
 import os
-import re
 import logging
-from datetime import datetime
 import xml.etree.ElementTree as ET
-from feedgen.feed import FeedGenerator
-import html
+from datetime import datetime
+import re
+from persistence import GitRepository
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('update_rss')
 
 class RSSUpdater:
-    """RSS更新器，用于从Markdown文件生成RSS条目并更新feed.xml"""
+    """RSS更新器，用于更新feed.xml文件"""
     
     def __init__(self, feed_path='feed.xml', articles_dir='latepost_articles'):
         """初始化RSS更新器"""
         self.feed_path = feed_path
         self.articles_dir = articles_dir
-        self.base_url = 'https://www.latepost.com'
+        self.max_items = 50  # 最大保留文章数量
     
-    def _parse_markdown(self, file_path):
-        """解析Markdown文件，提取文章信息"""
+    def get_latest_article_id(self):
+        """从feed.xml中获取最新文章ID"""
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+            if not os.path.exists(self.feed_path):
+                logger.error(f"feed.xml文件不存在: {self.feed_path}")
+                return None
             
-            # 提取标题
-            title_match = re.search(r'^# (.+)$', content, re.MULTILINE)
-            title = title_match.group(1) if title_match else "未知标题"
+            # 解析XML文件
+            tree = ET.parse(self.feed_path)
+            root = tree.getroot()
             
-            # 提取发布日期
-            date_match = re.search(r'\*\*发布日期\*\*: (.+)', content)
-            date_str = date_match.group(1) if date_match else "未知日期"
+            # 查找所有链接
+            links = root.findall('.//item/link')
             
-            # 提取作者
-            author_match = re.search(r'\*\*作者\*\*: (.+)', content)
-            author = author_match.group(1) if author_match else "未知作者"
+            if not links:
+                logger.warning("feed.xml中没有找到任何文章链接")
+                return None
             
-            # 提取原文链接
-            link_match = re.search(r'\*\*原文链接\*\*: (.+)', content)
-            link = link_match.group(1) if link_match else ""
+            # 提取所有文章ID并找出最大值
+            article_ids = []
+            for link in links:
+                url = link.text
+                # 使用正则表达式提取ID
+                match = re.search(r'id=(\d+)', url)
+                if match:
+                    article_ids.append(int(match.group(1)))
             
-            # 提取文章ID
-            article_id = None
-            if link:
-                id_match = re.search(r'id=(\d+)', link)
-                article_id = id_match.group(1) if id_match else None
+            if not article_ids:
+                logger.warning("未能从feed.xml中提取到任何文章ID")
+                return None
             
-            # 提取正文内容（分隔线后的所有内容）
-            content_match = re.split(r'---\s*\n', content, 1)
-            article_content = content_match[1] if len(content_match) > 1 else ""
+            # 返回最大ID
+            max_id = max(article_ids)
+            logger.info(f"从feed.xml中获取到的最大文章ID: {max_id}")
+            return max_id
             
-            return {
-                'title': title,
-                'date': date_str,
-                'author': author,
-                'link': link,
-                'id': article_id,
-                'content': article_content
-            }
-        
         except Exception as e:
-            logger.error(f"解析Markdown文件出错: {file_path}, 错误: {str(e)}")
+            logger.error(f"获取最新文章ID时出错: {str(e)}")
             return None
     
-    def _convert_date_to_rfc822(self, date_str):
-        """将日期字符串转换为RFC822格式，确保包含时区信息"""
-        try:
-            from datetime import timezone, timedelta
-            
-            # 处理常见的日期格式，如：03月08日 21:03
-            match = re.search(r'(\d{2})月(\d{2})日\s+(\d{2}):(\d{2})', date_str)
-            if match:
-                month, day, hour, minute = match.groups()
-                # 假设年份是当前年份
-                year = datetime.now().year
-                # 创建datetime对象（添加UTC时区信息）
-                dt = datetime(year, int(month), int(day), int(hour), int(minute), tzinfo=timezone.utc)
-                # 转换为RFC822格式
-                return dt.strftime('%a, %d %b %Y %H:%M:%S %z')
-            
-            # 处理"昨天 HH:MM"格式
-            match_yesterday = re.search(r'昨天\s+(\d{2}):(\d{2})', date_str)
-            if match_yesterday:
-                hour, minute = match_yesterday.groups()
-                # 创建昨天的日期时间（添加UTC时区信息）
-                dt = datetime.now(timezone.utc) - timedelta(days=1)
-                dt = dt.replace(hour=int(hour), minute=int(minute), second=0, microsecond=0)
-                return dt.strftime('%a, %d %b %Y %H:%M:%S %z')
-                
-            # 处理"今天 HH:MM"格式
-            match_today = re.search(r'今天\s+(\d{2}):(\d{2})', date_str)
-            if match_today:
-                hour, minute = match_today.groups()
-                # 创建今天的日期时间（添加UTC时区信息）
-                dt = datetime.now(timezone.utc)
-                dt = dt.replace(hour=int(hour), minute=int(minute), second=0, microsecond=0)
-                return dt.strftime('%a, %d %b %Y %H:%M:%S %z')
-            
-            # 尝试解析其他可能的日期格式
-            try:
-                # 尝试直接解析RFC822格式
-                dt = datetime.strptime(date_str, '%a, %d %b %Y %H:%M:%S %z')
-                return date_str  # 已经是正确格式，直接返回
-            except ValueError:
-                # 如果无法解析，返回当前时间（带时区信息）
-                logger.warning(f"无法解析日期格式: {date_str}，使用当前时间")
-                return datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
-        except Exception as e:
-            logger.error(f"日期转换出错: {date_str}, 错误: {str(e)}")
-            from datetime import timezone
-            return datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
+    def count_items(self, root):
+        """计算feed.xml中的文章数量"""
+        items = root.findall('.//item')
+        return len(items)
     
-    def _markdown_to_html(self, markdown_content):
-        """将Markdown内容转换为HTML"""
-        # 这里使用简单的转换规则，实际项目中可以使用专门的Markdown解析库
-        # 检查输入是否为字典类型，如果是，则提取content字段
-        if isinstance(markdown_content, dict):
-            content = markdown_content.get('content', '')
-        else:
-            content = markdown_content
+    def update_feed(self, new_article_ids):
+        """更新feed.xml，添加新文章"""
+        try:
+            if not os.path.exists(self.feed_path):
+                logger.error(f"feed.xml文件不存在: {self.feed_path}")
+                return False
             
-        html_content = content
-        
-        # 转换段落
-        html_content = re.sub(r'^([^\n#>!].+)$', r'<p>\1</p>', html_content, flags=re.MULTILINE)
-        
-        # 转换标题
-        html_content = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html_content, flags=re.MULTILINE)
-        html_content = re.sub(r'^# (.+)$', r'<h1>\1</h1>', html_content, flags=re.MULTILINE)
-        
-        # 转换引用
-        html_content = re.sub(r'^> (.+)$', r'<blockquote>\1</blockquote>', html_content, flags=re.MULTILINE)
-        
-        # 转换图片
-        html_content = re.sub(r'!\[(.*)\]\((.+)\)', r'<img src="\2" alt="\1">', html_content)
-        
-        # 转换链接
-        html_content = re.sub(r'\[(.+)\]\((.+)\)', r'<a href="\2">\1</a>', html_content)
-        
-        # 转换粗体
-        html_content = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', html_content)
-        
-        # 转换斜体
-        html_content = re.sub(r'\*(.+?)\*', r'<em>\1</em>', html_content)
-        
-        # 添加样式
-        styled_html = f"""
+            # 解析XML文件
+            tree = ET.parse(self.feed_path)
+            root = tree.getroot()
+            channel = root.find('channel')
+            
+            # 更新lastBuildDate
+            last_build_date = channel.find('lastBuildDate')
+            now = datetime.now().strftime('%a, %d %b %Y %H:%M:%S +0000')
+            last_build_date.text = now
+            
+            # 添加新文章
+            articles_added = 0
+            for article_id in new_article_ids:
+                article_path = os.path.join(self.articles_dir, f"latepost_article_{article_id}.md")
+                
+                if not os.path.exists(article_path):
+                    logger.warning(f"文章文件不存在: {article_path}")
+                    continue
+                
+                # 读取文章内容
+                with open(article_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                # 提取标题、日期和作者
+                title_match = re.search(r'# (.+)', content)
+                date_match = re.search(r'\*\*发布日期\*\*: (.+)', content)
+                author_match = re.search(r'\*\*作者\*\*: (.+)', content)
+                
+                if not title_match:
+                    logger.warning(f"无法从文章中提取标题: {article_path}")
+                    continue
+                
+                title = title_match.group(1).strip()
+                publish_date = date_match.group(1).strip() if date_match else "未知日期"
+                author = author_match.group(1).strip() if author_match else "未知作者"
+                
+                # 创建新的item元素
+                item = ET.SubElement(channel, 'item')
+                
+                # 添加标题
+                title_elem = ET.SubElement(item, 'title')
+                title_elem.text = title
+                
+                # 添加链接
+                link_elem = ET.SubElement(item, 'link')
+                link_elem.text = f"https://www.latepost.com/news/dj_detail?id={article_id}"
+                
+                # 添加描述（HTML格式）
+                desc_elem = ET.SubElement(item, 'description')
+                
+                # 创建HTML格式的描述
+                html_content = self._create_html_description(content, title, publish_date, author)
+                desc_elem.text = html_content
+                
+                # 添加发布日期
+                pubdate_elem = ET.SubElement(item, 'pubDate')
+                try:
+                    # 尝试解析中文日期格式并转换为RSS标准格式
+                    date_parts = publish_date.split(' ')
+                    if len(date_parts) >= 2:
+                        date_str = date_parts[0].replace('月', '/').replace('日', '')
+                        time_str = date_parts[1]
+                        dt = datetime.strptime(f"{date_str} {time_str}", "%m/%d %H:%M")
+                        # 使用当前年份
+                        current_year = datetime.now().year
+                        dt = dt.replace(year=current_year)
+                        pubdate_elem.text = dt.strftime('%a, %d %b %Y %H:%M:%S +0000')
+                    else:
+                        pubdate_elem.text = now  # 使用当前时间作为后备
+                except Exception as e:
+                    logger.warning(f"日期解析失败: {str(e)}，使用当前时间")
+                    pubdate_elem.text = now
+                
+                # 添加GUID
+                guid_elem = ET.SubElement(item, 'guid')
+                guid_elem.text = f"https://www.latepost.com/news/dj_detail?id={article_id}"
+                
+                articles_added += 1
+                logger.info(f"已添加文章: {title} (ID: {article_id})")
+            
+            # 检查文章总数，如果超过最大数量，删除最旧的文章
+            items = channel.findall('item')
+            if len(items) > self.max_items:
+                # 按发布日期排序
+                items_with_dates = []
+                for item in items:
+                    pubdate = item.find('pubDate')
+                    if pubdate is not None and pubdate.text:
+                        try:
+                            dt = datetime.strptime(pubdate.text, '%a, %d %b %Y %H:%M:%S +0000')
+                            items_with_dates.append((dt, item))
+                        except Exception:
+                            # 如果日期解析失败，假设是最新的文章
+                            items_with_dates.append((datetime.now(), item))
+                    else:
+                        # 如果没有日期，假设是最新的文章
+                        items_with_dates.append((datetime.now(), item))
+                
+                # 按日期排序
+                items_with_dates.sort(key=lambda x: x[0])
+                
+                # 删除最旧的文章
+                items_to_remove = len(items) - self.max_items
+                for _, item in items_with_dates[:items_to_remove]:
+                    title_elem = item.find('title')
+                    title_text = title_elem.text if title_elem is not None else "未知标题"
+                    logger.info(f"删除旧文章: {title_text}")
+                    channel.remove(item)
+            
+            # 保存更新后的feed.xml
+            tree.write(self.feed_path, encoding='utf-8', xml_declaration=True)
+            logger.info(f"成功更新feed.xml，添加了{articles_added}篇新文章")
+            
+            # 同步到Git仓库
+            self._sync_to_git_repository()
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"更新feed.xml时出错: {str(e)}")
+            return False
+    
+    def _create_html_description(self, markdown_content, title, publish_date, author):
+        """从Markdown内容创建HTML描述"""
+        # 创建基本的HTML结构
+        html = f"""
                 <style>
                     .article-container {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 800px; margin: 0 auto; line-height: 1.8; padding: 20px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; }}
                     .article-meta {{ color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 16px; }}
@@ -161,114 +210,75 @@ class RSSUpdater:
                 </style>
                 <div class='article-container'>
                     <div class='article-meta'>
-                        <span>作者：{html.escape(markdown_content.get('author', '未知作者'))}</span>
-                        <span>发布日期：{html.escape(markdown_content.get('date', '未知日期'))}</span>
+                        <span>作者：{author}</span>
+                        <span>发布日期：{publish_date}</span>
                     </div>
                     <div class='article-content'>
-                {html_content}
-                    </div>
-                </div>
-        """
+                """
         
-        return styled_html
+        # 提取正文内容（跳过标题和元信息）
+        content_lines = markdown_content.split('\n')
+        content_start = False
+        processed_content = []
+        
+        for line in content_lines:
+            if line.strip() == '---':
+                content_start = True
+                continue
+            
+            if content_start:
+                # 处理Markdown格式转HTML
+                # 处理标题
+                if line.startswith('# '):
+                    processed_line = f"<h1>{line[2:]}</h1>"
+                elif line.startswith('## '):
+                    processed_line = f"<h2>{line[3:]}</h2>"
+                # 处理引用
+                elif line.startswith('> '):
+                    processed_line = f"<blockquote>{line[2:]}</blockquote>"
+                # 处理图片
+                elif line.startswith('!['):
+                    img_parts = line.split('](', 1)
+                    if len(img_parts) > 1:
+                        img_url = img_parts[1].rstrip(')')
+                        processed_line = f"<img src=\"{img_url}\" alt=\"图片\">"
+                    else:
+                        processed_line = f"<p>{line}</p>"
+                # 处理普通段落
+                elif line.strip():
+                    processed_line = f"<p>{line}</p>"
+                else:
+                    processed_line = ""
+                
+                processed_content.append(processed_line)
+        
+        html += '\n'.join(processed_content)
+        html += "\n                    </div>\n                </div>"
+        
+        return html
     
-    def get_latest_article_id(self):
-        """从feed.xml中获取最新文章的ID，通过遍历所有<item>元素"""
+    def _sync_to_git_repository(self):
+        """将更新后的feed.xml同步到Git仓库"""
         try:
-            if not os.path.exists(self.feed_path):
-                logger.warning(f"feed.xml不存在: {self.feed_path}")
-                return None
-            
-            # 解析XML
-            tree = ET.parse(self.feed_path)
-            root = tree.getroot()
-            
-            # 查找所有item元素
-            items = root.findall('./channel/item')
-            if not items:
-                logger.warning("feed.xml中没有找到item元素")
-                return None
-            
-            # 存储所有文章ID
-            article_ids = []
-            
-            # 遍历所有item，提取ID
-            for item in items:
-                link_elem = item.find('link')
-                if link_elem is not None and link_elem.text:
-                    link = link_elem.text
-                    id_match = re.search(r'id=(\d+)', link)
-                    if id_match:
-                        article_ids.append(int(id_match.group(1)))
-            
-            if not article_ids:
-                logger.warning("未找到有效的文章ID")
-                return None
-            
-            # 获取最大的ID作为最新文章ID
-            latest_id = str(max(article_ids))
-            logger.info(f"最新文章ID: {latest_id}")
-            return latest_id
-        
+            git_repo = GitRepository()
+            if git_repo.push_feed_to_repository(self.feed_path):
+                logger.info("成功将feed.xml同步到Git仓库")
+                return True
+            else:
+                logger.error("同步feed.xml到Git仓库失败")
+                return False
         except Exception as e:
-            logger.error(f"获取最新文章ID出错: {str(e)}")
-            return None
+            logger.error(f"同步到Git仓库时出错: {str(e)}")
+            return False
+
+# 如果直接运行此脚本
+if __name__ == "__main__":
+    # 创建RSS更新器
+    updater = RSSUpdater()
     
-    def update_feed(self, new_article_ids):
-        """更新feed.xml，添加新文章，并保留最新的50篇文章"""
-        try:
-            from datetime import timezone
-            
-            # 存储所有文章条目（新文章和现有文章）
-            all_entries = []
-            existing_article_ids = set()
-            
-            # 如果feed.xml已存在，先读取现有条目
-            if os.path.exists(self.feed_path):
-                try:
-                    tree = ET.parse(self.feed_path)
-                    root = tree.getroot()
-                    
-                    # 计算现有文章数量
-                    items = root.findall('./channel/item')
-                    item_count = len(items)
-                    logger.info(f"现有feed.xml中包含{item_count}篇文章")
-                    
-                    for item in items:
-                        title_elem = item.find('title')
-                        link_elem = item.find('link')
-                        desc_elem = item.find('description')
-                        pubdate_elem = item.find('pubDate')
-                        
-                        if all([title_elem is not None, link_elem is not None]):
-                            # 提取文章ID
-                            link = link_elem.text
-                            id_match = re.search(r'id=(\d+)', link)
-                            article_id = id_match.group(1) if id_match else None
-                            
-                            # 保存所有现有条目，无论是否在新文章列表中
-                            if article_id:  # 确保文章ID有效
-                                existing_article_ids.add(article_id)
-                                
-                                # 确保description和pubDate存在，如果不存在则使用默认值
-                                description = desc_elem.text if desc_elem is not None else ""
-                                pub_date = pubdate_elem.text if pubdate_elem is not None else ""
-                                
-                                try:
-                                    # 尝试解析日期，如果失败则使用当前时间
-                                    if pub_date and '+0000' in pub_date:
-                                        pass
-                                except ValueError:
-                                    pub_date = datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
-                                
-                                all_entries.append({
-                                    'title': title_elem.text,
-                                    'link': link,
-                                    'description': description,
-                                    'pubDate': pub_date,
-                                    'id': article_id
-                                })
-        
-                except Exception as e:
-                    logger.error(f"更新feed.xml出错: {str(e)}")
-                    return False
+    # 获取最新文章ID
+    latest_id = updater.get_latest_article_id()
+    if latest_id:
+        print(f"当前feed.xml中的最新文章ID: {latest_id}")
+    else:
+        print("无法获取最新文章ID")
