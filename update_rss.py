@@ -269,6 +269,6 @@ class RSSUpdater:
                                     'id': article_id
                                 })
         
-                                    except Exception as e:
-                                        logger.error(f"更新feed.xml出错: {str(e)}")
-                                        return False
+                except Exception as e:
+                    logger.error(f"更新feed.xml出错: {str(e)}")
+                    return False
